@@ -25,5 +25,5 @@ Run `npm i` in both the `server` and `client` directories **separately** to inst
 3. In the `.env` file in the server directory, update your details.
 
 
-##Hosting
+## Hosting
 # Personal hosting - https://dep-t15-m-tech-admission-portal.vercel.app/
