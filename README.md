@@ -23,3 +23,7 @@ Run `npm i` in both the `server` and `client` directories **separately** to inst
 1. Configure GCP by creating a service account and a bucket named _applicant-iit-ropar_ for file storage and projectId _phd-pg-admission-iit-ropar_.
 2. Set up an app-password for your email.
 3. In the `.env` file in the server directory, update your details.
+
+
+##Hosting
+# Personal hosting - https://dep-t15-m-tech-admission-portal.vercel.app/
