@@ -11,22 +11,21 @@ const navigation = [
   { name: "More Info", to: "/info" },
   { name: "FAQs", to: "/faqs" },
   { name: "Contact us", to: "/contact-us" },
-  { name: "Team", to: "/meet-the-team" },
 ];
 
 function Navbar() {
   return (
     <div>
       <Popover>
-        <div className="relative pt-6 px-4 mb-4 sm:px-6 lg:px-8">
+        <div className="relative pt-5 pb-4 px-4 sm:px-6 lg:px-8 bg-[#1E3A8A]">
           <nav
-            className="relative flex items-center sm:h-10 justify-start"
+            className="relative flex items-center sm:h-10 justify-start "
             aria-label="Global"
           >
             <div className="flex items-center flex-grow-0 flex-shrink-0">
               <div className="flex items-center justify-between w-full md:w-auto">
                 <div className="-mr-2 flex items-center md:hidden">
-                  <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                  <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-white hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                     <span className="sr-only">Open main menu</span>
                     <MenuIcon className="h-6 w-6" aria-hidden="true" />
                   </Popover.Button>
@@ -38,20 +37,20 @@ function Navbar() {
                 <Link
                   key={item.name}
                   to={item.to}
-                  className="font-medium text-gray-500 hover:text-indigo-500"
+                  className="font-medium text-white hover:text-indigo-500"
                 >
                   {item.name}
                 </Link>
               ))}
               <Link
                 to="/sign-in"
-                className="font-medium text-gray-500 hover:text-indigo-500"
+                className="font-medium text-white hover:text-indigo-500"
               >
                 Sign-in
               </Link>
               <Link
                 to="/sign-up"
-                className="font-medium text-gray-500 hover:text-indigo-500"
+                className="font-medium text-white hover:text-indigo-500"
               >
                 Sign-up
               </Link>
@@ -89,7 +88,7 @@ function Navbar() {
                   <Link
                     key={item.name}
                     to={item.to}
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-500 hover:bg-gray-50"
+                    className="block px-3 py-2 rounded-md text-center text-base font-medium text-gray-700 hover:text-indigo-500 hover:bg-gray-50"
                   >
                     {item.name}
                   </Link>

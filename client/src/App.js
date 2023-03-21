@@ -30,7 +30,6 @@ import ManageAdmins from "./components/Admin/ManageAdmins";
 import WithNavbarAndSidebar from "./components/Admin/WithNavbarAndSidebar";
 import AdminProfile from "./components/Admin/AdminProfile";
 import Templates from "./components/Admin/Templates";
-import MeetTheTeam from "./components/Landing/MeetTheTeam";
 import Archive from "./components/Admin/Archive";
 import HowToUseAdmin from "./components/Admin/HowToUseAdmin";
 
@@ -224,7 +223,6 @@ function App() {
           <Route path="/faqs" element={<FAQs />}></Route>
           <Route path="/courses" element={<Courses />}></Route>
           <Route path="/info" element={<Info />}></Route>
-          <Route path="/meet-the-team" element={<MeetTheTeam />}></Route>
           <Route
             path="/sign-in"
             element={
