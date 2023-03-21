@@ -28,14 +28,14 @@ function Info() {
             Selection will be based on the GATE performance for the year{" "}
             {curr_year - 2}/{curr_year - 1}/{curr_year}. Please note that the
             candidates are required to register on "Common Offer and Acceptance
-            Portal" (COAP) 2021(
+            Portal" (COAP) 2023(
             <a
-              href="https://coap.iitd.ac.in/"
+              href="https://coap.iitkgp.ac.in/"
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "rgb(88 80 236)" }}
             >
-              https://coap.iitd.ac.in/
+              https://coap.iitkgp.ac.in/
             </a>
             ) before applying online to the Institute. You are required to look
             at COAP Website for all round of the offers.

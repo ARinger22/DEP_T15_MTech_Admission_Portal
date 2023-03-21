@@ -29,7 +29,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://cdcrc.iitrpr.ac.in/"
+                href="https://in.linkedin.com/school/placementcelliitropar/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -86,7 +86,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://sites.google.com/a/iitrpr.ac.in/iitropar-chemistry/"
+                href="https://www.iitrpr.ac.in/chemistry/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
