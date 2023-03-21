@@ -356,7 +356,6 @@ export default function CommunicationDetails(props) {
                                 </label>
                                 <input
                                   type="text"
-                                  // required pattern="^[0-9]{10}$"
                                   required 
                                   value={props.localProfileInfo.mobile_number}
                                   pattern="[0-9]{10}"
