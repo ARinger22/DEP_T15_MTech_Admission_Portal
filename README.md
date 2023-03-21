@@ -26,4 +26,4 @@ Run `npm i` in both the `server` and `client` directories **separately** to inst
 
 
 # Hosting
-## Personal hosting - https://dep-t15-m-tech-admission-portal.vercel.app/
+## Personal hosting - https://mtech-admission-portal.vercel.app/
