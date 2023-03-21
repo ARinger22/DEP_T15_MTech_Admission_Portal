@@ -170,5 +170,7 @@ INSERT INTO TEMPLATES(email_id,name,type,column_list,column_list_compact) VALUES
 INSERT INTO current_cycle(cycle_id) VALUES(0);
 
 -- Do always
-INSERT INTO admins(name, email_id, admin_type, department) VALUES('Acads', '2020csb1118@iitrpr.ac.in', 0, '{Academics}');
-INSERT INTO admins(name, email_id, admin_type, department) VALUES('Acads', '2020csb1132@iitrpr.ac.in', 0, '{Academics}');
+INSERT INTO admins(name, email_id, admin_type, department) VALUES('Rohit', '2020csb1118@iitrpr.ac.in', 0, '{Academics}');
+INSERT INTO admins(name, email_id, admin_type, department) VALUES('Sushil', '2020csb1132@iitrpr.ac.in', 0, '{Academics}');
+INSERT INTO admins(name, email_id, admin_type, department) VALUES('Shruti', '2020csb1128@iitrpr.ac.in', 0, '{Academics}');
+INSERT INTO admins(name, email_id, admin_type, department) VALUES('tanish', '2020csb1133@iitrpr.ac.in', 0, '{Academics}');
