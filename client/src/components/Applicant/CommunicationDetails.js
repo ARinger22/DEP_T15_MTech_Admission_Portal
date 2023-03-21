@@ -227,12 +227,13 @@ export default function CommunicationDetails(props) {
                                   htmlFor="communication_pincode"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  PIN Code
+                                  PIN Code (6 digit)
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <input
                                   type="text"
                                   id="communication_pincode"
+                                  pattern="[0-9]{6}"
                                   value={
                                     props.localProfileInfo.communication_pincode
                                   }
@@ -255,7 +256,7 @@ export default function CommunicationDetails(props) {
                                   htmlFor="permanent_address"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  Permanent Address
+                                  Permanent Address 
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <div className="mt-1">
@@ -283,7 +284,7 @@ export default function CommunicationDetails(props) {
                                   htmlFor="permanent_city"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  City
+                                  Permanent Address City
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <input
@@ -304,7 +305,7 @@ export default function CommunicationDetails(props) {
                                   htmlFor="permanent_state"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  State
+                                  Permanent Address State
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <input
@@ -325,16 +326,16 @@ export default function CommunicationDetails(props) {
                                   htmlFor="permanent_pincode"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  PIN Code
+                                 Permanent Address PIN Code
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <input
-                                  type="text"
+                                  type="text" id="permanent_pincode"
                                   required
-                                  id="permanent_pincode"
                                   value={
                                     props.localProfileInfo.permanent_pincode
                                   }
+                                  pattern="[0-9]{6}"
                                   onChange={(event) =>
                                     props.onChange(event, "permanent_pincode")
                                   }
@@ -350,13 +351,15 @@ export default function CommunicationDetails(props) {
                                   htmlFor="mobile_number"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  Mobile Number
+                                  Mobile Number (10 digits)
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <input
                                   type="text"
-                                  required
+                                  // required pattern="^[0-9]{10}$"
+                                  required 
                                   value={props.localProfileInfo.mobile_number}
+                                  pattern="[0-9]{10}"
                                   onChange={(event) =>
                                     props.onChange(event, "mobile_number")
                                   }
