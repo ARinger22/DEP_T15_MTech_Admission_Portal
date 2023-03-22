@@ -437,7 +437,7 @@ export default function OfferingList() {
                               <div className="pl-4 collapse-title text-md font-medium">
                                 Codes
                               </div>
-                              <div className="collapse-content overflow-x-scroll">
+                              <div className="collapse-content overflow-auto">
                                 <p>{offerings[i].gate_paper_codes}</p>
                               </div>
                             </div>
