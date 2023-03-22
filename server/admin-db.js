@@ -955,7 +955,7 @@ const publish_all_results = async (req, res) => {
   var cycle_id = info.cycle_id;
   if (userRole === 0) {
     const results = await pool.query(
-      "UPDATE mtech_offerings_" + cycle_id + " SET is_result_published = 1"
+      "UPDATE mtech_offerings_" + cycle_id + " SET is_result_published = 1  where is_result_published_by_faculty = 1;"
     );
   } else {
     const results = await pool.query(
