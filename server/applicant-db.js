@@ -5,8 +5,18 @@ const pool = require("./db");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const auth = require("./auth.js");
+const fs = require("fs");
+// const fs = require('fs');
+//const path = require("C:\Users\sushi\Downloads\Stirage");
 
 dotenv.config();
+
+const uploadDir = path.join(__dirname, "MtechAdmissions");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
+
 
 const gc = new Storage({
   credentials: JSON.parse(process.env.GCP_KEYFILE),
@@ -129,35 +139,81 @@ const save_education_details = async (req, res, next) => {
     ]
   );
 
+  // let promises = [];
+  // let vals = Object.values(req.files);
+
+  // for (let f of vals) {
+  //   const gcsname = f[0].originalname + "_" + Date.now();
+  //   const file = applicantBucket.file(gcsname);
+
+  //   const stream = file.createWriteStream({
+  //     metadata: {
+  //       contentType: f[0].mimetype,
+  //     },
+  //     resumable: false,
+  //   });
+
+  //   stream.on("error", (err) => {
+  //     f[0].cloudStorageError = err;
+  //     next(err);
+  //     console.log(err);
+  //   });
+
+  //   stream.end(f[0].buffer);
+
+  //   promises.push(
+  //     new Promise((resolve, reject) => {
+  //       stream.on("finish", async () => {
+  //         url = format(
+  //           `https://storage.googleapis.com/${applicantBucket.name}/${file.name}`
+  //         );
+
+  //         if (f[0].fieldname === "marksheet_10th_url") {
+  //           await pool.query(
+  //             "UPDATE applicants SET marksheet_10th_url = $1 WHERE email_id = $2;",
+  //             [url, email]
+  //           );
+  //         } else if (f[0].fieldname === "marksheet_12th_url") {
+  //           await pool.query(
+  //             "UPDATE applicants SET marksheet_12th_url = $1 WHERE email_id = $2;",
+  //             [url, email]
+  //           );
+  //         } else {
+  //           str = f[0].fieldname;
+  //           first = str.substring(0, str.length - 1);
+  //           lastChar = str.substr(str.length - 1);
+
+  //           x = parseInt(lastChar) + 1;
+  //           y = first === "upload_marksheet" ? 9 : 10;
+
+  //           await pool.query(
+  //             "UPDATE applicants SET degrees[$1][$2] = $3 WHERE email_id = $4;",
+  //             [x, y, url, email]
+  //           );
+  //         }
   let promises = [];
   let vals = Object.values(req.files);
+  const uploadDir = path.join(__dirname,"MtechAdmissions", "EducationalDocs");
+  if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
 
   for (let f of vals) {
-    const gcsname = f[0].originalname + "_" + Date.now();
-    const file = applicantBucket.file(gcsname);
-
-    const stream = file.createWriteStream({
-      metadata: {
-        contentType: f[0].mimetype,
-      },
-      resumable: false,
-    });
-
-    stream.on("error", (err) => {
-      f[0].cloudStorageError = err;
-      next(err);
-      console.log(err);
-    });
-
-    stream.end(f[0].buffer);
+    const filename = f[0].originalname + "_" + Date.now();
+    const filepath = path.join(uploadDir, filename);
 
     promises.push(
       new Promise((resolve, reject) => {
-        stream.on("finish", async () => {
-          url = format(
-            `https://storage.googleapis.com/${applicantBucket.name}/${file.name}`
-          );
-
+        fs.writeFile(filepath, f[0].buffer, async (err) => {
+          if (err) {
+            f[0].localStorageError = err;
+            next(err);
+            console.log(err);
+            reject(err);
+            return;
+          }
+          url = `MtechAdmissions/EducationalDocs/${filename}`;
           if (f[0].fieldname === "marksheet_10th_url") {
             await pool.query(
               "UPDATE applicants SET marksheet_10th_url = $1 WHERE email_id = $2;",
@@ -181,18 +237,27 @@ const save_education_details = async (req, res, next) => {
               [x, y, url, email]
             );
           }
-
-          f[0].cloudStorageObject = gcsname;
-          file.makePublic().then(() => {
-            resolve();
-          });
+        resolve();
+          
+          // f[0].cloudStorageObject = gcsname;
+          // file.makePublic().then(() => {
+          //   resolve();
+          // });
         });
       })
     );
   }
 
+  // Promise.allSettled(promises).then(() => {
+  //   res.status(200).send("Ok");
+  // })
+
   Promise.allSettled(promises).then(res.status(200).send("Ok"));
 };
+
+
+
+
 
 /**
  * Update/save applicant personal info
@@ -248,31 +313,26 @@ const save_personal_info = async (req, res, next) => {
   let promises = [];
   let vals = Object.values(req.files);
 
+  const uploadDir = path.join(__dirname,"MtechAdmissions", "PersonalInfo");
+  if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
   for (let f of vals) {
-    const gcsname = f[0].originalname + "_" + Date.now();
-    const file = applicantBucket.file(gcsname);
-
-    const stream = file.createWriteStream({
-      metadata: {
-        contentType: f[0].mimetype,
-      },
-      resumable: false,
-    });
-
-    stream.on("error", (err) => {
-      f[0].cloudStorageError = err;
-      next(err);
-      console.log(err);
-    });
-
-    stream.end(f[0].buffer);
+    const filename = f[0].originalname + "_" + Date.now();
+    const filepath = path.join(uploadDir, filename);
 
     promises.push(
       new Promise((resolve, reject) => {
-        stream.on("finish", async () => {
-          url = format(
-            `https://storage.googleapis.com/${applicantBucket.name}/${file.name}`
-          );
+        fs.writeFile(filepath, f[0].buffer, async (err) => {
+          if (err) {
+            f[0].localStorageError = err;
+            next(err);
+            console.log(err);
+            reject(err);
+            return;
+          }
+          url = `MtechAdmissions/PersonalInfo/${filename}`;
 
           if (f[0].fieldname === "category_certificate") {
             await pool.query(
@@ -286,10 +346,9 @@ const save_personal_info = async (req, res, next) => {
             );
           }
 
-          f[0].cloudStorageObject = gcsname;
-          file.makePublic().then(() => {
+         
             resolve();
-          });
+          
         });
       })
     );
@@ -567,31 +626,26 @@ const save_application_info = async (req, res, next) => {
   let promises = [];
   let vals = Object.values(req.files);
 
+  const uploadDir = path.join(__dirname,"MtechAdmissions", "ApplicationDocs");
+  if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
   for (let f of vals) {
-    const gcsname = f[0].originalname + "_" + Date.now();
-    const file = applicantBucket.file(gcsname);
-
-    const stream = file.createWriteStream({
-      metadata: {
-        contentType: f[0].mimetype,
-      },
-      resumable: false,
-    });
-
-    stream.on("error", (err) => {
-      f[0].cloudStorageError = err;
-      next(err);
-      console.log(err);
-    });
-
-    stream.end(f[0].buffer);
+    const filename = f[0].originalname + "_" + Date.now();
+    const filepath = path.join(uploadDir, filename);
 
     promises.push(
       new Promise((resolve, reject) => {
-        stream.on("finish", async () => {
-          url = format(
-            `https://storage.googleapis.com/${applicantBucket.name}/${file.name}`
-          );
+        fs.writeFile(filepath, f[0].buffer, async (err) => {
+          if (err) {
+            f[0].localStorageError = err;
+            next(err);
+            console.log(err);
+            reject(err);
+            return;
+          }
+          url = `MtechAdmissions/ApplicationsDocs/${filename}`;
 
           if (f[0].fieldname === "transaction_slip") {
             await pool.query(
@@ -692,10 +746,7 @@ const get_open_positions = async (req, res) => {
   const results = await pool.query(
     "SELECT * FROM mtech_offerings_" +
     cycle_id +
-    " WHERE is_draft_mode = FALSE AND offering_id NOT IN (SELECT offering_id from applications_" +
-    cycle_id +
-    " WHERE email_id = $1);",
-    [email]
+    " WHERE is_draft_mode = FALSE;"
   );
 
   return res.send(results.rows);
@@ -1020,32 +1071,27 @@ const reapply_save_application_info = async (req, res, next) => {
 
   let promises = [];
   let vals = Object.values(req.files);
+  const uploadDir = path.join(__dirname,"MtechAdmissions", "ReApplyDocs");
+  if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
 
   for (let f of vals) {
-    const gcsname = f[0].originalname + "_" + Date.now();
-    const file = applicantBucket.file(gcsname);
-
-    const stream = file.createWriteStream({
-      metadata: {
-        contentType: f[0].mimetype,
-      },
-      resumable: false,
-    });
-
-    stream.on("error", (err) => {
-      f[0].cloudStorageError = err;
-      next(err);
-      console.log(err);
-    });
-
-    stream.end(f[0].buffer);
+    const filename = f[0].originalname + "_" + Date.now();
+    const filepath = path.join(uploadDir, filename);
 
     promises.push(
       new Promise((resolve, reject) => {
-        stream.on("finish", async () => {
-          url = format(
-            `https://storage.googleapis.com/${applicantBucket.name}/${file.name}`
-          );
+        fs.writeFile(filepath, f[0].buffer, async (err) => {
+          if (err) {
+            f[0].localStorageError = err;
+            next(err);
+            console.log(err);
+            reject(err);
+            return;
+          }
+          url = `MtechAdmissions/ReApplyDocs/${filename}`;
+
 
           if (f[0].fieldname === "transaction_slip") {
             await pool.query(

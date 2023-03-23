@@ -100,7 +100,7 @@ export default function Templates() {
                     {template.email_id === "default@template"
                       ? "DEFAULT"
                       : template.email_id === "global@template"
-                      ? "GLOBAL"
+                      ? "OTHERS"
                       : "PERSONAL"}
                   </td>
                   <td className="border-t-0 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-4">

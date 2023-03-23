@@ -41,7 +41,7 @@ function HomePage() {
                 className="block text-indigo-600 xl:inline font-bold tracking-normal"
               >
                 {" "}
-                MTech Registration Portal
+                PG Admissions Portal
               </span>
             </h1>
             {isCyclePresent ? (
@@ -61,7 +61,7 @@ function HomePage() {
                   to="/sign-in"
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                 >
-                  Sign-in
+                  Log-in
                 </Link>
               </div>
               <div className="mt-3 sm:mt-0 sm:ml-3">

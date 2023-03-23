@@ -32,11 +32,11 @@ export default function ReApplyModal(props) {
           type="button"
           className="focus:outline-none text-indigo-600 hover:text-indigo-900"
         >
-          Re-apply
+          Edit
         </button>
       ) : (
         <button className="text-gray-300" disabled>
-          Re-apply
+          Edit
         </button>
       )}
 
@@ -70,7 +70,7 @@ export default function ReApplyModal(props) {
             id="modal-modal-description"
           >
             <h2 className="text-xl font-bold">
-              Are you sure you want to re-apply for{" "}
+              Are you sure you want to Edit for{" "}
               <span className="italic font-semibold">
                 {props.application.specialization}
               </span>

@@ -32,7 +32,7 @@ function MyApplications(props) {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [navigate]);
 
   return (
     <>
@@ -89,12 +89,12 @@ function MyApplications(props) {
                         >
                           Remarks
                         </th>
-                        <th
+                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
+                        > 
                           {/* Reapply */}
-                        </th>
+                         </th> 
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -180,9 +180,9 @@ function MyApplications(props) {
                                 </Tooltip>
                               </Link>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap font-medium">
+                             <td className="px-6 py-4 whitespace-nowrap font-medium">
                               <ReApplyModal application={application} />
-                            </td>
+                            </td> 
                           </tr>
                         ))}
                       </tbody>

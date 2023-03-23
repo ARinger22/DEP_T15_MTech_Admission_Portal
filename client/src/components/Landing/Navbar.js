@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
+import pic_clear from "../../images/iit-ropar-logo-clear.png";
 import pic from "../../images/iit-ropar-logo.jpg";
 
 const navigation = [
@@ -46,7 +47,7 @@ function Navbar() {
                 to="/sign-in"
                 className="font-medium text-white hover:text-indigo-500"
               >
-                Sign-in
+                Log-in
               </Link>
               <Link
                 to="/sign-up"
@@ -55,7 +56,16 @@ function Navbar() {
                 Sign-up
               </Link>
             </div>
+
+            <div className="h-12 w-12 ml-auto flex-shrink-0">
+              <a href="https://www.iitrpr.ac.in">
+                <img src={pic_clear} alt="IIT Ropar"></img>
+              </a>
+            </div>
+
+
           </nav>
+
         </div>
 
         <Transition
@@ -98,7 +108,7 @@ function Navbar() {
                 to="/sign-in"
                 className="block w-full px-5 py-3 text-center font-medium text-gray-700 bg-gray-50 hover:text-indigo-500 hover:bg-gray-100"
               >
-                Sign-in
+                Log-in
               </Link>
               <Link
                 to="/sign-up"
@@ -106,6 +116,8 @@ function Navbar() {
               >
                 Sign-up
               </Link>
+            </div>
+            <div>
             </div>
           </Popover.Panel>
         </Transition>

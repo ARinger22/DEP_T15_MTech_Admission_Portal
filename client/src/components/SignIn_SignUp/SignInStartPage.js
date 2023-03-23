@@ -96,7 +96,7 @@ function SignInStartPage() {
         <div className="relative sm:max-w-md w-full">
           <div className="flex absolute justify-center items-center content-center bg-gradient-to-br from-[#6F8BD6] to-[#1E3A8A]   shadow-md hover:shadow-lg h-48 w-48 -left-24 -top-24 rounded-full fill-current text-white">
             <span className="relative -top-4 -left-4 font-josefin-sans text-2xl font-extrabold ">
-              Sign In
+              Log In
             </span>
           </div>
           <div className="card bg-[#1E3A8A] shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6" />

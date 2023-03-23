@@ -15,6 +15,22 @@ const dashboard = require("./dashboard.js");
 const landing = require("./landing.js");
 var bodyParser = require("body-parser");
 
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './upload')
+//   },
+  
+//   filename: function (req, file, cb) {
+//     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+//     filename=file.fieldname + '-' + uniqueSuffix+'.png'
+//     cb(null, this.filename)
+//     req.filename=filename
+//     return ;
+//   }
+// })
+
+
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -242,3 +258,9 @@ if (process.env.NODE_ENV === "production") {
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
+
+
+// app.post('/profile', upload.single('avatar'), function (req, res, next) {
+//   console.log(req.filename)
+//   res.status(200).send({msg :"Image Uploaded"})
+// })
