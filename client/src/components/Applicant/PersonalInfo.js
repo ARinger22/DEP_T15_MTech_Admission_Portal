@@ -28,6 +28,7 @@ export default function PersonalInfo(props) {
 
   const [profile_image, setProfileImage] = useState(null);
   const [categoryCertificate, setCategoryCertificate] = useState(null);
+  const [pwdCertificate, setpwdCertificate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = (event) => {
@@ -36,6 +37,7 @@ export default function PersonalInfo(props) {
     const formData = new FormData();
 
     formData.append("full_name", props.localProfileInfo.full_name);
+    formData.append("guardian", props.localProfileInfo.guardian);
     formData.append("fathers_name", props.localProfileInfo.fathers_name);
     formData.append("date_of_birth", props.localProfileInfo.date_of_birth);
     formData.append(
@@ -44,12 +46,13 @@ export default function PersonalInfo(props) {
     );
     formData.append("category", props.localProfileInfo.category);
     formData.append("is_pwd", props.localProfileInfo.is_pwd);
+    formData.append("pwd_type", props.localProfileInfo.pwd_type);
     formData.append("marital_status", props.localProfileInfo.marital_status);
     formData.append("nationality", props.localProfileInfo.nationality);
     formData.append("gender", props.localProfileInfo.gender);
     formData.append("profile_image", profile_image);
+    formData.append("pwd_certificate", pwdCertificate);
     formData.append("category_certificate", categoryCertificate);
-
     Axios.post("/save-personal-info", formData, {
       headers: {
         Authorization: getToken(),
@@ -66,6 +69,26 @@ export default function PersonalInfo(props) {
   };
 
   const handleFileSubmit = (e, maxSize, setVariable) => {
+    const file = e.target.files[0];
+
+    if (
+      file.type !== "application/pdf"
+    ) {
+      e.target.value = null;
+      alert("File format not followed! Allowed formats: .pdf");
+      return;
+    }
+
+    if (file.size > maxSize * 1000000) {
+      e.target.value = null;
+      const error =
+        "File size cannot exceed more than " + maxSize.toString() + "MB";
+      alert(error);
+    } else {
+      setVariable(file);
+    }
+  };
+  const handleFileSubmit1 = (e, maxSize, setVariable) => {
     const file = e.target.files[0];
 
     if (
@@ -169,7 +192,7 @@ export default function PersonalInfo(props) {
                                   htmlFor="name"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  Full Name
+                                  Candidate Full Name
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <input
@@ -184,6 +207,30 @@ export default function PersonalInfo(props) {
                                   className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 />
                               </div>
+                              {/* Guardian */}
+                              <div className="col-span-6 sm:col-span-3">
+                                <label
+                                  htmlFor="guardian"
+                                  className="block text-sm font-medium text-gray-700"
+                                >
+                                  Father/Spouse
+                                  <span style={{ color: "#ff0000" }}> *</span>
+                                </label>
+                                <select
+                                  id="guardian"
+                                  name="guardian"
+                                  value={props.localProfileInfo.guardian}
+                                  onChange={(event) =>
+                                    props.onChange(event, "guardian")
+                                  }
+                                  required
+                                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                >
+                                  <option value="">Select Guardian</option>
+                                  <option value="Father">Father</option>
+                                  <option value="Spouse">Spouse</option>
+                                </select>
+                              </div>
 
                               {/* Applicant's Father's Name */}
                               <div className="col-span-6 sm:col-span-3">
@@ -191,7 +238,7 @@ export default function PersonalInfo(props) {
                                   htmlFor="father-name"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  Father's Name
+                                  Father/Spouse name
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <input
@@ -218,7 +265,7 @@ export default function PersonalInfo(props) {
                                 </label>
 
                                 {!props.localProfileInfo.profile_image_url &&
-                                !profile_image ? (
+                                  !profile_image ? (
                                   <>
                                     <input
                                       className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -228,7 +275,7 @@ export default function PersonalInfo(props) {
                                       required
                                       accept=".jpeg, .jpg, .png"
                                       onChange={(e) =>
-                                        handleFileSubmit(e, 2, setProfileImage)
+                                        handleFileSubmit1(e, 2, setProfileImage)
                                       }
                                     />
                                     <div
@@ -269,13 +316,13 @@ export default function PersonalInfo(props) {
                                           profile_image
                                             ? profile_image.name
                                             : props.localProfileInfo.profile_image_url.substring(
-                                                props.localProfileInfo.profile_image_url.lastIndexOf(
-                                                  "/"
-                                                ) + 1,
-                                                props.localProfileInfo.profile_image_url.lastIndexOf(
-                                                  "_"
-                                                )
+                                              props.localProfileInfo.profile_image_url.lastIndexOf(
+                                                "/"
+                                              ) + 1,
+                                              props.localProfileInfo.profile_image_url.lastIndexOf(
+                                                "_"
                                               )
+                                            )
                                         }
                                         readOnly
                                       />
@@ -369,113 +416,116 @@ export default function PersonalInfo(props) {
                                   <option value="ST">ST</option>
                                 </select>
                               </div>
+                              {props.localProfileInfo.category != 'GEN' ? (
+                                <>
+                                  <div className="col-span-6 sm:col-span-3">
+                                    <label
+                                      className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                                      htmlFor="user_avatar"
+                                    >
+                                      Category Certificate (SC/ST/OBC/EWS)
+                                      <span style={{ color: "#ff0000" }}> *</span>
+                                    </label>
 
-                              {/* Category Certificate */}
-                              <div className="col-span-6 sm:col-span-3">
-                                <label
-                                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
-                                  htmlFor="user_avatar"
-                                >
-                                  Category Certificate (SC/ST/OBC/PwD/EWS)
-                                </label>
-
-                                {!props.localProfileInfo
-                                  .category_certificate_url &&
-                                !categoryCertificate ? (
-                                  <>
-                                    <input
-                                      className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                      aria-describedby="category-certificate-desc"
-                                      id="category-certificate"
-                                      type="file"
-                                      accept=".jpeg, .jpg, .png"
-                                      onChange={(e) =>
-                                        handleFileSubmit(
-                                          e,
-                                          2,
-                                          setCategoryCertificate
-                                        )
-                                      }
-                                    />
-                                    <div
-                                      className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                      id="category-certificate-desc"
-                                    >
-                                      <span className="font-semibold">
-                                        {" "}
-                                        Maximum file size:{" "}
-                                      </span>
-                                      2 MB
-                                    </div>
-                                    <div
-                                      className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                      id="category-certificate-desc"
-                                    >
-                                      <span className="font-semibold">
-                                        Allowed file formats:
-                                      </span>{" "}
-                                      .jpg, .jpeg, .png
-                                    </div>
-                                    <div
-                                      className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                      id="category-certificate-desc"
-                                    >
-                                      <span className="font-semibold">
-                                        Recommended File Name Format:
-                                      </span>
-                                      <span>
-                                        {" "}
-                                        Category_Certificate_&lt;your_email_id&gt;
-                                        <br />
-                                        Example:
-                                        Category_Certificate_abc@gmail.com
-                                      </span>
-                                    </div>
-                                  </>
-                                ) : (
-                                  <>
-                                    <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                      <input
-                                        className="border-none block w-full shadow-sm sm:text-sm"
-                                        id="category-certificate"
-                                        name="category-certificate"
-                                        type="text"
-                                        value={
-                                          categoryCertificate
-                                            ? categoryCertificate.name
-                                            : props.localProfileInfo.category_certificate_url.substring(
-                                                props.localProfileInfo.category_certificate_url.lastIndexOf(
-                                                  "/"
-                                                ) + 1,
-                                                props.localProfileInfo.category_certificate_url.lastIndexOf(
-                                                  "_"
+                                    {!props.localProfileInfo.category_certificate_url && !categoryCertificate ? (
+                                      <>
+                                        <input
+                                          className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                          aria-describedby="category-certificate-desc"
+                                          id="category-certificate"
+                                          type="file"
+                                          required
+                                          accept=".pdf"
+                                          onChange={(e) =>
+                                            handleFileSubmit(
+                                              e,
+                                              2,
+                                              setCategoryCertificate
+                                            )
+                                          }
+                                        />
+                                        <div
+                                          className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                          id="category-certificate-desc"
+                                        >
+                                          <span className="font-semibold">
+                                            {" "}
+                                            Maximum file size:{" "}
+                                          </span>
+                                          2 MB
+                                        </div>
+                                        <div
+                                          className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                          id="category-certificate-desc"
+                                        >
+                                          <span className="font-semibold">
+                                            Allowed file formats:
+                                          </span>{" "}
+                                          .pdf
+                                        </div>
+                                        <div
+                                          className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                          id="category-certificate-desc"
+                                        >
+                                          <span className="font-semibold">
+                                            Recommended File Name Format:
+                                          </span>
+                                          <span>
+                                            {" "}
+                                            Category_Certificate_&lt;your_email_id&gt;
+                                            <br />
+                                            Example:
+                                            Category_Certificate_abc@gmail.com
+                                          </span>
+                                        </div>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                          <input
+                                            className="border-none block w-full shadow-sm sm:text-sm"
+                                            id="category-certificate"
+                                            name="category-certificate"
+                                            type="text"
+                                            value={
+                                              categoryCertificate
+                                                ? categoryCertificate.name
+                                                : props.localProfileInfo.category_certificate_url.substring(
+                                                  props.localProfileInfo.category_certificate_url.lastIndexOf(
+                                                    "/"
+                                                  ) + 1,
+                                                  props.localProfileInfo.category_certificate_url.lastIndexOf(
+                                                    "_"
+                                                  )
                                                 )
-                                              )
-                                        }
-                                        readOnly
-                                      />
-
-                                      <button
-                                        type="button"
-                                        className="focus:outline-none flex items-center ml-2 mr-2 justify-center"
-                                        onClick={() => {
-                                          props.emptyFile(
-                                            "category_certificate_url"
-                                          );
-                                          setCategoryCertificate(null);
-                                        }}
-                                      >
-                                        <img
-                                          className="w-6 h-6"
-                                          src={crossPic}
-                                          alt="Cross"
-                                        ></img>
-                                      </button>
-                                    </div>
-                                  </>
-                                )}
-                              </div>
-
+                                            }
+                                            readOnly
+                                          />
+                                          <button
+                                            type="button"
+                                            className="focus:outline-none flex items-center ml-2 mr-2 justify-center"
+                                            onClick={() => {
+                                              props.emptyFile(
+                                                "category_certificate_url"
+                                              );
+                                              setCategoryCertificate(null);
+                                            }}
+                                          >
+                                            <img
+                                              className="w-6 h-6"
+                                              src={crossPic}
+                                              alt="Cross"
+                                            ></img>
+                                          </button>
+                                        </div>
+                                      </>
+                                    )}
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                </>
+                              )}
                               {/* PWD Category */}
                               <div className="col-span-6 sm:col-span-3">
                                 <label
@@ -500,7 +550,138 @@ export default function PersonalInfo(props) {
                                   <option value="NO">NO</option>
                                 </select>
                               </div>
+                              {props.localProfileInfo.is_pwd == 'YES' ? (
+                                <>
+                                  {/* pwd type */}
+                                  <div className="col-span-6 sm:col-span-3">
+                                    <label
+                                      htmlFor="pwd_type"
+                                      className="block text-sm font-medium text-gray-700"
+                                    >
+                                      If Yes specify the type i.e HH, OH, VI etc:
+                                      <span style={{ color: "#ff0000" }}> *</span>
+                                    </label>
+                                    <input
+                                      type="text"
+                                      name="pwd_type"
+                                      value={props.localProfileInfo.pwd_type}
+                                      id="pwd_type"
+                                      onChange={(event) =>
+                                        props.onChange(event, "pwd_type")
+                                      }
+                                      required
+                                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                  {/* PWD certificate */}
+                                  <div className="col-span-6 sm:col-span-3">
+                                    <label
+                                      className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                                      htmlFor="user_avatar"
+                                    >
+                                      Pwd Certificate
+                                      <span style={{ color: "#ff0000" }}> *</span>
+                                    </label>
 
+                                    {!props.localProfileInfo.pwd_url && !pwdCertificate ? (
+                                      <>
+                                        <input
+                                          className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                          aria-describedby="pwd-certificate-desc"
+                                          id="pwd-certificate"
+                                          type="file"
+                                          required
+                                          accept=".pdf"
+                                          onChange={(e) =>
+                                            handleFileSubmit(
+                                              e,
+                                              2,
+                                              setpwdCertificate
+                                            )
+                                          }
+                                        />
+                                        <div
+                                          className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                          id="pwd-certificate-desc"
+                                        >
+                                          <span className="font-semibold">
+                                            {" "}
+                                            Maximum file size:{" "}
+                                          </span>
+                                          2 MB
+                                        </div>
+                                        <div
+                                          className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                          id="pwd-certificate-desc"
+                                        >
+                                          <span className="font-semibold">
+                                            Allowed file formats:
+                                          </span>{" "}
+                                          .pdf
+                                        </div>
+                                        <div
+                                          className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                          id="pwd-certificate-desc"
+                                        >
+                                          <span className="font-semibold">
+                                            Recommended File Name Format:
+                                          </span>
+                                          <span>
+                                            {" "}
+                                            Pwd_Certificate_&lt;your_email_id&gt;
+                                            <br />
+                                            Example:
+                                            Pwd_Certificate_abc@gmail.com
+                                          </span>
+                                        </div>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                          <input
+                                            className="border-none block w-full shadow-sm sm:text-sm"
+                                            id="pwd-certificate"
+                                            name="pwd-certificate"
+                                            type="text"
+                                            value={
+                                              pwdCertificate
+                                                ? pwdCertificate.name
+                                                : props.localProfileInfo.pwd_url.substring(
+                                                  props.localProfileInfo.pwd_url.lastIndexOf(
+                                                    "/"
+                                                  ) + 1,
+                                                  props.localProfileInfo.pwd_url.lastIndexOf(
+                                                    "_"
+                                                  )
+                                                )
+                                            }
+                                            readOnly
+                                          />
+                                          <button
+                                            type="button"
+                                            className="focus:outline-none flex items-center ml-2 mr-2 justify-center"
+                                            onClick={() => {
+                                              props.emptyFile(
+                                                "pwd_certificate_url"
+                                              );
+                                              setpwdCertificate(null);
+                                            }}
+                                          >
+                                            <img
+                                              className="w-6 h-6"
+                                              src={crossPic}
+                                              alt="Cross"
+                                            ></img>
+                                          </button>
+                                        </div>
+                                      </>
+                                    )}
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                </>
+                              )}
                               {/* Marital Status */}
                               <div className="col-span-6 sm:col-span-3">
                                 <label
@@ -564,6 +745,7 @@ export default function PersonalInfo(props) {
                                   <option value="">Select Gender</option>
                                   <option value="Male">Male</option>
                                   <option value="Female">Female</option>
+                                  <option value="Female">Transgender</option>
                                 </select>
                               </div>
                             </div>

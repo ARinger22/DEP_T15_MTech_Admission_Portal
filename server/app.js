@@ -61,6 +61,7 @@ app.post(
   upload.fields([
     { name: "profile_image", maxCount: 1 },
     { name: "category_certificate", maxCount: 1 },
+    {name : "pwd_certificate",maxCount:1},
   ]),
   applicantdB.save_personal_info
 );

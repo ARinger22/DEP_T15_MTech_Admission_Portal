@@ -45,8 +45,8 @@ const get_dashboard_info = async (req, res) => {
   );
   const offerings = await pool.query(
     "SELECT offering_id, specialization FROM mtech_offerings_" +
-      current_cycle_id +
-      ";"
+    current_cycle_id +
+    ";"
   );
   let gender_distribution = {};
   let category_distribution = {};
@@ -68,8 +68,8 @@ const get_dashboard_info = async (req, res) => {
   for (let i = 0; i < offerings.rows.length; i++) {
     category_distribution_per_offering = await pool.query(
       "SELECT category, count(*) FROM applications_" +
-        current_cycle_id +
-        " WHERE offering_id = $1 GROUP BY category;",
+      current_cycle_id +
+      " WHERE offering_id = $1 GROUP BY category;",
       [offerings.rows[i].offering_id]
     );
     category_distribution[offerings.rows[i].offering_id] =
@@ -84,8 +84,8 @@ const get_dashboard_info = async (req, res) => {
   for (let i = 0; i < offerings.rows.length; i++) {
     gender_distribution_per_offering = await pool.query(
       "SELECT gender, count(*) FROM applications_" +
-        current_cycle_id +
-        " WHERE offering_id = $1 GROUP BY gender;",
+      current_cycle_id +
+      " WHERE offering_id = $1 GROUP BY gender;",
       [offerings.rows[i].offering_id]
     );
     gender_distribution[offerings.rows[i].offering_id] =
@@ -161,8 +161,8 @@ const get_dashboard_info_gender = async (req, res) => {
   );
   const offerings = await pool.query(
     "SELECT offering_id, specialization FROM mtech_offerings_" +
-      current_cycle_id +
-      ";"
+    current_cycle_id +
+    ";"
   );
   let gender_distribution = {};
 
@@ -170,13 +170,14 @@ const get_dashboard_info_gender = async (req, res) => {
   let temp = {};
   temp["Male"] = 0;
   temp["Female"] = 0;
+  temp["Transgender"] = 0;
   temp[""] = 0;
 
   for (let i = 0; i < offerings.rows.length; i++) {
     gender_distribution_per_offering = await pool.query(
       "SELECT gender, count(*) FROM applications_" +
-        current_cycle_id +
-        " WHERE offering_id = $1 GROUP BY gender;",
+      current_cycle_id +
+      " WHERE offering_id = $1 GROUP BY gender;",
       [offerings.rows[i].offering_id]
     );
     gender_distribution[offerings.rows[i].offering_id] =

@@ -53,8 +53,8 @@ const add_admission_cycle = async (req, res) => {
 
   const create_offerings_table = await pool.query(
     "CREATE TABLE mtech_offerings_" +
-      new_cycle_id +
-      " (offering_id SERIAL PRIMARY KEY, department TEXT, specialization TEXT, seats TEXT, \
+    new_cycle_id +
+    " (offering_id SERIAL PRIMARY KEY, department TEXT, specialization TEXT, seats TEXT, \
     gate_paper_codes TEXT, eligibility TEXT, deadline TIMESTAMP, is_accepting_applications BOOLEAN, \
     is_draft_mode BOOLEAN, is_result_published INT DEFAULT 0, \
     is_result_published_by_faculty INT DEFAULT 0);"
@@ -62,12 +62,12 @@ const add_admission_cycle = async (req, res) => {
 
   const create_applications_table = await pool.query(
     "CREATE TABLE applications_" +
-      new_cycle_id +
-      " (application_id SERIAL, \
+    new_cycle_id +
+    " (application_id SERIAL, \
     offering_id INT, email_id TEXT, status INT, status_remark TEXT, \
-    full_name TEXT, fathers_name TEXT, profile_image_url TEXT, date_of_birth TEXT, \
+    full_name TEXT,guardian TEXT, fathers_name TEXT, profile_image_url TEXT, date_of_birth TEXT, \
     aadhar_card_number TEXT, category TEXT, category_certificate_url TEXT, \
-    is_pwd TEXT, marital_status TEXT, nationality TEXT, gender TEXT, \
+    is_pwd TEXT,pwd_type TEXT,pwd_url TEXT, marital_status TEXT, nationality TEXT, gender TEXT, \
     communication_address TEXT, communication_city TEXT, \
     communication_state TEXT, communication_pincode TEXT, \
     permanent_address TEXT, permanent_city TEXT, \
@@ -89,8 +89,8 @@ const add_admission_cycle = async (req, res) => {
     signature_url TEXT, date_of_declaration TEXT, place_of_declaration TEXT, \
     CONSTRAINT fk_email FOREIGN KEY(email_id) REFERENCES applicants(email_id), \
     CONSTRAINT fk_offering FOREIGN KEY(offering_id) REFERENCES mtech_offerings_" +
-      new_cycle_id +
-      "(offering_id), \
+    new_cycle_id +
+    "(offering_id), \
     PRIMARY KEY(email_id, offering_id));"
   );
 
@@ -284,8 +284,8 @@ const add_offering = async (req, res) => {
   if (userRole === 0) {
     const results = await pool.query(
       "INSERT INTO mtech_offerings_" +
-        cycle_id +
-        " (department, specialization, seats, gate_paper_codes, eligibility, deadline, is_accepting_applications, is_draft_mode) VALUES($1, $2, $3, $4, $5, $6, $7, $8);",
+      cycle_id +
+      " (department, specialization, seats, gate_paper_codes, eligibility, deadline, is_accepting_applications, is_draft_mode) VALUES($1, $2, $3, $4, $5, $6, $7, $8);",
       [
         info.department,
         info.specialization,
@@ -300,8 +300,8 @@ const add_offering = async (req, res) => {
   } else {
     const results = await pool.query(
       "INSERT INTO mtech_offerings_" +
-        cycle_id +
-        " (department, specialization, seats, gate_paper_codes, eligibility, deadline, is_accepting_applications, is_draft_mode) VALUES($1, $2, $3, $4, $5, $6, false, true);",
+      cycle_id +
+      " (department, specialization, seats, gate_paper_codes, eligibility, deadline, is_accepting_applications, is_draft_mode) VALUES($1, $2, $3, $4, $5, $6, false, true);",
       [
         info.department,
         info.specialization,
@@ -348,8 +348,8 @@ const edit_offering = async (req, res) => {
 
   const results = await pool.query(
     "UPDATE mtech_offerings_" +
-      cycle_id +
-      " SET department = $1, specialization = $2, seats = $3, gate_paper_codes = $4, eligibility = $5, deadline = $6, is_accepting_applications = $7, is_draft_mode = $8 WHERE offering_id = $9",
+    cycle_id +
+    " SET department = $1, specialization = $2, seats = $3, gate_paper_codes = $4, eligibility = $5, deadline = $6, is_accepting_applications = $7, is_draft_mode = $8 WHERE offering_id = $9",
     [
       info.department,
       info.specialization,
@@ -519,8 +519,8 @@ const get_offering_applications = async (req, res) => {
 
   const offering_details = await pool.query(
     "SELECT specialization, is_result_published, is_result_published_by_faculty FROM mtech_offerings_" +
-      cycle_id +
-      " WHERE offering_id = $1;",
+    cycle_id +
+    " WHERE offering_id = $1;",
     [offering_id]
   );
 
@@ -585,8 +585,8 @@ const get_application_info_admin = async (req, res) => {
   /** Check if application exists */
   const query_result = await pool.query(
     "SELECT email_id FROM applications_" +
-      cycle_id +
-      " WHERE application_id = $1;",
+    cycle_id +
+    " WHERE application_id = $1;",
     [application_id]
   );
 
@@ -596,10 +596,10 @@ const get_application_info_admin = async (req, res) => {
 
   const results = await pool.query(
     "SELECT * FROM mtech_offerings_" +
-      cycle_id +
-      " as MO, applications_" +
-      cycle_id +
-      " as A WHERE application_id = $1 AND MO.offering_id = A.offering_id;",
+    cycle_id +
+    " as MO, applications_" +
+    cycle_id +
+    " as A WHERE application_id = $1 AND MO.offering_id = A.offering_id;",
     [application_id]
   );
 
@@ -906,15 +906,15 @@ const publish_unpublish_results = async (req, res) => {
   if (userRole === 0) {
     const results = await pool.query(
       "UPDATE mtech_offerings_" +
-        cycle_id +
-        " SET is_result_published = $1 WHERE offering_id = $2",
+      cycle_id +
+      " SET is_result_published = $1 WHERE offering_id = $2",
       [info.is_result_published, info.offering_id]
     );
   } else {
     const results = await pool.query(
       "UPDATE mtech_offerings_" +
-        cycle_id +
-        " SET is_result_published_by_faculty = $1 WHERE offering_id = $2",
+      cycle_id +
+      " SET is_result_published_by_faculty = $1 WHERE offering_id = $2",
       [info.is_result_published_by_faculty, info.offering_id]
     );
   }
@@ -955,13 +955,13 @@ const publish_all_results = async (req, res) => {
   var cycle_id = info.cycle_id;
   if (userRole === 0) {
     const results = await pool.query(
-      "UPDATE mtech_offerings_" + cycle_id + " SET is_result_published = 1;"
+      "UPDATE mtech_offerings_" + cycle_id + " SET is_result_published = 1  where is_result_published_by_faculty = 1;"
     );
   } else {
     const results = await pool.query(
       "UPDATE mtech_offerings_" +
-        cycle_id +
-        " SET is_result_published_by_faculty = 1"
+      cycle_id +
+      " SET is_result_published_by_faculty = 1"
     );
   }
 
@@ -1007,8 +1007,8 @@ const unpublish_all_results = async (req, res) => {
   } else {
     const results = await pool.query(
       "UPDATE mtech_offerings_" +
-        cycle_id +
-        " SET is_result_published_by_faculty = 0"
+      cycle_id +
+      " SET is_result_published_by_faculty = 0"
     );
   }
 
@@ -1049,8 +1049,8 @@ const open_all_offerings = async (req, res) => {
 
   const results = await pool.query(
     "UPDATE mtech_offerings_" +
-      cycle_id +
-      " SET is_accepting_applications = true"
+    cycle_id +
+    " SET is_accepting_applications = true"
   );
 
   return res.send("Ok");
@@ -1090,8 +1090,8 @@ const close_all_offerings = async (req, res) => {
 
   const results = await pool.query(
     "UPDATE mtech_offerings_" +
-      cycle_id +
-      " SET is_accepting_applications = false"
+    cycle_id +
+    " SET is_accepting_applications = false"
   );
 
   return res.send("Ok");
