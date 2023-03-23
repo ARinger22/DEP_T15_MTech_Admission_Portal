@@ -17,6 +17,7 @@ CREATE TABLE applicants (
 
     -- Personal Details
     full_name TEXT,
+    guardian TEXT,
     fathers_name TEXT,
     profile_image_url TEXT,
     date_of_birth TEXT,
@@ -24,6 +25,8 @@ CREATE TABLE applicants (
     category TEXT,
     category_certificate_url TEXT,
     is_pwd TEXT,
+    pwd_type TEXT,
+    pwd_url TEXT,
     marital_status TEXT,
     nationality TEXT,
     gender TEXT,
@@ -158,8 +161,8 @@ CREATE TABLE templates (
 );
 
 -- PERMANENT INSERT
-INSERT INTO TEMPLATES(email_id,name,type,column_list,column_list_compact) VALUES('default@template', 'Default Applicant List', 'APPLICANT LIST', ARRAY['application_id', 'full_name', 'fathers_name', 'profile_image_url', 'date_of_birth', 'aadhar_card_number',
-'category', 'is_pwd', 'marital_status', 'nationality', 'category_certificate_url','gender', 'communication_address', 'communication_city',
+INSERT INTO TEMPLATES(email_id,name,type,column_list,column_list_compact) VALUES('default@template', 'Default Applicant List', 'APPLICANT LIST', ARRAY['application_id', 'full_name','guardian', 'fathers_name', 'profile_image_url', 'date_of_birth', 'aadhar_card_number',
+'category', 'is_pwd','pwd_type', 'marital_status', 'nationality', 'category_certificate_url','pwd_url','gender', 'communication_address', 'communication_city',
 'communication_state', 'communication_pincode', 'permanent_address', 'permanent_city', 'permanent_state',
 'permanent_pincode', 'mobile_number', 'alternate_mobile_number', 'email_id', 'degree_10th', 'board_10th', 'percentage_cgpa_format_10th','percentage_cgpa_value_10th',
 'year_of_passing_10th', 'remarks_10th', 'marksheet_10th_url', 'degree_12th', 'board_12th', 'percentage_cgpa_format_12th', 'percentage_cgpa_value_12th',
