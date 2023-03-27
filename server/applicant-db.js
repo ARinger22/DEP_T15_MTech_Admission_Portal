@@ -6,14 +6,16 @@ const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const auth = require("./auth.js");
 const fs = require("fs");
-// const fs = require('fs');
-//const path = require("C:\Users\sushi\Downloads\Stirage");
+var express      = require('express');
+var app          = express();
 
 dotenv.config();
 
-const uploadDir = path.join(__dirname, "MtechAdmissions");
+const uploadDir = path.join(__dirname,'public' ,"MtechAdmissions");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
+  console.log(uploadDir);
+
 }
 
 
@@ -139,68 +141,16 @@ const save_education_details = async (req, res, next) => {
     ]
   );
 
-  // let promises = [];
-  // let vals = Object.values(req.files);
-
-  // for (let f of vals) {
-  //   const gcsname = f[0].originalname + "_" + Date.now();
-  //   const file = applicantBucket.file(gcsname);
-
-  //   const stream = file.createWriteStream({
-  //     metadata: {
-  //       contentType: f[0].mimetype,
-  //     },
-  //     resumable: false,
-  //   });
-
-  //   stream.on("error", (err) => {
-  //     f[0].cloudStorageError = err;
-  //     next(err);
-  //     console.log(err);
-  //   });
-
-  //   stream.end(f[0].buffer);
-
-  //   promises.push(
-  //     new Promise((resolve, reject) => {
-  //       stream.on("finish", async () => {
-  //         url = format(
-  //           `https://storage.googleapis.com/${applicantBucket.name}/${file.name}`
-  //         );
-
-  //         if (f[0].fieldname === "marksheet_10th_url") {
-  //           await pool.query(
-  //             "UPDATE applicants SET marksheet_10th_url = $1 WHERE email_id = $2;",
-  //             [url, email]
-  //           );
-  //         } else if (f[0].fieldname === "marksheet_12th_url") {
-  //           await pool.query(
-  //             "UPDATE applicants SET marksheet_12th_url = $1 WHERE email_id = $2;",
-  //             [url, email]
-  //           );
-  //         } else {
-  //           str = f[0].fieldname;
-  //           first = str.substring(0, str.length - 1);
-  //           lastChar = str.substr(str.length - 1);
-
-  //           x = parseInt(lastChar) + 1;
-  //           y = first === "upload_marksheet" ? 9 : 10;
-
-  //           await pool.query(
-  //             "UPDATE applicants SET degrees[$1][$2] = $3 WHERE email_id = $4;",
-  //             [x, y, url, email]
-  //           );
-  //         }
   let promises = [];
   let vals = Object.values(req.files);
-  const uploadDir = path.join(__dirname,"MtechAdmissions", "EducationalDocs");
+  const uploadDir = path.join(__dirname,'public','MtechAdmissions','EDUCATION_Details');
   if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 
 
   for (let f of vals) {
-    const filename = f[0].originalname + "_" + Date.now();
+    const filename = Date.now()+"_"+f[0].originalname;
     const filepath = path.join(uploadDir, filename);
 
     promises.push(
@@ -213,7 +163,10 @@ const save_education_details = async (req, res, next) => {
             reject(err);
             return;
           }
-          url = `MtechAdmissions/EducationalDocs/${filename}`;
+          url = format(
+            `http://localhost:8080/MtechAdmissions/EDUCATION_Details/${filename}`
+          );
+
           if (f[0].fieldname === "marksheet_10th_url") {
             await pool.query(
               "UPDATE applicants SET marksheet_10th_url = $1 WHERE email_id = $2;",
@@ -243,6 +196,7 @@ const save_education_details = async (req, res, next) => {
           // file.makePublic().then(() => {
           //   resolve();
           // });
+
         });
       })
     );
@@ -293,18 +247,16 @@ const save_personal_info = async (req, res, next) => {
   var info = req.body;
 
   await pool.query(
-    "UPDATE applicants SET full_name = $1,guardian = $2, fathers_name = $3, \
-                  date_of_birth = $4, aadhar_card_number = $5, category = $6, is_pwd = $7,pwd_type=$8, marital_status = $9, \
-                  nationality = $10, gender = $11 WHERE email_id = $12;",
+    "UPDATE applicants SET full_name = $1, fathers_name = $2, \
+                  date_of_birth = $3, aadhar_card_number = $4, category = $5, is_pwd = $6, marital_status = $7, \
+                  nationality = $8, gender = $9 WHERE email_id = $10;",
     [
       info.full_name,
-      info.guardian,
       info.fathers_name,
       info.date_of_birth,
       info.aadhar_card_number,
       info.category,
       info.is_pwd,
-      info.pwd_type,
       info.marital_status,
       info.nationality,
       info.gender,
@@ -315,40 +267,34 @@ const save_personal_info = async (req, res, next) => {
   let promises = [];
   let vals = Object.values(req.files);
 
+  const uploadDir = path.join(__dirname,'public','MtechAdmissions','PERSONAL_Details');
+  if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
   for (let f of vals) {
-    const gcsname = f[0].originalname + "_" + Date.now();
-    const file = applicantBucket.file(gcsname);
-
-    const stream = file.createWriteStream({
-      metadata: {
-        contentType: f[0].mimetype,
-      },
-      resumable: false,
-    });
-
-    stream.on("error", (err) => {
-      f[0].cloudStorageError = err;
-      next(err);
-      console.log(err);
-    });
-
-    stream.end(f[0].buffer);
+    const filename =  Date.now()+"_"+f[0].originalname;
+    const filepath = path.join(uploadDir, filename);
 
     promises.push(
       new Promise((resolve, reject) => {
-        stream.on("finish", async () => {
-          url = format(
-            `https://storage.googleapis.com/${applicantBucket.name}/${file.name}`
+        fs.writeFile(filepath, f[0].buffer, async (err) => {
+          if (err) {
+            f[0].localStorageError = err;
+            next(err);
+            console.log(err);
+            reject(err);
+            return;
+          }
+
+           url = format(
+                      `http://localhost:8080/MtechAdmissions/PERSONAL_Details/${filename}`
+          
           );
 
           if (f[0].fieldname === "category_certificate") {
             await pool.query(
               "UPDATE applicants SET category_certificate_url = $1 WHERE email_id = $2;",
-              [url, email]
-            );
-          } else if (f[0].fieldname === "pwd_certificate") {
-            await pool.query(
-              "UPDATE applicants SET pwd_url = $1 WHERE email_id = $2;",
               [url, email]
             );
           } else {
@@ -358,10 +304,9 @@ const save_personal_info = async (req, res, next) => {
             );
           }
 
-          f[0].cloudStorageObject = gcsname;
-          file.makePublic().then(() => {
+         
             resolve();
-          });
+          
         });
       })
     );
@@ -371,6 +316,8 @@ const save_personal_info = async (req, res, next) => {
     res.status(200).send("Ok") /** Confirm, rerender */
   );
 };
+
+
 /**
  * Get applicant profile info
  */
@@ -403,8 +350,8 @@ const get_profile_info = async (req, res) => {
   var email = jwt.decode(authToken).userEmail;
 
   const results = await pool.query(
-    "SELECT full_name,guardian, fathers_name, profile_image_url, date_of_birth, aadhar_card_number, \
-                              category, is_pwd,pwd_type ,marital_status, category_certificate_url,pwd_url, nationality, gender, communication_address, communication_city, \
+    "SELECT full_name, fathers_name, profile_image_url, date_of_birth, aadhar_card_number, \
+                              category, is_pwd, marital_status, category_certificate_url, nationality, gender, communication_address, communication_city, \
                               communication_state, communication_pincode, permanent_address, permanent_city, permanent_state, \
                               permanent_pincode, mobile_number, alternate_mobile_number, email_id, degree_10th, board_10th, percentage_cgpa_format_10th,percentage_cgpa_value_10th, \
                               year_of_passing_10th, remarks_10th, marksheet_10th_url, degree_12th, board_12th, percentage_cgpa_format_12th, percentage_cgpa_value_12th, \
@@ -611,9 +558,9 @@ const save_application_info = async (req, res, next) => {
     "UPDATE applications_" +
     cycle_id +
     " SET \
-    full_name = a.full_name,guardian=a.guardian, fathers_name = a.fathers_name, profile_image_url = a.profile_image_url, \
+    full_name = a.full_name, fathers_name = a.fathers_name, profile_image_url = a.profile_image_url, \
     date_of_birth = a.date_of_birth, aadhar_card_number = a.aadhar_card_number, category = a.category, \
-    category_certificate_url = a.category_certificate_url, is_pwd = a.is_pwd,pwd_type=a.pwd_type,pwd_url=a.pwd_url, marital_status = a.marital_status, \
+    category_certificate_url = a.category_certificate_url, is_pwd = a.is_pwd, marital_status = a.marital_status, \
     nationality = a.nationality, gender = a.gender, \
     communication_address = a.communication_address, communication_city = a.communication_city, \
     communication_state = a.communication_state, communication_pincode = a.communication_pincode, \
@@ -638,13 +585,13 @@ const save_application_info = async (req, res, next) => {
   let promises = [];
   let vals = Object.values(req.files);
 
-  const uploadDir = path.join(__dirname,"MtechAdmissions", "ApplicationDocs");
+  const uploadDir = path.join(__dirname,'public','MtechAdmissions','APPLICATION_Details');
   if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 
   for (let f of vals) {
-    const filename = f[0].originalname + "_" + Date.now();
+    const filename = Date.now()+"_"+f[0].originalname;
     const filepath = path.join(uploadDir, filename);
 
     promises.push(
@@ -657,8 +604,10 @@ const save_application_info = async (req, res, next) => {
             reject(err);
             return;
           }
-          url = `MtechAdmissions/ApplicationsDocs/${filename}`;
+          url = format(
+            `http://localhost:8080/MtechAdmissions/APPLICATION_Details/${filename}`
 
+);
           if (f[0].fieldname === "transaction_slip") {
             await pool.query(
               "UPDATE applications_" +
@@ -1057,9 +1006,9 @@ const reapply_save_application_info = async (req, res, next) => {
     "UPDATE applications_" +
     cycle_id +
     " SET \
-  full_name = a.full_name,guardian=a.guardian, fathers_name = a.fathers_name, profile_image_url = a.profile_image_url, \
+  full_name = a.full_name, fathers_name = a.fathers_name, profile_image_url = a.profile_image_url, \
   date_of_birth = a.date_of_birth, aadhar_card_number = a.aadhar_card_number, category = a.category, \
-  category_certificate_url = a.category_certificate_url, is_pwd = a.is_pwd,pwd_type=a.pwd_type,pwd_url=a.pwd_url, marital_status = a.marital_status, \
+  category_certificate_url = a.category_certificate_url, is_pwd = a.is_pwd, marital_status = a.marital_status, \
   nationality = a.nationality, gender = a.gender, \
   communication_address = a.communication_address, communication_city = a.communication_city, \
   communication_state = a.communication_state, communication_pincode = a.communication_pincode, \
@@ -1083,13 +1032,13 @@ const reapply_save_application_info = async (req, res, next) => {
 
   let promises = [];
   let vals = Object.values(req.files);
-  const uploadDir = path.join(__dirname,"MtechAdmissions", "ReApplyDocs");
+  const uploadDir = path.join(__dirname,'public','MtechAdmissions','REAPPLY_Details');
   if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 
   for (let f of vals) {
-    const filename = f[0].originalname + "_" + Date.now();
+    const filename = Date.now()+"_"+f[0].originalname;
     const filepath = path.join(uploadDir, filename);
 
     promises.push(
@@ -1102,9 +1051,10 @@ const reapply_save_application_info = async (req, res, next) => {
             reject(err);
             return;
           }
-          url = `MtechAdmissions/ReApplyDocs/${filename}`;
+          url = format(
+            `http://localhost:8080/MtechAdmissions/REAPPLY_Details/${filename}`
 
-
+);
           if (f[0].fieldname === "transaction_slip") {
             await pool.query(
               "UPDATE applications_" +

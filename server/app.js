@@ -15,23 +15,30 @@ const dashboard = require("./dashboard.js");
 const landing = require("./landing.js");
 var bodyParser = require("body-parser");
 
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, './upload')
-//   },
-  
-//   filename: function (req, file, cb) {
-//     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-//     filename=file.fieldname + '-' + uniqueSuffix+'.png'
-//     cb(null, this.filename)
-//     req.filename=filename
-//     return ;
-//   }
-// })
-
-
 
 const app = express();
+
+
+// app.get('/files/:filename', (req, res) => {
+//   const filename = req.params.filename;
+//   const filepath = path.join(__dirname,'public', 'MtechAdmissions', filename);
+  
+//   // Check if the file exists
+//   if (!fs.existsSync(filepath)) {
+//     return res.status(404).send('File not found');
+//   }
+  
+//   // Set the Content-Type header based on the file extension
+//   const contentType = mime.getType(filepath);
+//   res.setHeader('Content-Type', contentType);
+  
+//   // Send the file content to the client
+//   const stream = fs.createReadStream(filepath);
+//   stream.pipe(res);
+// });
+
+
+app.use(express.static('public'));
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -71,6 +78,7 @@ app.post(
   upload.fields([]),
   applicantdB.save_communication_details
 );
+
 
 app.post(
   "/save-education-details",
