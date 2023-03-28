@@ -421,7 +421,7 @@ function QualifyingExamDetails(props) {
                           className="block text-sm font-medium text-gray-700"
                         >
                           Are you sure you have filled your highest valid GATE
-                          attempt information?
+                          score information?
                           <span style={{ color: "#ff0000" }}> *</span>
                           <HtmlTooltip
                             title={
