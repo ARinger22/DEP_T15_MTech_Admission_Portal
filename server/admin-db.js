@@ -87,6 +87,8 @@ const add_admission_cycle = async (req, res) => {
     all_india_rank TEXT, gate_score TEXT, valid_upto TEXT, \
     self_attested_copies_url TEXT, remarks TEXT, \
     signature_url TEXT, date_of_declaration TEXT, place_of_declaration TEXT, \
+    is_sponsored_applicant TEXT, name_of_sponsoring_org TEXT, name_of_working_org TEXT, address_of_org TEXT, \
+    designation TEXT, post_type TEXT, duration_post_start TEXT, duration_post_end TEXT, years_of_service TEXT, \
     CONSTRAINT fk_email FOREIGN KEY(email_id) REFERENCES applicants(email_id), \
     CONSTRAINT fk_offering FOREIGN KEY(offering_id) REFERENCES mtech_offerings_" +
     new_cycle_id +

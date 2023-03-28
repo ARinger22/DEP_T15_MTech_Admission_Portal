@@ -23,6 +23,7 @@
     "excel4node": "^1.7.2",
     "express": "^4.17.3",
     "fix": "0.0.6",
+    "fs": "^0.0.1-security",
     "handlebars": "^4.7.7",
     "jsonwebtoken": "^8.5.1",
     "mime": "^3.0.0",

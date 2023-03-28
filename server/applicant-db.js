@@ -1,31 +1,18 @@
 const path = require("path");
 const { format } = require("util");
-const { Storage } = require("@google-cloud/storage");
 const pool = require("./db");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const auth = require("./auth.js");
 const fs = require("fs");
-var express      = require('express');
-var app          = express();
-
+var express = require('express');
+var app = express();
 dotenv.config();
-
-const uploadDir = path.join(__dirname,'public' ,"MtechAdmissions");
+const uploadDir = path.join(__dirname, 'public', 'MtechAdmissions');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
   console.log(uploadDir);
-
 }
-
-
-
-const gc = new Storage({
-  credentials: JSON.parse(process.env.GCP_KEYFILE),
-  projectId: "phd-pg-admission-iit-ropar",
-});
-const applicantBucket = gc.bucket("applicant-iit-ropar");
-
 /**
  * Update/save applicant communcation info
  */
@@ -143,14 +130,14 @@ const save_education_details = async (req, res, next) => {
 
   let promises = [];
   let vals = Object.values(req.files);
-  const uploadDir = path.join(__dirname,'public','MtechAdmissions','EDUCATION_Details');
+  const uploadDir = path.join(__dirname, 'public', 'MtechAdmissions', 'EDUCATION_Details');
   if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
+    fs.mkdirSync(uploadDir);
+  }
 
 
   for (let f of vals) {
-    const filename = Date.now()+"_"+f[0].originalname;
+    const filename = Date.now() + "_" + f[0].originalname;
     const filepath = path.join(uploadDir, filename);
 
     promises.push(
@@ -190,28 +177,14 @@ const save_education_details = async (req, res, next) => {
               [x, y, url, email]
             );
           }
-        resolve();
-          
-          // f[0].cloudStorageObject = gcsname;
-          // file.makePublic().then(() => {
-          //   resolve();
-          // });
+          resolve();
 
         });
       })
     );
   }
-
-  // Promise.allSettled(promises).then(() => {
-  //   res.status(200).send("Ok");
-  // })
-
   Promise.allSettled(promises).then(res.status(200).send("Ok"));
 };
-
-
-
-
 
 /**
  * Update/save applicant personal info
@@ -247,16 +220,18 @@ const save_personal_info = async (req, res, next) => {
   var info = req.body;
 
   await pool.query(
-    "UPDATE applicants SET full_name = $1, fathers_name = $2, \
-                  date_of_birth = $3, aadhar_card_number = $4, category = $5, is_pwd = $6, marital_status = $7, \
-                  nationality = $8, gender = $9 WHERE email_id = $10;",
+    "UPDATE applicants SET full_name = $1,guardian = $2, fathers_name = $3, \
+                  date_of_birth = $4, aadhar_card_number = $5, category = $6, is_pwd = $7,pwd_type=$8, marital_status = $9, \
+                  nationality = $10, gender = $11 WHERE email_id = $12;",
     [
       info.full_name,
+      info.guardian,
       info.fathers_name,
       info.date_of_birth,
       info.aadhar_card_number,
       info.category,
       info.is_pwd,
+      info.pwd_type,
       info.marital_status,
       info.nationality,
       info.gender,
@@ -267,13 +242,13 @@ const save_personal_info = async (req, res, next) => {
   let promises = [];
   let vals = Object.values(req.files);
 
-  const uploadDir = path.join(__dirname,'public','MtechAdmissions','PERSONAL_Details');
+  const uploadDir = path.join(__dirname, 'public', 'MtechAdmissions', 'PERSONAL_Details');
   if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
+    fs.mkdirSync(uploadDir);
+  }
 
   for (let f of vals) {
-    const filename =  Date.now()+"_"+f[0].originalname;
+    const filename = Date.now() + "_" + f[0].originalname;
     const filepath = path.join(uploadDir, filename);
 
     promises.push(
@@ -287,14 +262,19 @@ const save_personal_info = async (req, res, next) => {
             return;
           }
 
-           url = format(
-                      `http://localhost:8080/MtechAdmissions/PERSONAL_Details/${filename}`
-          
+          url = format(
+            `http://localhost:8080/MtechAdmissions/PERSONAL_Details/${filename}`
+
           );
 
           if (f[0].fieldname === "category_certificate") {
             await pool.query(
               "UPDATE applicants SET category_certificate_url = $1 WHERE email_id = $2;",
+              [url, email]
+            );
+          } else if (f[0].fieldname === "pwd_certificate") {
+            await pool.query(
+              "UPDATE applicants SET pwd_url = $1 WHERE email_id = $2;",
               [url, email]
             );
           } else {
@@ -304,9 +284,8 @@ const save_personal_info = async (req, res, next) => {
             );
           }
 
-         
-            resolve();
-          
+          resolve();
+
         });
       })
     );
@@ -350,8 +329,8 @@ const get_profile_info = async (req, res) => {
   var email = jwt.decode(authToken).userEmail;
 
   const results = await pool.query(
-    "SELECT full_name, fathers_name, profile_image_url, date_of_birth, aadhar_card_number, \
-                              category, is_pwd, marital_status, category_certificate_url, nationality, gender, communication_address, communication_city, \
+    "SELECT full_name,guardian, fathers_name, profile_image_url, date_of_birth, aadhar_card_number, \
+                              category, is_pwd,pwd_type ,marital_status, category_certificate_url,pwd_url, nationality, gender, communication_address, communication_city, \
                               communication_state, communication_pincode, permanent_address, permanent_city, permanent_state, \
                               permanent_pincode, mobile_number, alternate_mobile_number, email_id, degree_10th, board_10th, percentage_cgpa_format_10th,percentage_cgpa_value_10th, \
                               year_of_passing_10th, remarks_10th, marksheet_10th_url, degree_12th, board_12th, percentage_cgpa_format_12th, percentage_cgpa_value_12th, \
@@ -531,8 +510,9 @@ const save_application_info = async (req, res, next) => {
     cycle_id +
     "(email_id, amount, transaction_id, bank, date_of_transaction, qualifying_examination, \
                     branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
-                    remarks, date_of_declaration, place_of_declaration, offering_id, status, status_remark) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
-                    $13, $14, $15, $16, $17, 1, '') RETURNING application_id;",
+                    remarks, date_of_declaration, place_of_declaration, offering_id, status, status_remark,is_sponsored_applicant, name_of_sponsoring_org, name_of_working_org , address_of_org,\
+                    designation, post_type, duration_post_start, duration_post_end, years_of_service) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
+                    $13, $14, $15, $16, $17, 1, '',$18,$19,$20,$21,$22,$23,$24,$25,$26) RETURNING application_id;",
     [
       email,
       app_details[1],
@@ -551,6 +531,15 @@ const save_application_info = async (req, res, next) => {
       app_details[19],
       app_details[18],
       app_details[20],
+      app_details[21],
+      app_details[22],
+      app_details[23],
+      app_details[24],
+      app_details[25],
+      app_details[26],
+      app_details[27],
+      app_details[28],
+      app_details[29],
     ]
   );
 
@@ -558,9 +547,9 @@ const save_application_info = async (req, res, next) => {
     "UPDATE applications_" +
     cycle_id +
     " SET \
-    full_name = a.full_name, fathers_name = a.fathers_name, profile_image_url = a.profile_image_url, \
+    full_name = a.full_name,guardian=a.guardian, fathers_name = a.fathers_name, profile_image_url = a.profile_image_url, \
     date_of_birth = a.date_of_birth, aadhar_card_number = a.aadhar_card_number, category = a.category, \
-    category_certificate_url = a.category_certificate_url, is_pwd = a.is_pwd, marital_status = a.marital_status, \
+    category_certificate_url = a.category_certificate_url, is_pwd = a.is_pwd,pwd_type=a.pwd_type,pwd_url=a.pwd_url, marital_status = a.marital_status, \
     nationality = a.nationality, gender = a.gender, \
     communication_address = a.communication_address, communication_city = a.communication_city, \
     communication_state = a.communication_state, communication_pincode = a.communication_pincode, \
@@ -585,13 +574,13 @@ const save_application_info = async (req, res, next) => {
   let promises = [];
   let vals = Object.values(req.files);
 
-  const uploadDir = path.join(__dirname,'public','MtechAdmissions','APPLICATION_Details');
+  const uploadDir = path.join(__dirname, 'public', 'MtechAdmissions', 'APPLICATION_Details');
   if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
+    fs.mkdirSync(uploadDir);
+  }
 
   for (let f of vals) {
-    const filename = Date.now()+"_"+f[0].originalname;
+    const filename = Date.now() + "_" + f[0].originalname;
     const filepath = path.join(uploadDir, filename);
 
     promises.push(
@@ -607,7 +596,7 @@ const save_application_info = async (req, res, next) => {
           url = format(
             `http://localhost:8080/MtechAdmissions/APPLICATION_Details/${filename}`
 
-);
+          );
           if (f[0].fieldname === "transaction_slip") {
             await pool.query(
               "UPDATE applications_" +
@@ -631,10 +620,8 @@ const save_application_info = async (req, res, next) => {
             );
           }
 
-          f[0].cloudStorageObject = gcsname;
-          file.makePublic().then(() => {
-            resolve();
-          });
+          resolve();
+
         });
       })
     );
@@ -978,9 +965,10 @@ const reapply_save_application_info = async (req, res, next) => {
     "INSERT INTO applications_" +
     cycle_id +
     "(email_id, amount, transaction_id, bank, date_of_transaction, qualifying_examination, \
-                  branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
-                  remarks, date_of_declaration, place_of_declaration, offering_id, status, status_remark) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
-                  $13, $14, $15, $16, $17, 1, '') RETURNING application_id;",
+                    branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
+                    remarks, date_of_declaration, place_of_declaration, offering_id, status, status_remark,is_sponsored_applicant, name_of_sponsoring_org, name_of_working_org , address_of_org,\
+                    designation, post_type, duration_post_start, duration_post_end, years_of_service) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
+                    $13, $14, $15, $16, $17, 1, '',$18,$19,$20,$21,$22,$23,$24,$25,$26) RETURNING application_id;",
     [
       email,
       app_details[1],
@@ -999,6 +987,15 @@ const reapply_save_application_info = async (req, res, next) => {
       app_details[19],
       app_details[18],
       app_details[20],
+      app_details[21],
+      app_details[22],
+      app_details[23],
+      app_details[24],
+      app_details[25],
+      app_details[26],
+      app_details[27],
+      app_details[28],
+      app_details[29],
     ]
   );
 
@@ -1006,9 +1003,9 @@ const reapply_save_application_info = async (req, res, next) => {
     "UPDATE applications_" +
     cycle_id +
     " SET \
-  full_name = a.full_name, fathers_name = a.fathers_name, profile_image_url = a.profile_image_url, \
+  full_name = a.full_name,guardian=a.guardian, fathers_name = a.fathers_name, profile_image_url = a.profile_image_url, \
   date_of_birth = a.date_of_birth, aadhar_card_number = a.aadhar_card_number, category = a.category, \
-  category_certificate_url = a.category_certificate_url, is_pwd = a.is_pwd, marital_status = a.marital_status, \
+  category_certificate_url = a.category_certificate_url, is_pwd = a.is_pwd,pwd_type=a.pwd_type,pwd_url=a.pwd_url, marital_status = a.marital_status, \
   nationality = a.nationality, gender = a.gender, \
   communication_address = a.communication_address, communication_city = a.communication_city, \
   communication_state = a.communication_state, communication_pincode = a.communication_pincode, \
@@ -1032,13 +1029,13 @@ const reapply_save_application_info = async (req, res, next) => {
 
   let promises = [];
   let vals = Object.values(req.files);
-  const uploadDir = path.join(__dirname,'public','MtechAdmissions','REAPPLY_Details');
+  const uploadDir = path.join(__dirname, 'public', 'MtechAdmissions', 'REAPPLY_Details');
   if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
+    fs.mkdirSync(uploadDir);
+  }
 
   for (let f of vals) {
-    const filename = Date.now()+"_"+f[0].originalname;
+    const filename = Date.now() + "_" + f[0].originalname;
     const filepath = path.join(uploadDir, filename);
 
     promises.push(
@@ -1054,7 +1051,7 @@ const reapply_save_application_info = async (req, res, next) => {
           url = format(
             `http://localhost:8080/MtechAdmissions/REAPPLY_Details/${filename}`
 
-);
+          );
           if (f[0].fieldname === "transaction_slip") {
             await pool.query(
               "UPDATE applications_" +
@@ -1078,10 +1075,7 @@ const reapply_save_application_info = async (req, res, next) => {
             );
           }
 
-          f[0].cloudStorageObject = gcsname;
-          file.makePublic().then(() => {
             resolve();
-          });
         });
       })
     );

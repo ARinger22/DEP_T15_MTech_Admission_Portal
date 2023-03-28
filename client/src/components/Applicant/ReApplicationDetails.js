@@ -10,7 +10,7 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
-
+import SponsorshipDetails from "./SponsorshipDetails.js";
 function ReApplicantionDetails() {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
@@ -39,7 +39,7 @@ function ReApplicantionDetails() {
   }
 
   const init_application_details = () => {
-    const array = Array.from({ length: 21 }, () => "");
+    const array = Array.from({ length: 30 }, () => "");
 
     array[6] = "GATE";
     array[5] = changeDateFormat();
@@ -200,6 +200,7 @@ function ReApplicantionDetails() {
               <ChevronDots
                 steps={[
                   "Qualifying Exam Details",
+                  "Sponsorship Details",
                   "Application Fee Details",
                   "Declaration",
                   "Review",
@@ -229,53 +230,63 @@ function ReApplicantionDetails() {
 
           {
             {
-              1: (
-                <QualifyingExamDetails
-                  hasFilledHighestGate={hasFilledHighestGate}
-                  setHasFilledHighestGate={setHasFilledHighestGate}
-                  hasGivenMultipleGates={hasGivenMultipleGates}
-                  setHasGivenMultipleGates={setHasGivenMultipleGates}
-                  offering={offering}
-                  increasePageNumber={increasePageNumber}
-                  details={applicant_details}
-                  onChange={handleApplicantDetailsChange}
-                  handleFileSubmit={handleFileSubmit}
-                  emptyFileIndex={emptyFileIndex}
-                />
-              ),
-              2: (
-                <ApplicationFeeDetails
-                  category={category}
-                  increasePageNumber={increasePageNumber}
-                  decreasePageNumber={decreasePageNumber}
-                  details={applicant_details}
-                  onChange={handleApplicantDetailsChange}
-                  handleFileSubmit={handleFileSubmit}
-                  emptyFileIndex={emptyFileIndex}
-                  categoryFees={categoryFees}
-                />
-              ),
-              3: (
-                <Declaration
-                  full_name={full_name}
-                  increasePageNumber={increasePageNumber}
-                  details={applicant_details}
-                  decreasePageNumber={decreasePageNumber}
-                  onChange={handleApplicantDetailsChange}
-                  handleFileSubmit={handleFileSubmit}
-                  emptyFileIndex={emptyFileIndex}
-                />
-              ),
-              4: (
-                <Review
-                  offering={offering}
-                  decreasePageNumber={decreasePageNumber}
-                  details={applicant_details}
-                  handleSubmit={handleSubmit}
-                  onSubmit={handleApplicationSubmit}
-                  isLoading={isLoading}
-                />
-              ),
+                1: (
+                  <QualifyingExamDetails
+                    hasFilledHighestGate={hasFilledHighestGate}
+                    setHasFilledHighestGate={setHasFilledHighestGate}
+                    hasGivenMultipleGates={hasGivenMultipleGates}
+                    setHasGivenMultipleGates={setHasGivenMultipleGates}
+                    offering={offering}
+                    increasePageNumber={increasePageNumber}
+                    details={applicant_details}
+                    onChange={handleApplicantDetailsChange}
+                    handleFileSubmit={handleFileSubmit}
+                    emptyFileIndex={emptyFileIndex}
+                  />
+                ),
+                2: (
+                  <SponsorshipDetails
+                    increasePageNumber={increasePageNumber}
+                    decreasePageNumber={decreasePageNumber}
+                    details={applicant_details}
+                    onChange={handleApplicantDetailsChange}
+                    handleFileSubmit={handleFileSubmit}
+                    emptyFileIndex={emptyFileIndex}
+                  />
+                ),
+                3: (
+                  <ApplicationFeeDetails
+                    category={category}
+                    increasePageNumber={increasePageNumber}
+                    decreasePageNumber={decreasePageNumber}
+                    details={applicant_details}
+                    onChange={handleApplicantDetailsChange}
+                    handleFileSubmit={handleFileSubmit}
+                    emptyFileIndex={emptyFileIndex}
+                    categoryFees={categoryFees}
+                  />
+                ),
+                4: (
+                  <Declaration
+                    full_name={full_name}
+                    increasePageNumber={increasePageNumber}
+                    details={applicant_details}
+                    decreasePageNumber={decreasePageNumber}
+                    onChange={handleApplicantDetailsChange}
+                    handleFileSubmit={handleFileSubmit}
+                    emptyFileIndex={emptyFileIndex}
+                  />
+                ),
+                5: (
+                  <Review
+                    offering={offering}
+                    decreasePageNumber={decreasePageNumber}
+                    details={applicant_details}
+                    handleSubmit={handleSubmit}
+                    onSubmit={handleApplicationSubmit}
+                    isLoading={isLoading}
+                  />
+                ),
             }[page]
           }
         </div>

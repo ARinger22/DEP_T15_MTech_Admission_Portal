@@ -10,6 +10,7 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
+import SponsorshipDetails from "./SponsorshipDetails.js";
 
 function ApplicantionDetails() {
   const navigate = useNavigate();
@@ -24,7 +25,6 @@ function ApplicantionDetails() {
   const [hasFilledHighestGate, setHasFilledHighestGate] = useState("");
   const [hasGivenMultipleGates, setHasGivenMultipleGates] = useState("");
   const [isFetching, setIsFetching] = useState(true);
-
   function changeDateFormat() {
     let date = new Date();
 
@@ -36,9 +36,8 @@ function ApplicantionDetails() {
     date = date.getFullYear() + "-0" + month + "-" + day;
     return date;
   }
-
   const init_application_details = () => {
-    const array = Array.from({ length: 21 }, () => "");
+    const array = Array.from({ length: 30 }, () => "");
 
     array[6] = "GATE";
     array[5] = changeDateFormat();
@@ -197,6 +196,7 @@ function ApplicantionDetails() {
               <ChevronDots
                 steps={[
                   "Qualifying Exam Details",
+                  "Sponsorship Details",
                   "Application Fee Details",
                   "Declaration",
                   "Review",
@@ -239,8 +239,18 @@ function ApplicantionDetails() {
                   handleFileSubmit={handleFileSubmit}
                   emptyFileIndex={emptyFileIndex}
                 />
-              ),
-              2: (
+                ),
+                2: (
+                  <SponsorshipDetails
+                    increasePageNumber={increasePageNumber}
+                    decreasePageNumber={decreasePageNumber}
+                    details={applicant_details}
+                    onChange={handleApplicantDetailsChange}
+                    handleFileSubmit={handleFileSubmit}
+                    emptyFileIndex={emptyFileIndex}
+                  />
+                ),
+              3: (
                 <ApplicationFeeDetails
                   category={category}
                   increasePageNumber={increasePageNumber}
@@ -252,7 +262,7 @@ function ApplicantionDetails() {
                   categoryFees={categoryFees}
                 />
               ),
-              3: (
+              4: (
                 <Declaration
                   full_name={full_name}
                   increasePageNumber={increasePageNumber}
@@ -263,7 +273,7 @@ function ApplicantionDetails() {
                   emptyFileIndex={emptyFileIndex}
                 />
               ),
-              4: (
+              5: (
                 <Review
                   offering={offering}
                   decreasePageNumber={decreasePageNumber}
