@@ -75,7 +75,7 @@ export default function Templates() {
             <thead>
               <tr>
                 <th className="px-10 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
-                  Name
+                  Template Name
                 </th>
                 <th className="px-10 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
                   Template Scope
