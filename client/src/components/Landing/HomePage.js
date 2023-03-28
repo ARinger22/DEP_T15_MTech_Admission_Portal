@@ -41,7 +41,7 @@ function HomePage() {
                 className="block text-indigo-600 xl:inline font-bold tracking-normal"
               >
                 {" "}
-                PG Admissions Portal
+                MTech Admissions Portal
               </span>
             </h1>
             {isCyclePresent ? (
