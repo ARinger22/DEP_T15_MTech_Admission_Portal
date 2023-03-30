@@ -44,15 +44,15 @@ export default function AddAdminModal() {
   const [error, setError] = useState(0);
 
   const options = [
-    { value: "Biomedical Engineering", label: "Biomedical Engineering" },
-    { value: "Chemical Engineering", label: "Chemical Engineering" },
-    { value: "Civil Engineering", label: "Civil Engineering" },
+    { value: "BIO", label: "Biomedical Engineering" },
+    { value: "CHE", label: "Chemical Engineering" },
+    { value: "CE", label: "Civil Engineering" },
     {
-      value: "Computer Science and Engineering",
+      value: "CSE",
       label: "Computer Science and Engineering",
     },
-    { value: "Electrical Engineering", label: "Electrical Engineering" },
-    { value: "Mechanical Engineering", label: "Mechanical Engineering" },
+    { value: "EE", label: "Electrical Engineering" },
+    { value: "ME", label: "Mechanical Engineering" },
   ];
 
   const [open, setOpen] = React.useState(false);
@@ -206,7 +206,7 @@ export default function AddAdminModal() {
                       />
                       {error === 1 ? (
                         <p className="pl-1 pt-1 text-red-500 text-sm">
-                          E-mail address already exists
+                          Email address already exists
                         </p>
                       ) : (
                         <></>

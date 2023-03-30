@@ -127,6 +127,11 @@ export default function ManageAdmin() {
                 <th className="text-center px-10 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold uppercase border-l-0 border-r-0 whitespace-nowrap">
                   Admin Role
                 </th>
+                {/* new lines */}
+                <th className="text-center px-10 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold uppercase border-l-0 border-r-0 whitespace-nowrap">
+                  Department
+                </th>
+                {/* new lines */}
                 <th className="bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap" />
               </tr>
             </thead>
@@ -148,9 +153,21 @@ export default function ManageAdmin() {
                       {renderAdmin(admin.admin_type)}
                     </div>
                   </td>
+                  {/* new lines */}
+                  <td className="border-t-0 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-4">
+                  {admin.department.map((column, index) => (
+                    
+                      <ul className="py-2 text-center rounded-lg font-semibold bg-blue-50 text-blue-900 border border-blue-200"
+                        key={index}
+                      >
+                        {column}
+                      </ul>
+                    ))}
+                  </td>
+                  {/* new lines */}
                   <td className="border-t-0 pl-16 pr-4 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-4">
                     <div className="flex gap-2 justify-end">
-                      <ViewDepartmentModal admin={admin} />
+                      {/* <ViewDepartmentModal admin={admin} /> */}
                       <EditAdminModal admin={admin} />
                       <DeleteAdminModal
                         email_id={admin.email_id}
