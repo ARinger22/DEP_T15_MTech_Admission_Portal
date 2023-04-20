@@ -3,7 +3,11 @@ CREATE TABLE signup_verification (
     hashed_otp TEXT,
     expiration_time TIMESTAMP
 );
-
+CREATE TABLE forgot_password_verification (
+    email_id TEXT PRIMARY KEY,
+    hashed_otp TEXT,
+    expiration_time TIMESTAMP
+);
 CREATE TABLE login_verification (
     email_id TEXT PRIMARY KEY,
     hashed_otp TEXT,
@@ -13,6 +17,7 @@ CREATE TABLE login_verification (
 CREATE TABLE applicants (
     -- Primary Keys
     email_id TEXT PRIMARY KEY,
+    passwd TEXT,
     applicant_id SERIAL,
 
     -- Personal Details
@@ -70,6 +75,7 @@ CREATE TABLE applicants (
 
 CREATE TABLE admins(
   name TEXT, 
+   passwd TEXT,
   email_id TEXT PRIMARY KEY,
   admin_type INT NOT NULL,
   department TEXT[]

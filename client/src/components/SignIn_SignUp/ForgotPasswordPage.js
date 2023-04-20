@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import SignUp from "./SignUp";
 import Otp from "./Otp";
 import { setUserSession } from "./Sessions";
 import { useNavigate, Link } from "react-router-dom";
+import { setAdminType } from "../Admin/AdminTypes";
+import ForgotPassword from "./ForgotPassword";
 
-function SignUpStartPage() {
+function ForgotPasswordPage() {
   const navigate = useNavigate();
 
   const [otpSent, setotpSent] = useState(false);
@@ -14,26 +15,27 @@ function SignUpStartPage() {
   const [pass, setpass] = useState("");
   const [cnfpass, setcnfpass] = useState("");
   const [msg_otp, setMsgOtp] = useState(
-    "OTP has been sent to your mail account. Please check your spam folder also."
+    "OTP has been sent to your mail account. Please check your Mail"
   );
   const [msg_signin, setMsgSignin] = useState(
-    "An OTP will be sent to your email ID for verification."
+    "RESET Your Password Through OTP"
   );
   const [colorEmail, setColorEmail] = useState(0);
   const [colorOTP, setColorOTP] = useState(0);
+  const [colorPass, setColorPass] = useState(0);
   const [isLoadingEmail, setIsLoadingEmail] = useState(false);
   const [isLoadingOTP, setIsLoadingOTP] = useState(false);
 
   const emailSubmit = () => {
     setIsLoadingEmail(true);
-    axios.post("/auth/signup/otp", { email: email}).then((response) => {
+    axios.post("/auth/forgotpassword/otp", { email: email}).then((response) => {
       if (response.data === 0) {
         setMsgSignin("Please enter your email.");
         setColorEmail(1);
         setIsLoadingEmail(false);
       } else if (response.data === 1) {
         setMsgSignin(
-          "An account is already associated with this email-id. Log-in or Sign-up with different email-id.");
+        "This account is not Registered");
         setColorEmail(1);
         setIsLoadingEmail(false);
       } else {
@@ -60,7 +62,7 @@ function SignUpStartPage() {
   };
 
   const resendOTP = () => {
-    axios.post("/auth/signup/otp", { email: email });
+    axios.post("/auth/forgotpassword/otp", { email: email });
     setMsgOtp("OTP has been resent to your mail account.");
     setColorOTP(2);
   };
@@ -68,32 +70,44 @@ function SignUpStartPage() {
   const handleSubmit = () => {
     setIsLoadingOTP(true);
     axios
-      .post("/auth/signup/verify", {
+      .post("/auth/forgotpassword/verify", {
         email: email,
         otp: otp,
         password: pass,
         confirm_password: cnfpass
       })
       .then((response) => {
-        if (response.data.result === 1) {
-          setUserSession(response.data.token);
-          navigate("/home");
-        } else if (response.data.result === 2) {
-          setMsgOtp("This OTP has expired.");
-          setColorOTP(1);
-          setIsLoadingOTP(false);
-        } else if (response.data.result === 3) {
-          setMsgOtp("Please enter the OTP sent to your email.");
-          setColorOTP(1);
-          setIsLoadingOTP(false);
-        } else if(response.data.result===4) {
-          setMsgOtp("Passwords do not match.");
-          setColorOTP(1);
+        if(response.data.result===0){
+          setMsgOtp("Wrong OTP");
+          setColorPass(1);
           setIsLoadingOTP(false);
         }
-        else {
-          setMsgOtp("The OTP you entered is incorrect.");
-          setColorOTP(1);
+        else if (response.data.result === 1) {
+          setUserSession(response.data.token);
+          navigate("/home");
+        } else if (
+          response.data.result === 4 ||
+          response.data.result === 5 ||
+          response.data.result === 6
+        ) {
+          setUserSession(response.data.token);
+          setAdminType(response.data.admin_type);
+          navigate("/admin/dashboard");
+
+        } else if (response.data.result === 2) {
+          setMsgOtp("OTP Expired");
+          setColorEmail(1);
+          setColorPass(1);
+          setIsLoadingOTP(false);
+         }
+         else if(response.data.result===3){
+          setMsgOtp("Password do not Match");
+          setColorPass(1);
+          setIsLoadingOTP(false);
+        }
+        else{
+          setMsgOtp("Unknown Error");
+          setColorPass(1);
           setIsLoadingOTP(false);
         }
       });
@@ -104,9 +118,10 @@ function SignUpStartPage() {
       <div className="relative min-h-screen flex flex-col sm:justify-center items-center w-4/5 mx-auto sm:w-3/5 md:w-3/5">
         <div className="relative sm:max-w-md w-full">
           <div className="flex absolute justify-center items-center content-center bg-gradient-to-br from-[#6F8BD6] to-[#1E3A8A] shadow-md hover:shadow-lg h-48 w-48 -left-24 -top-24 rounded-full fill-current text-white">
-            <span className="relative -top-4 -left-4 font-josefin-sans text-2xl font-bold">
-              Sign Up
-            </span>
+          <div style={{ position: 'relative', width: '6rem', height: '6rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left' }}>
+      <span style={{ fontSize: '1.2rem', marginTop: '-6rem' }}>Forgot</span>
+      <span style={{ fontSize: '1.2rem', marginBottom: '-2rem' }}>Password</span>
+    </div>
           </div>
           <div className="card bg-[#1E3A8A] shadow-lg w-full h-full rounded-3xl absolute transform -rotate-6" />
           <div className="card bg-[#6F8BD6] shadow-lg w-full h-full rounded-3xl absolute transform rotate-6" />
@@ -116,13 +131,13 @@ function SignUpStartPage() {
             </label>
 
             <p className="text-center mt-2 text-sm text-gray-500">
-              Please sign-up to submit your applications for admission.
+              Reset Your Password through OTP
             </p>
 
             <div className="mt-5">
               <div>
                 {otpSent === false && (
-                  <SignUp
+                  <ForgotPassword
                   onClick={emailSubmit}
                   updateData={updateEmail}
                   msg={msg_signin}
@@ -166,4 +181,4 @@ function SignUpStartPage() {
   );
 }
 
-export default SignUpStartPage;
+export default ForgotPasswordPage;
