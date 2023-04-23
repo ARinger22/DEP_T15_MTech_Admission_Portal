@@ -75,7 +75,7 @@ CREATE TABLE applicants (
 
 CREATE TABLE admins(
   name TEXT, 
-   passwd TEXT,
+  passwd TEXT,
   email_id TEXT PRIMARY KEY,
   admin_type INT NOT NULL,
   department TEXT[]
@@ -183,7 +183,5 @@ ARRAY['Application ID','Full Name','Father''s Name','Email Address','Profile Ima
 INSERT INTO current_cycle(cycle_id) VALUES(0);
 
 -- Do always
-INSERT INTO admins(name, email_id, admin_type, department) VALUES('Rohit', '2020csb1118@iitrpr.ac.in', 0, '{Academics}');
-INSERT INTO admins(name, email_id, admin_type, department) VALUES('Sushil', '2020csb1132@iitrpr.ac.in', 0, '{Academics}');
-INSERT INTO admins(name, email_id, admin_type, department) VALUES('Shruti', '2020csb1128@iitrpr.ac.in', 0, '{Academics}');
-INSERT INTO admins(name, email_id, admin_type, department) VALUES('tanish', '2020csb1133@iitrpr.ac.in', 0, '{Academics}');
+INSERT INTO admins(name, passwd,email_id, admin_type, department) VALUES('Rohit', 'root','2020csb1118@iitrpr.ac.in', 0, '{Academics}');
+INSERT INTO admins(name, passwd,email_id, admin_type, department) VALUES('Sushil', 'root','2020csb1132@iitrpr.ac.in', 0, '{Academics}');

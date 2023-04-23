@@ -53,15 +53,15 @@ export default function EditAdminModal(props) {
   const animatedComponents = makeAnimated();
 
   const options = [
-    { value: "BIO", label: "Biomedical Engineering" },
-    { value: "CHE", label: "Chemical Engineering" },
-    { value: "CE", label: "Civil Engineering" },
+    { value: "Biomedical Engineering", label: "Biomedical Engineering" },
+    { value: "Chemical Engineering", label: "Chemical Engineering" },
+    { value: "Civil Engineering", label: "Civil Engineering" },
     {
-      value: "CSE",
+      value: "Computer Science and Engineering",
       label: "Computer Science and Engineering",
     },
-    { value: "EE", label: "Electrical Engineering" },
-    { value: "ME", label: "Mechanical Engineering" },
+    { value: "Electrical Engineering", label: "Electrical Engineering" },
+    { value: "Mechanical Engineering", label: "Mechanical Engineering" },
   ];
 
   const handleChange = (options) => {

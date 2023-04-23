@@ -171,7 +171,7 @@ function QualifyingExamDetails(props) {
                           name="gate_enrollment_number"
                           id="gate_enrollment_number"
                           // pattern="[A-Z]{2}[0-9]{10}"
-                          pattern={props.details[7] + "[0-9]{10}"}
+                          pattern={props.details[7] + "[0-9]{11}"}
                           required
                           title="Correct Format : GATE paper code followed by 10 digits"
                           value={props.details[9]}
@@ -194,8 +194,8 @@ function QualifyingExamDetails(props) {
                           name="coap_registration_number"
                           id="coap_registration_number"
                           required
-                          pattern="COAP[0-9]{9}"
-                          title="Correct Format : COAP followed by 9 digits"
+                          pattern="K23[0-9]{5}"
+                          title="Correct Format : K23 followed by 5 digits"
                           autoComplete="amount"
                           value={props.details[10]}
                           onChange={(event) => props.onChange(event, 10)}

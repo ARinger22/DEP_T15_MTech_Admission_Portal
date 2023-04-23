@@ -162,7 +162,7 @@ const save_education_details = async (req, res, next) => {
             return;
           }
           url = format(
-            `http://localhost:8080/MtechAdmissions/EDUCATION_Details/${filename}`
+            `${process.env.STORAGE_BASE_URL}/MtechAdmissions/EDUCATION_Details/${filename}`
           );
 
           if (f[0].fieldname === "marksheet_10th_url") {
@@ -274,7 +274,7 @@ const save_personal_info = async (req, res, next) => {
           }
 
           url = format(
-            `http://localhost:8080/MtechAdmissions/PERSONAL_Details/${filename}`
+            `${process.env.STORAGE_BASE_URL}/MtechAdmissions/PERSONAL_Details/${filename}`
 
           );
 
@@ -605,7 +605,7 @@ const save_application_info = async (req, res, next) => {
             return;
           }
           url = format(
-            `http://localhost:8080/MtechAdmissions/APPLICATION_Details/${filename}`
+            `${process.env.STORAGE_BASE_URL}/MtechAdmissions/APPLICATION_Details/${filename}`
 
           );
           if (f[0].fieldname === "transaction_slip") {
@@ -1060,7 +1060,7 @@ const reapply_save_application_info = async (req, res, next) => {
             return;
           }
           url = format(
-            `http://localhost:8080/MtechAdmissions/REAPPLY_Details/${filename}`
+            `${process.env.STORAGE_BASE_URL}/MtechAdmissions/REAPPLY_Details/${filename}`
 
           );
           if (f[0].fieldname === "transaction_slip") {
