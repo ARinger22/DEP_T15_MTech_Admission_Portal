@@ -1,6 +1,8 @@
 const pool = require("./db");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 dotenv.config();
 
@@ -652,13 +654,23 @@ const add_admin = async (req, res) => {
   }
 
   /** Add email_id */
-  const add = await pool.query(
-    "INSERT INTO admins(name, email_id, admin_type, department) VALUES($1, $2, $3, $4);",
-    [info.name, info.email_id, info.admin_type, JSON.parse(info.department)]
-  );
+
+  await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
+    const add = await pool.query(
+      "INSERT INTO admins(name, email_id,passwd ,admin_type, department) VALUES($1, $2, $3, $4,$5);",
+      [info.name, info.email_id, hash,info.admin_type, JSON.parse(info.department)]
+    );
+  });
+
+
+  // const add = await pool.query(
+  //   "INSERT INTO admins(name, email_id,passwd ,admin_type, department) VALUES($1, $2, $3, $4,$5);",
+  //   [info.name, info.email_id, info.password,info.admin_type, JSON.parse(info.department)]
+  // );
 
   return res.send("Ok");
 };
+
 
 /** Edit admin */
 const edit_admin = async (req, res) => {

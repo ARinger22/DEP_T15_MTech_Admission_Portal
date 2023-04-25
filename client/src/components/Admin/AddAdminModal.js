@@ -47,9 +47,13 @@ export default function AddAdminModal() {
     { value: "Biomedical Engineering", label: "Biomedical Engineering" },
     { value: "Chemical Engineering", label: "Chemical Engineering" },
     { value: "Civil Engineering", label: "Civil Engineering" },
-    { value: "Computer Science and Engineering", label: "Computer Science and Engineering" },
+    {value: "Computer Science and Engineering",label: "Computer Science and Engineering",},
     { value: "Electrical Engineering", label: "Electrical Engineering" },
     { value: "Mechanical Engineering", label: "Mechanical Engineering" },
+    { value: "Chemisty", label: "Chemistry" },
+    { value: "Humanities and Social Sciences", label: "Humanities and Social Sciences" },
+    { value: "Metallurgical and Material Engineering", label: "Metallurgical and Material Engineering" },
+    {value : "Physics" , label : "Physics"},
   ];
 
   const [open, setOpen] = React.useState(false);
@@ -85,8 +89,10 @@ export default function AddAdminModal() {
 
     formData.append("name", data.name);
     formData.append("email_id", data.email_id);
+    formData.append("password", data.password);
     formData.append("admin_type", adminType);
     formData.append("department", JSON.stringify(filteredOptions));
+    console.log(formData)
 
     Axios.post("/add-admin", formData, {
       headers: {
@@ -203,13 +209,27 @@ export default function AddAdminModal() {
                       />
                       {error === 1 ? (
                         <p className="pl-1 pt-1 text-red-500 text-sm">
-                          Email address already exists
+                          E-mail address already exists
                         </p>
                       ) : (
                         <></>
                       )}
                     </div>
-
+                    <div className="col-span-full sm:col-span-full">
+                      <label
+                        htmlFor="name"
+                        className="text-sm font-medium text-gray-900 block mb-2"
+                      >
+                        Password
+                      </label>
+                      <input
+                        type="password"
+                        {...register("password")}
+                        id="password"
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                        required
+                      />
+                    </div>
                     <div className="col-span-full sm:col-span-full">
                       <label
                         htmlFor="admin_type"
