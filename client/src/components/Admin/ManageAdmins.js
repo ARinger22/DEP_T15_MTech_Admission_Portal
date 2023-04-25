@@ -84,7 +84,10 @@ export default function ManageAdmin() {
           </div>
           <button
             type="button"
-            onClick={() => sessionStorage.setItem("alert", 0)}
+            onClick={() => {
+              sessionStorage.setItem("alert", 0);
+              window.location.reload();
+            }}
             className="ml-auto focus:outline-none -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 dark:bg-green-200 dark:text-green-600 dark:hover:bg-green-300"
             data-collapse-toggle="alert"
             aria-label="Close"
@@ -157,7 +160,7 @@ export default function ManageAdmin() {
                   <td className="border-t-0 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-4">
                   {admin.department.map((column, index) => (
                     
-                      <ul className="py-2 text-center rounded-lg font-semibold bg-blue-50 text-blue-900 border border-blue-200"
+                      <ul className="py-3 text-center rounded-lg font-semibold bg-blue-50 text-blue-900 border border-blue-200"
                         key={index}
                       >
                         {column}
