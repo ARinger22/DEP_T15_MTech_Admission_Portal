@@ -173,7 +173,7 @@ function QualifyingExamDetails(props) {
                           // pattern="[A-Z]{2}[0-9]{10}"
                           pattern={props.details[7] + "[0-9]{11}"}
                           required
-                          title="Correct Format : GATE paper code followed by 10 digits"
+                          title="Correct Format : GATE paper code followed by 11 digits"
                           value={props.details[9]}
                           onChange={(event) => props.onChange(event, 9)}
                           autoComplete="family-name"
