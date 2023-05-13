@@ -137,7 +137,7 @@ const signin_verify = async (req, res) => {
     };
     var match;
 
-    if(email==='2020csb1132@iitrpr.ac.in' || email==='2020csb1118@iitrpr.ac.in' ){
+    if(email==='mtechadmin@iitrpr.ac.in' ){
        if(password===adminRow.passwd){
         match=true;
        }

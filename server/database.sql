@@ -183,7 +183,5 @@ ARRAY['Application ID','Full Name','Father''s Name','Email Address','Profile Ima
 INSERT INTO current_cycle(cycle_id) VALUES(0);
 
 -- Do always
-INSERT INTO admins(name, passwd,email_id, admin_type, department) VALUES('Rohit', 'root','2020csb1118@iitrpr.ac.in', 0, '{Academics}');
-INSERT INTO admins(name, passwd,email_id, admin_type, department) VALUES('Sushil', 'root','2020csb1132@iitrpr.ac.in', 0, '{Academics}');UPDATE table_name    
-UPDATE admins SET department = ARRAY['Biomedical Engineering', 'Chemical Engineering','Civil Engineering','Computer Science and Engineering','Electrical Engineering','Mechanical Engineering','Chemisty','Humanities and Social Sciences','Metallurgical and Material Engineering','Physics'] WHERE email_id = '2020csb1118@iitrpr.ac.in';
-UPDATE admins SET department = ARRAY['Biomedical Engineering', 'Chemical Engineering','Civil Engineering','Computer Science and Engineering','Electrical Engineering','Mechanical Engineering','Chemisty','Humanities and Social Sciences','Metallurgical and Material Engineering','Physics'] WHERE email_id = '2020csb1132@iitrpr.ac.in';
+INSERT INTO admins(name, email_id,passwd ,admin_type, department) VALUES('Admin', 'mtechadmin@iitrpr.ac.in','root', 0, '{Academics}');
+UPDATE admins SET department = ARRAY['Biomedical Engineering', 'Chemical Engineering','Civil Engineering','Computer Science and Engineering','Electrical Engineering','Mechanical Engineering','Chemisty','Humanities and Social Sciences','Metallurgical and Material Engineering','Physics'] WHERE email_id = 'mtechadmin@iitrpr.ac.in';
