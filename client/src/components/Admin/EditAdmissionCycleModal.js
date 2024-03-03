@@ -188,8 +188,8 @@ export default function EditAdmissionCycleModal(props) {
           >
             <div className="ml-2 mr-6">
               <div>
-                <label htmlFor="email" className="text-sm font-medium">
-                  Name
+                <label htmlFor="email" className="flex text-sm font-medium">
+                  Name <span className="flex flex-col text-red-600 mx-0.5">*</span>
                 </label>
                 <div className="relative mt-1">
                   <input
@@ -203,8 +203,8 @@ export default function EditAdmissionCycleModal(props) {
                 </div>
               </div>
               <div>
-                <label htmlFor="password" className="text-sm font-medium">
-                  Duration
+                <label htmlFor="password" className="flex text-sm font-medium">
+                  Duration <span className="flex flex-col text-red-600 mx-0.5">*</span>
                 </label>
                 <div className="relative mt-1 flex">
                   <input
@@ -224,8 +224,8 @@ export default function EditAdmissionCycleModal(props) {
                 </div>
               </div>
               <div>
-                <label htmlFor="fees-GEN" className="text-sm font-medium">
-                  Category-wise Application Fees
+                <label htmlFor="fees-GEN" className="flex text-sm font-medium">
+                  Category-wise Application Fees <span className="flex flex-col text-red-600 mx-0.5">*</span>
                 </label>
                 <div className="relative gap-3 flex mt-1">
                   <div>
@@ -348,8 +348,8 @@ export default function EditAdmissionCycleModal(props) {
               </div>
 
               <div>
-                <label htmlFor="brochure" className="text-sm font-medium">
-                  Brochure for M.Tech. Admissions
+                <label htmlFor="brochure" className="flex text-sm font-medium">
+                  Brochure for M.Tech. Admissions <span className="flex flex-col text-red-600 mx-0.5">*</span>
                 </label>
                 <div className="relative mt-1">
                   <input
@@ -364,8 +364,8 @@ export default function EditAdmissionCycleModal(props) {
               </div>
 
               <div>
-                <label htmlFor="ranklist" className="text-sm font-medium">
-                  GATE opening and closing score
+                <label htmlFor="ranklist" className="flex text-sm font-medium">
+                  GATE opening and closing score <span className="flex flex-col text-red-600 mx-0.5">*</span>
                 </label>
                 <div className="relative mt-1">
                   <input
