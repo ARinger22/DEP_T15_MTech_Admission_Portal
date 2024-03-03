@@ -61,7 +61,7 @@ export default function OfferingList() {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [navigate]);
 
   function range(start, end) {
     return Array(end - start + 1)
