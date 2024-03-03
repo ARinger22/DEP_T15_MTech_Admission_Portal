@@ -256,7 +256,7 @@ export default function CommunicationDetails(props) {
                                   htmlFor="permanent_address"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  Permanent Address 
+                                  Permanent Address
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <div className="mt-1">
@@ -326,7 +326,7 @@ export default function CommunicationDetails(props) {
                                   htmlFor="permanent_pincode"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                 Permanent Address PIN Code
+                                  Permanent Address PIN Code
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <input
@@ -348,6 +348,24 @@ export default function CommunicationDetails(props) {
                             <div className="mt-8 outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
                               <div className="col-span-6 sm:col-span-3">
                                 <label
+                                  htmlFor="email"
+                                  className="block text-sm font-medium text-gray-700"
+                                >
+                                  Email
+                                  <span style={{ color: "#ff0000" }}> *</span>
+                                  <p className="block text-sm font-medium text-gray-700">All the notifications will be sent on this email</p>
+                                </label>
+                                <input
+                                  type="text"
+                                  required
+                                  value={props.localProfileInfo.email_id}
+                                  name="email"
+                                  id="email"
+                                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                />
+                              </div>
+                              <div className="col-span-6 sm:col-span-3">
+                                <label
                                   htmlFor="mobile_number"
                                   className="block text-sm font-medium text-gray-700"
                                 >
@@ -356,7 +374,7 @@ export default function CommunicationDetails(props) {
                                 </label>
                                 <input
                                   type="text"
-                                  required 
+                                  required
                                   value={props.localProfileInfo.mobile_number}
                                   pattern="[0-9]{10}"
                                   onChange={(event) =>

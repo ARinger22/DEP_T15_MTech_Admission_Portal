@@ -217,7 +217,7 @@ function CollegeDegreeSection(props) {
           </label>
 
           {!props.localDegrees[props.id]["8"] &&
-          !props.degreesFiles[props.id][0] ? (
+            !props.degreesFiles[props.id][0] ? (
             <>
               <input
                 className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -262,10 +262,10 @@ function CollegeDegreeSection(props) {
                     props.degreesFiles[props.id][0]
                       ? props.degreesFiles[props.id][0].name
                       : props.localDegrees[props.id]["8"].substring(
-                          props.localDegrees[props.id]["8"].lastIndexOf("/") +
-                            1,
-                          props.localDegrees[props.id]["8"].lastIndexOf("_")
-                        )
+                        props.localDegrees[props.id]["8"].lastIndexOf("/") +
+                        1,
+                        props.localDegrees[props.id]["8"].lastIndexOf("_")
+                      )
                   }
                   readOnly
                 />
@@ -295,7 +295,7 @@ function CollegeDegreeSection(props) {
           </label>
 
           {!props.localDegrees[props.id]["9"] &&
-          !props.degreesFiles[props.id][1] ? (
+            !props.degreesFiles[props.id][1] ? (
             <>
               <input
                 className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -340,10 +340,10 @@ function CollegeDegreeSection(props) {
                     props.degreesFiles[props.id][1]
                       ? props.degreesFiles[props.id][1].name
                       : props.localDegrees[props.id]["9"].substring(
-                          props.localDegrees[props.id]["9"].lastIndexOf("/") +
-                            1,
-                          props.localDegrees[props.id]["9"].lastIndexOf("_")
-                        )
+                        props.localDegrees[props.id]["9"].lastIndexOf("/") +
+                        1,
+                        props.localDegrees[props.id]["9"].lastIndexOf("_")
+                      )
                   }
                   readOnly
                 />

@@ -36,15 +36,6 @@ function ApplicantionDetails() {
     date = date.getFullYear() + "-0" + month + "-" + day;
     return date;
   }
-  const init_application_details = () => {
-    const array = Array.from({ length: 30 }, () => "");
-
-    array[6] = "GATE";
-    array[5] = changeDateFormat();
-    array[19] = changeDateFormat();
-    array[20] = params.offering_id;
-    return array;
-  };
 
   useEffect(() => {
     Axios.get("/check-applicant-info", {
@@ -84,6 +75,17 @@ function ApplicantionDetails() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const init_application_details = () => {
+    const array = Array.from({ length: 30 }, () => "");
+
+    array[6] = "GATE";
+    array[5] = changeDateFormat();
+    array[19] = changeDateFormat();
+    array[20] = params.offering_id;
+    return array;
+  };
+
 
   const [applicant_details, setApplicantDetails] = useState(
     init_application_details()
@@ -239,17 +241,17 @@ function ApplicantionDetails() {
                   handleFileSubmit={handleFileSubmit}
                   emptyFileIndex={emptyFileIndex}
                 />
-                ),
-                2: (
-                  <SponsorshipDetails
-                    increasePageNumber={increasePageNumber}
-                    decreasePageNumber={decreasePageNumber}
-                    details={applicant_details}
-                    onChange={handleApplicantDetailsChange}
-                    handleFileSubmit={handleFileSubmit}
-                    emptyFileIndex={emptyFileIndex}
-                  />
-                ),
+              ),
+              2: (
+                <SponsorshipDetails
+                  increasePageNumber={increasePageNumber}
+                  decreasePageNumber={decreasePageNumber}
+                  details={applicant_details}
+                  onChange={handleApplicantDetailsChange}
+                  handleFileSubmit={handleFileSubmit}
+                  emptyFileIndex={emptyFileIndex}
+                />
+              ),
               3: (
                 <ApplicationFeeDetails
                   category={category}

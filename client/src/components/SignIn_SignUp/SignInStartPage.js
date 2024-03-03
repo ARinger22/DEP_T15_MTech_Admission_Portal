@@ -18,7 +18,7 @@ function SignInStartPage() {
   );
   const [colorEmail, setColorEmail] = useState(0);
   const [colorPass, setColorPass] = useState(0);
-   const [isLoadingEmail, setIsLoadingEmail] = useState(false);
+  const [isLoadingEmail, setIsLoadingEmail] = useState(false);
 
 
   const updateEmail = (e) => {
@@ -31,7 +31,7 @@ function SignInStartPage() {
 
   const handleSubmit = () => {
     console.log("handleSubmit called");
-   setIsLoadingEmail(true);
+    setIsLoadingEmail(true);
     axios
       .post("/auth/signin/verify", {
         email: email,
@@ -55,13 +55,13 @@ function SignInStartPage() {
           setColorEmail(1);
           setColorPass(1);
           setIsLoadingEmail(false);
-         }
-         else {
+        }
+        else {
           setMsgSignin("Incorrect Password");
           setColorPass(1);
           setIsLoadingEmail(false);
         }
-        }
+      }
       );
   };
 
@@ -93,7 +93,7 @@ function SignInStartPage() {
                     updateEmail={updateEmail}
                     updatePassword={updatePass}
                     msg={msg_signin}
-                    colorChange={colorEmail} 
+                    colorChange={colorEmail}
                     isLoading={isLoadingEmail}
                   />
                 )}
@@ -104,7 +104,7 @@ function SignInStartPage() {
                 <hr className="border-gray-300 border-1 w-full rounded-md" />
               </div>
               <div className="mt-7">
-              <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center">
                   {/* <label className="mr-2">Do not have an account? </label> */}
                   <Link
                     to="/forgot-password"

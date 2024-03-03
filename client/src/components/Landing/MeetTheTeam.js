@@ -68,8 +68,8 @@ export default function MeetTheTeam() {
                         {/* Email */}
                         <button
                           onClick={() =>
-                            (window.location.href =
-                              "mailto:2019csb1075@iitrpr.ac.in")
+                          (window.location.href =
+                            "mailto:2019csb1075@iitrpr.ac.in")
                           }
                           className="focus:outline-none cursor-pointer flex rounded-full hover:bg-blue-50 h-10 w-10"
                         >
@@ -126,8 +126,8 @@ export default function MeetTheTeam() {
                         {/* Email */}
                         <button
                           onClick={() =>
-                            (window.location.href =
-                              "mailto:2019csb1106@iitrpr.ac.in")
+                          (window.location.href =
+                            "mailto:2019csb1106@iitrpr.ac.in")
                           }
                           className="focus:outline-none cursor-pointer flex rounded-full hover:bg-blue-50 h-10 w-10"
                         >
@@ -184,8 +184,8 @@ export default function MeetTheTeam() {
                         {/* Email */}
                         <button
                           onClick={() =>
-                            (window.location.href =
-                              "mailto:2019csb1112@iitrpr.ac.in")
+                          (window.location.href =
+                            "mailto:2019csb1112@iitrpr.ac.in")
                           }
                           className="focus:outline-none cursor-pointer flex rounded-full hover:bg-blue-50 h-10 w-10"
                         >
@@ -242,8 +242,8 @@ export default function MeetTheTeam() {
                         {/* Email */}
                         <button
                           onClick={() =>
-                            (window.location.href =
-                              "mailto:2019csb1126@iitrpr.ac.in")
+                          (window.location.href =
+                            "mailto:2019csb1126@iitrpr.ac.in")
                           }
                           className="focus:outline-none cursor-pointer flex rounded-full hover:bg-blue-50 h-10 w-10"
                         >

@@ -26,16 +26,26 @@ function SignUpStartPage() {
 
   const emailSubmit = () => {
     setIsLoadingEmail(true);
-    axios.post("/auth/signup/otp", { email: email}).then((response) => {
+    axios.post("/auth/signup/otp", { email: email }).then((response) => {
+      console.log(response.data);
       if (response.data === 0) {
         setMsgSignin("Please enter your email.");
         setColorEmail(1);
         setIsLoadingEmail(false);
+        setTimeout(() => {
+          setMsgSignin("");
+          setColorEmail(0);
+        }, 3000); 
       } else if (response.data === 1) {
         setMsgSignin(
-          "An account is already associated with this email-id. Log-in or Sign-up with different email-id.");
+          "An account is already associated with this email-id. Log-in or Sign-up with a different email-id."
+        );
         setColorEmail(1);
         setIsLoadingEmail(false);
+        setTimeout(() => {
+          setMsgSignin("An OTP will be sent to your email ID for verification.");
+          setColorEmail(0);
+        }, 3000); 
       } else {
         setotpSent(!otpSent);
         setColorOTP(2);
@@ -46,7 +56,6 @@ function SignUpStartPage() {
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
-  
 
   const updateOTP = (e) => {
     setOtp(e.target.value);
@@ -54,7 +63,7 @@ function SignUpStartPage() {
   const updatePassword = (e) => {
     setpass(e.target.value);
   };
-  
+
   const updateConfirmPassword = (e) => {
     setcnfpass(e.target.value);
   };
@@ -63,6 +72,10 @@ function SignUpStartPage() {
     axios.post("/auth/signup/otp", { email: email });
     setMsgOtp("OTP has been resent to your mail account.");
     setColorOTP(2);
+    setTimeout(() => {
+      setMsgOtp("");
+      setColorOTP(0);
+    }, 3000); 
   };
 
   const handleSubmit = () => {
@@ -72,7 +85,7 @@ function SignUpStartPage() {
         email: email,
         otp: otp,
         password: pass,
-        confirm_password: cnfpass
+        confirm_password: cnfpass,
       })
       .then((response) => {
         if (response.data.result === 1) {
@@ -82,68 +95,66 @@ function SignUpStartPage() {
           setMsgOtp("This OTP has expired.");
           setColorOTP(1);
           setIsLoadingOTP(false);
+          setTimeout(() => {
+            setMsgOtp("");
+            setColorOTP(0);
+          }, 3000); 
         } else if (response.data.result === 3) {
           setMsgOtp("Please enter the OTP sent to your email.");
           setColorOTP(1);
           setIsLoadingOTP(false);
-        } else if(response.data.result===4) {
+          setTimeout(() => {
+            setMsgOtp("");
+            setColorOTP(0);
+          }, 3000); 
+        } else if (response.data.result === 4) {
           setMsgOtp("Passwords do not match.");
           setColorOTP(1);
           setIsLoadingOTP(false);
-        }
-        else {
+          setTimeout(() => {
+            setMsgOtp("");
+            setColorOTP(0);
+          }, 3000); 
+        } else {
           setMsgOtp("The OTP you entered is incorrect.");
           setColorOTP(1);
           setIsLoadingOTP(false);
+          setTimeout(() => {
+            setMsgOtp("");
+            setColorOTP(0);
+          }, 3000); 
         }
       });
   };
 
   return (
-    <div className="pt-28 sm:pt-2 bg-gray-100 ">
-      <div className="relative min-h-screen flex flex-col sm:justify-center items-center w-4/5 mx-auto sm:w-3/5 md:w-3/5">
-        <div className="relative sm:max-w-md w-full">
-          <div className="flex absolute justify-center items-center content-center bg-gradient-to-br from-[#6F8BD6] to-[#1E3A8A] shadow-md hover:shadow-lg h-48 w-48 -left-24 -top-24 rounded-full fill-current text-white">
-            <span className="relative -top-4 -left-4 font-josefin-sans text-2xl font-bold">
-              Sign Up
-            </span>
-          </div>
-          <div className="card bg-[#1E3A8A] shadow-lg w-full h-full rounded-3xl absolute transform -rotate-6" />
-          <div className="card bg-[#6F8BD6] shadow-lg w-full h-full rounded-3xl absolute transform rotate-6" />
-          <div className="p-16 relative w-full rounded-3xl bg-white shadow-md">
-            <label className="block mt-3 text-2xl text-gray-700 text-center font-semibold">
-              Welcome to IIT Ropar
-            </label>
+    <div>
+      {otpSent === false ? (
+        <div className="pt-28 sm:pt-2 bg-gray-100 ">
+          <div className="relative min-h-screen flex flex-col sm:justify-center items-center w-4/5 mx-auto sm:w-3/5 md:w-3/5">
+            <div className="relative sm:max-w-md w-full">
+              <div className="flex absolute justify-center items-center content-center bg-gradient-to-br from-[#6F8BD6] to-[#1E3A8A] shadow-md hover:shadow-lg h-48 w-48 -left-24 -top-24 rounded-full fill-current text-white">
+                <span className="relative -top-4 -left-4 font-josefin-sans text-2xl font-bold">
+                  Sign Up
+                </span>
+              </div>
+              <div className="card bg-[#1E3A8A] shadow-lg w-full h-full rounded-3xl absolute transform -rotate-6" />
+              <div className="card bg-[#6F8BD6] shadow-lg w-full h-full rounded-3xl absolute transform rotate-6" />
+              <div className="p-16 relative w-full rounded-3xl bg-white shadow-md">
+                <label className="block mt-3 text-2xl text-gray-700 text-center font-semibold">
+                  Welcome to IIT Ropar
+                </label>
 
-            <p className="text-center mt-2 text-sm text-gray-500">
-              Please sign-up to submit your applications for admission.
-            </p>
-
-            <div className="mt-5">
-              <div>
-                {otpSent === false && (
-                  <SignUp
+                <p className="text-center mt-2 text-sm text-gray-500">
+                  Please sign-up to submit your applications for admission.
+                </p>
+                <SignUp
                   onClick={emailSubmit}
                   updateData={updateEmail}
                   msg={msg_signin}
                   colorChange={colorEmail}
                   isLoading={isLoadingEmail}
-                  />
-                )}
-                {otpSent === true && (
-                  <Otp
-                    onClick={handleSubmit}
-                    updateOTP={updateOTP}
-                    updatePass={updatePassword}
-                    updateCnfPass={updateConfirmPassword}
-                    msg={msg_otp}
-                    resendOTP={resendOTP}
-                    colorChange={colorOTP}
-                    isLoading={isLoadingOTP}
-                  />
-                )}
-              </div>
-
+                />
               <div className="flex mt-7 items-center text-center">
                 <hr className="border-gray-300 border-1 w-full rounded-md" />
               </div>
@@ -158,10 +169,22 @@ function SignUpStartPage() {
                   </Link>
                 </div>
               </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <Otp
+          onClick={handleSubmit}
+          updateOTP={updateOTP}
+          updatePass={updatePassword}
+          updateCnfPass={updateConfirmPassword}
+          msg={msg_otp}
+          resendOTP={resendOTP}
+          colorChange={colorOTP}
+          isLoading={isLoadingOTP}
+        />
+      )}
     </div>
   );
 }

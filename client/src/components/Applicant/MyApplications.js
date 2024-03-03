@@ -89,12 +89,12 @@ function MyApplications(props) {
                         >
                           Remarks
                         </th>
-                         <th
+                        <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        > 
+                        >
                           {/* Edit */}
-                         </th> 
+                        </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -128,16 +128,16 @@ function MyApplications(props) {
                             <td className="px-6 py-4 whitespace-nowrap">
                               {application.is_accepting_applications ===
                                 true && (
-                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                  Open
-                                </span>
-                              )}
+                                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Open
+                                  </span>
+                                )}
                               {application.is_accepting_applications ===
                                 false && (
-                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                  Closed
-                                </span>
-                              )}
+                                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    Closed
+                                  </span>
+                                )}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               {application.is_result_published === 1 ? (
@@ -180,9 +180,9 @@ function MyApplications(props) {
                                 </Tooltip>
                               </Link>
                             </td>
-                             <td className="px-6 py-4 whitespace-nowrap font-medium">
+                            <td className="px-6 py-4 whitespace-nowrap font-medium">
                               <ReApplyModal application={application} />
-                            </td> 
+                            </td>
                           </tr>
                         ))}
                       </tbody>

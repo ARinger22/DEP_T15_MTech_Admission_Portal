@@ -4,6 +4,7 @@ import axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import spinner from "../../images/SpinnerWhite.gif";
+import pic_clear from "../../images/iit-ropar-logo-clear.png";
 
 export default function Review(props) {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ export default function Review(props) {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="relative flex flex-col sm:justify-center items-center mb-6 mt-6">
@@ -52,6 +53,9 @@ export default function Review(props) {
           <h3 className="text-lg leading-6 font-medium text-gray-900">
             Application Details
           </h3>
+          <div className="h-12 w-12 ml-auto flex-shrink-0">
+            <img src={pic_clear} alt="IIT Ropar"></img>
+          </div>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
             Please review your application details.
           </p>
@@ -233,7 +237,7 @@ export default function Review(props) {
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">
-                Whether on regular/ temporary post: 
+                Whether on regular/ temporary post:
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 {props.details[26]}

@@ -1,7 +1,7 @@
 import React from "react";
 import spinner from "../../images/SpinnerWhite.gif";
-import iit_ropar_pic from "../../images/iit-ropar.jpg";
-import pic from "../../images/iit-ropar-logo.jpg";
+// import iit_ropar_pic from "../../images/iit-ropar.jpg";
+// import pic from "../../images/iit-ropar-logo.jpg";
 
 export default function SignIn(props) {
   const handleSubmit = (event) => {
@@ -87,7 +87,7 @@ export default function SignIn(props) {
           )}
         </div>
       </form>
-      
+
     </>
   );
 }
