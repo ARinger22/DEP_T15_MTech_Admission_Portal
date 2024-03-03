@@ -96,11 +96,11 @@ function Openings() {
         applications.length === 0 && (
           <div className="bg-white">
             <div className="w-3/5 mx-auto my-50 text-center">
-                <div className="h-5" />
-                <p className="text-2xl font-semibold mb-5">
-                  No positions open currently!
-                </p>
-                <img alt="No Data" src={noDataPic} />
+              <div className="h-5" />
+              <p className="text-2xl font-semibold mb-5">
+                No positions open currently!
+              </p>
+              <img alt="No Data" src={noDataPic} />
               <div className="h-5" />
             </div>
           </div>

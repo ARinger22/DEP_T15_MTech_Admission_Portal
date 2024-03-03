@@ -49,7 +49,7 @@ export default function ForgotPassword(props) {
             />
           </div>
         </div>
-    
+
 
         <div>
           {!props.isLoading ? (
@@ -72,7 +72,7 @@ export default function ForgotPassword(props) {
           )}
         </div>
       </form>
-      
+
     </>
   );
 }

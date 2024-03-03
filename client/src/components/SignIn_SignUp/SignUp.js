@@ -1,11 +1,15 @@
 import React from "react";
 import spinner from "../../images/SpinnerWhite.gif";
+import { Link, useNavigate } from "react-router-dom";
 // import iit_ropar_pic from "../../images/iit-ropar.jpg";
 // import pic from "../../images/iit-ropar-logo.jpg";
 
 export default function SignUp(props) {
+  // const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    // navigate("/otp");
     props.onClick();
   };
 

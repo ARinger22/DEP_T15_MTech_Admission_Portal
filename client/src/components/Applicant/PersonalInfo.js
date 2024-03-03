@@ -10,6 +10,7 @@ import crossPic from "../../images/red_cross.svg";
 import { PencilIcon } from "@heroicons/react/outline";
 import DatePicker from "./DatePicker";
 import { CountryDropdown } from "react-country-region-selector";
+import Alert from '@mui/material/Alert';
 
 const style = {
   position: "absolute",
@@ -30,11 +31,45 @@ export default function PersonalInfo(props) {
   const [categoryCertificate, setCategoryCertificate] = useState(null);
   const [pwdCertificate, setpwdCertificate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [dobAlert, setdobAlert] = useState(false);
+  const [nameAlert, setnameAlert] = useState(false);
+  // const [marAlert, setmarAlert] = useState(false);
   const onSubmit = (event) => {
     event.preventDefault();
-    setIsLoading(true);
+
     const formData = new FormData();
+    const currentDate = new Date();
+
+    const currentYear = currentDate.getFullYear();
+    const dob = new Date(props.localProfileInfo.date_of_birth);
+
+
+    const nameRegex = /^[a-zA-Z\s]+$/;
+    const uppercaseRegex = /^[A-Z\s]+$/;
+    const lowercaseRegex = /^[a-z\s]+$/;
+
+    if (!nameRegex.test(props.localProfileInfo.full_name) && !uppercaseRegex.test(props.localProfileInfo.full_name) && !lowercaseRegex.test(props.localProfileInfo.full_name)) {
+      setnameAlert(true);
+      // alert("Invalid name");
+      return;
+    }
+    setnameAlert(false);
+    if (dob > currentDate) {
+      setdobAlert(true);
+      // alert("Invalid DOB entered");
+      return;
+    }
+    setdobAlert(false);
+    // const blood = props.localProfileInfo.blood_group;
+    // const possBl = ['O+', 'o+', 'O-', 'o-', 'A+', 'a+', 'A-', 'a-', 'B+', 'b+', 'B-', 'b-', 'AB+', 'ab+', 'AB-', 'ab-', 'O +', 'o +', 'O -', 'o -', 'A +', 'a +', 'A -', 'a -', 'B +', 'b +', 'B -', 'b -', 'AB +', 'ab +', 'AB -', 'ab -', 'Other'];
+    // if (!possBl.includes(blood)) {
+    //   setmarAlert(true);
+    //   return;
+    // }
+
+    setIsLoading(true);
+    setdobAlert(false);
+    setnameAlert(false);
 
     formData.append("full_name", props.localProfileInfo.full_name);
     formData.append("guardian", props.localProfileInfo.guardian);
@@ -113,6 +148,8 @@ export default function PersonalInfo(props) {
 
   function closePersonalInfo() {
     setProfileImage(null);
+    setnameAlert(false);
+    setdobAlert(false);
     setCategoryCertificate(null);
     props.syncLocalGlobalData();
     handleClose();
@@ -206,6 +243,11 @@ export default function PersonalInfo(props) {
                                   required
                                   className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 />
+                                <div style={{ "margin-top": "10px" }}>
+                                  {nameAlert && (
+                                    <Alert severity="warning">Please use capital and small English letters (i.e. a-z, A-Z)</Alert>
+                                  )}
+                                </div>
                               </div>
                               {/* Guardian */}
                               <div className="col-span-6 sm:col-span-3">
@@ -244,6 +286,7 @@ export default function PersonalInfo(props) {
                                 <input
                                   type="text"
                                   name="fathers_name"
+                                  placeholder="In Capital"
                                   value={props.localProfileInfo.fathers_name}
                                   onChange={(event) =>
                                     props.onChange(event, "fathers_name")
@@ -361,6 +404,9 @@ export default function PersonalInfo(props) {
                                   }
                                   value={props.localProfileInfo.date_of_birth}
                                 />
+                                {dobAlert && (
+                                  <Alert severity="warning">Please use valid D.O.B.</Alert>
+                                )}
                               </div>
 
                               {/* Aadhar Card Number */}

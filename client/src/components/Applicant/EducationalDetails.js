@@ -9,6 +9,7 @@ import spinner from "../../images/SpinnerWhite.gif";
 import crossPic from "../../images/red_cross.svg";
 import CollegeDegreeSection from "./CollegeDegreeSection.js";
 import { PencilIcon } from "@heroicons/react/outline";
+import Alert from '@mui/material/Alert';
 
 const style = {
   position: "absolute",
@@ -53,9 +54,27 @@ export default function EducationalDetails(props) {
     }
     return result;
   }
-
+  const [tenAlert, settenAlert] = useState(false);
+  const [twelAlert, settwelAlert] = useState(false);
+  const [compAlert, setcompAlert] = useState(false);
   const onSubmit = (event) => {
     event.preventDefault();
+    const currentDate = new Date();
+
+    const currentYear = currentDate.getFullYear();
+    if (props.localProfileInfo.year_of_passing_10th >= currentYear) {
+      settenAlert(true);
+      return;
+    }
+    if (props.localProfileInfo.year_of_passing_12th >= currentYear) {
+      settwelAlert(true);
+      return;
+    }
+    const ch = props.localProfileInfo.year_of_passing_12th - props.localProfileInfo.year_of_passing_10th;
+    if (ch > 4 || ch < 2) {
+      setcompAlert(true);
+      return;
+    }
     setIsLoading(true);
     const formData = new FormData();
     formData.append(
@@ -194,14 +213,14 @@ export default function EducationalDetails(props) {
     } else if (
       e.target.value === "10" &&
       copy[index] !==
-        "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
+      "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
     ) {
       copy[index] = "^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10";
       props.setPercentageCgpaPattern(copy);
     } else if (
       e.target.value === "5" &&
       copy[index] !==
-        "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
+      "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
     ) {
       copy[index] = "^(([0-4]{1})|([0-4]{1}\\.\\d{1,2}))|5\\.00|5\\.0|5";
       props.setPercentageCgpaPattern(copy);
@@ -445,6 +464,17 @@ export default function EducationalDetails(props) {
                                       title="4 Digit Year (Example: 2020)"
                                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     />
+
+                                    <div style={{ "margin-top": "10px" }}>
+                                      {tenAlert && (
+                                        <Alert severity="warning">Sorry. Only those who have passed 10th standard before the current year are allowed.</Alert>
+                                      )}
+                                    </div>
+                                    <div style={{ "margin-top": "10px" }}>
+                                      {compAlert && (
+                                        <Alert severity="warning">Please enter correct graduating year</Alert>
+                                      )}
+                                    </div>
                                   </div>
 
                                   <div className="col-span-full sm:col-span-full">
@@ -539,13 +569,13 @@ export default function EducationalDetails(props) {
                                               marksheet_10th
                                                 ? marksheet_10th.name
                                                 : props.localProfileInfo.marksheet_10th_url.substring(
-                                                    props.localProfileInfo.marksheet_10th_url.lastIndexOf(
-                                                      "/"
-                                                    ) + 1,
-                                                    props.localProfileInfo.marksheet_10th_url.lastIndexOf(
-                                                      "_"
-                                                    )
+                                                  props.localProfileInfo.marksheet_10th_url.lastIndexOf(
+                                                    "/"
+                                                  ) + 1,
+                                                  props.localProfileInfo.marksheet_10th_url.lastIndexOf(
+                                                    "_"
                                                   )
+                                                )
                                             }
                                             readOnly
                                           />
@@ -724,6 +754,16 @@ export default function EducationalDetails(props) {
                                       title="4 Digit Year (Example: 2020)"
                                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     />
+                                    <div style={{ "margin-top": "10px" }}>
+                                      {twelAlert && (
+                                        <Alert severity="warning">Sorry. Only those who have passed 12th standard before the current year are allowed.</Alert>
+                                      )}
+                                    </div>
+                                    <div style={{ "margin-top": "10px" }}>
+                                      {compAlert && (
+                                        <Alert severity="warning">Please enter correct graduating year</Alert>
+                                      )}
+                                    </div>
                                   </div>
 
                                   <div className="col-span-full sm:col-span-full">
@@ -824,13 +864,13 @@ export default function EducationalDetails(props) {
                                               marksheet_12th
                                                 ? marksheet_12th.name
                                                 : props.localProfileInfo.marksheet_12th_url.substring(
-                                                    props.localProfileInfo.marksheet_12th_url.lastIndexOf(
-                                                      "/"
-                                                    ) + 1,
-                                                    props.localProfileInfo.marksheet_12th_url.lastIndexOf(
-                                                      "_"
-                                                    )
+                                                  props.localProfileInfo.marksheet_12th_url.lastIndexOf(
+                                                    "/"
+                                                  ) + 1,
+                                                  props.localProfileInfo.marksheet_12th_url.lastIndexOf(
+                                                    "_"
                                                   )
+                                                )
                                             }
                                             readOnly
                                           />

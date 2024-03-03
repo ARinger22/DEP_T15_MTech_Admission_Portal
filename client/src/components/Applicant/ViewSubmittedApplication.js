@@ -5,6 +5,7 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DownloadIcon from "@mui/icons-material/Download";
+import pic_clear from "../../images/iit-ropar-logo-clear.png";
 
 export default function ViewSubmittedApplication() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export default function ViewSubmittedApplication() {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [navigate]);
 
   return (
     <>
