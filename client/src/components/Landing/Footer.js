@@ -20,7 +20,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://www.tbifiitrpr.org/"
+                href="https://www.iitrpr.ac.in/tbif/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -68,6 +68,15 @@ function Footer() {
           <div>
             <p className="mb-4">
               <a
+                href="https://cse.iitrpr.ac.in/ai-de"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Artificial Intelligence and Data Engineering
+              </a>
+            </p>
+            <p className="mb-4">
+              <a
                 href="https://www.iitrpr.ac.in/cbme/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -77,7 +86,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://iitrpr.ac.in/chemical"
+                href="https://www.iitrpr.ac.in/chemical/Index/index.php"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -95,7 +104,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://iitrpr.ac.in/civil/"
+                href="https://www.iitrpr.ac.in/department-civil-engineering"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -113,11 +122,11 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://www.iitrpr.ac.in/ee/"
+                href="https://www.iitrpr.ac.in/datascience/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Electrical Engineering
+                Data Science
               </a>
             </p>
           </div>
@@ -125,7 +134,16 @@ function Footer() {
           <div>
             <p className="mb-4">
               <a
-                href="https://iitrpr.ac.in/humanities"
+                href="https://www.iitrpr.ac.in/ee/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Electrical Engineering
+              </a>
+            </p>
+            <p className="mb-4">
+              <a
+                href="https://www.iitrpr.ac.in/hss/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -134,7 +152,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://iitrpr.ac.in/mathematics"
+                href="https://www.iitrpr.ac.in/math/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -161,7 +179,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://iitrpr.ac.in/mme"
+                href="https://mme.iitrpr.ac.in/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -170,7 +188,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://iitrpr.ac.in/physics/"
+                href="https://www.iitrpr.ac.in/physics/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -310,7 +328,7 @@ function Footer() {
             </svg>
           </a>
           <a
-            href="https://instagram.com/iitrpr?utm_medium=copy_link"
+            href="https://www.instagram.com/iitrpr_iitrpr/"
             target="_blank"
             rel="noopener noreferrer"
             className="mr-6 "
