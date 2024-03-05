@@ -222,7 +222,6 @@ export default function AddOfferingModal(props) {
                         required
                       />
                     </div>
-
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="deadline"

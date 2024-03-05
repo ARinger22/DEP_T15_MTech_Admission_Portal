@@ -61,7 +61,7 @@ export default function OfferingList() {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [navigate]);
 
   function range(start, end) {
     return Array(end - start + 1)
@@ -332,7 +332,7 @@ export default function OfferingList() {
                       ...range(
                         startCount - 1,
                         Math.min(startCount + limit - 1, applications.length) -
-                          1
+                        1
                       ),
                     ].map((i) => (
                       <tr key={applications[i].application_id}>

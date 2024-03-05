@@ -57,9 +57,9 @@ export default function ViewSubmittedApplicationAdmin() {
             onClick={() =>
               navigate(
                 "/admin/applications/" +
-                  params.cycle_id +
-                  "/" +
-                  params.offering_id
+                params.cycle_id +
+                "/" +
+                params.offering_id
               )
             }
           ></ArrowBackIcon>

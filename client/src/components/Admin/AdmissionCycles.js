@@ -13,6 +13,7 @@ import background from "../../images/background.jpg";
 import spinner from "../../images/SpinnerWhite.gif";
 import screenSpinner from "../../images/2300-spinner.gif";
 import { getAdminType } from "./AdminTypes";
+import Alert from '@mui/material/Alert';
 
 function AdmissionCycles() {
   const navigate = useNavigate();
@@ -75,42 +76,78 @@ function AdmissionCycles() {
     } else obj[prop[0]] = value;
   }
 
-  const handleFileSubmit = (e, setVariable) => {
-    const file = e.target.files[0];
+  const [showAlert, setShowAlert] = useState(false);
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-    if (file.type !== "application/pdf") {
-      e.target.value = null;
-      alert("File format not followed! Allowed formats: .pdf");
-      return;
-    }
-    setVariable(file);
-  };
-
-  const handleSubmit = () => {
-    setIsLoading(true);
     const formData = new FormData();
-    formData.append("name", String(cycleInfo["name"]));
-    formData.append("start", String(cycleInfo["duration_start"]));
-    formData.append("end", String(cycleInfo["duration_end"]));
-    formData.append("fees", JSON.stringify(fees));
-    formData.append("make_current", makeCurrent);
+    const name = String(cycleInfo["name"]);
+    const start = String(cycleInfo["duration_start"]);
+    const end = String(cycleInfo["duration_end"]);
+    console.log(name);
+    const myArray = start.split(" ");
+    let stmonth = myArray[0];
 
-    formData.append("brochure", brochure);
-    formData.append("ranklist", ranklist);
+    let a = 0;
+    for (let i = 0; i < 12; i++) {
+      if (months[i] == stmonth) {
+        a = i;
+        break;
+      }
+    }
+    // alert(a);
+    const myArray2 = end.split(" ");
+    let endmonth = myArray2[0];
+    let b = 0;
+    for (let i = 0; i < 12; i++) {
+      if (months[i] == endmonth) {
+        b = i;
+        break;
+      }
+    }
 
-    Axios.post("/add-admission-cycle", formData, {
-      headers: {
-        Authorization: getToken(),
-      },
-    })
-      .then((response) => {
-        if (response.data === 1) {
-          navigate("/logout");
-        } else {
-          window.location.reload();
-        }
+    console.log(start);
+    const ay = myArray[1];
+    const by = myArray2[1];
+    console.log(end);
+    if (ay > by) {
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false); // Hide the alert after 3000 milliseconds (3 seconds)
+      }, 3000);
+    }
+    else if (ay == by && a > b) {
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false); // Hide the alert after 3000 milliseconds (3 seconds)
+      }, 3000);
+    }
+    else {
+      setIsLoading(true);
+      formData.append("name", String(cycleInfo["name"]));
+      formData.append("start", String(cycleInfo["duration_start"]));
+      formData.append("end", String(cycleInfo["duration_end"]));
+      formData.append("fees", JSON.stringify(fees));
+      formData.append("make_current", makeCurrent);
+
+      formData.append("brochure", brochure);
+      formData.append("ranklist", ranklist);
+
+      Axios.post("/add-admission-cycle", formData, {
+        headers: {
+          Authorization: getToken(),
+        },
       })
-      .catch((err) => console.log(err));
+        .then((response) => {
+          if (response.data === 1) {
+            navigate("/logout");
+          } else {
+            window.location.reload();
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+
   };
 
   function handleChange(event, key) {
@@ -175,7 +212,7 @@ function AdmissionCycles() {
         }
       })
       .catch();
-  }, []);
+  }, [navigate]);
 
   return (
     <div>
@@ -237,9 +274,12 @@ function AdmissionCycles() {
                           <div>
                             <label
                               htmlFor="email"
-                              className="text-sm font-medium"
+                              className="text-sm font-medium flex"
                             >
-                              Name
+                              Name{" "}
+                              <span className="flex flex-col text-red-600 mx-0.5">
+                                *
+                              </span>
                             </label>
                             <div className="relative mt-1">
                               <input
@@ -255,9 +295,12 @@ function AdmissionCycles() {
                           <div>
                             <label
                               htmlFor="password"
-                              className="text-sm font-medium"
+                              className="text-sm font-medium flex"
                             >
-                              Duration
+                              Duration{" "}
+                              <span className="flex flex-col text-red-600 mx-0.5">
+                                *
+                              </span>
                             </label>
                             <div className="relative mt-1 flex">
                               <input
@@ -281,13 +324,18 @@ function AdmissionCycles() {
                                 className="w-full p-4 ml-2 text-sm border-gray-200 rounded-lg shadow-sm-2"
                               />
                             </div>
+                            <div style={{ "margin-top": "10px" }}>
+                              {showAlert && (
+                                <Alert severity="warning">End time should be after start time</Alert>
+                              )}
+                            </div>
                           </div>
                           <div>
                             <label
                               htmlFor="fees-GEN"
-                              className="text-sm font-medium"
+                              className="flex text-sm font-medium"
                             >
-                              Category-wise Application Fees
+                              Category-wise Application Fees <span className="flex flex-col text-red-600 mx-0.5">*</span>
                             </label>
                             <div className="relative gap-3 flex mt-1">
                               <div>
@@ -418,9 +466,11 @@ function AdmissionCycles() {
                           <div>
                             <label
                               htmlFor="brochure"
-                              className="text-sm font-medium"
+                              className="flex text-sm font-medium"
                             >
-                              Brochure for M.Tech. Admissions
+                              Brochure for M.Tech. Admissions <span className="flex flex-col text-red-600 mx-0.5">
+                                *
+                              </span>
                             </label>
                             <div className="relative mt-1">
                               <input
@@ -437,9 +487,11 @@ function AdmissionCycles() {
                           <div>
                             <label
                               htmlFor="ranklist"
-                              className="text-sm font-medium"
+                              className="flex text-sm font-medium"
                             >
-                              GATE opening and closing score
+                              GATE opening and closing score <span className="flex flex-col text-red-600 mx-0.5">
+                                *
+                              </span>
                             </label>
                             <div className="relative mt-1">
                               <input

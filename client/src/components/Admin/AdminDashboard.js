@@ -108,7 +108,7 @@ export default function AdminDashboard() {
         }
       })
       .catch();
-  }, []);
+  }, [navigate]);
 
   return (
     <div>

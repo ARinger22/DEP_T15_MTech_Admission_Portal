@@ -100,8 +100,8 @@ export default function Templates() {
                     {template.email_id === "default@template"
                       ? "DEFAULT"
                       : template.email_id === "global@template"
-                      ? "OTHERS"
-                      : "PERSONAL"}
+                        ? "OTHERS"
+                        : "PERSONAL"}
                   </td>
                   <td className="border-t-0 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-4">
                     <div
@@ -120,8 +120,8 @@ export default function Templates() {
                     <div className="flex gap-2 justify-end">
                       <ViewTemplateModal template={template} />
                       {template.email_id === "default@template" ||
-                      (template.email_id === "global@template" &&
-                        admin_type !== "0") ? (
+                        (template.email_id === "global@template" &&
+                          admin_type !== "0") ? (
                         <DeleteTemplateModal
                           template={template}
                           isActive={false}

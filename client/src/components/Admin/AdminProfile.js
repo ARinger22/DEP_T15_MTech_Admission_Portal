@@ -59,7 +59,7 @@ export default function AdminProfile() {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [navigate]);
 
   return (
     <>
