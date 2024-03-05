@@ -433,7 +433,7 @@ export default function EducationalDetails(props) {
                                     />
                                   </div>
 
-                                  <div className="col-span-4 sm:col-span-2">
+                                  {/* <div className="col-span-4 sm:col-span-2">
                                     <label
                                       htmlFor="year_of_passing_10th"
                                       className="block text-sm font-medium text-gray-700"
@@ -474,6 +474,49 @@ export default function EducationalDetails(props) {
                                       {compAlert && (
                                         <Alert severity="warning">Please enter correct graduating year</Alert>
                                       )}
+                                    </div>
+                                  </div> */}
+                                  <div className="col-span-4 sm:col-span-2">
+                                    <label
+                                      htmlFor="year_of_passing_10th"
+                                      className="block text-sm font-medium text-gray-700"
+                                    >
+                                      Year of Passing
+                                      <span style={{ color: "#ff0000" }}>
+                                        {" "}
+                                        *
+                                      </span>
+                                    </label>
+
+                                    <input
+                                      type="text"
+                                      required
+                                      name="year_of_passing_10th"
+                                      value={
+                                        props.localProfileInfo
+                                          .year_of_passing_10th
+                                      }
+                                      onChange={(event) =>
+                                        props.onChange(
+                                          event,
+                                          "year_of_passing_10th"
+                                        )
+                                      }
+                                      id="year_of_passing_10th"
+                                      pattern="[2-9]{1}[0-9]{3}"
+                                      title="4 Digit Year (Example: 2020)"
+                                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                    
+                                    <div style={{"margin-top":"10px"}}>
+                                    {tenAlert && (
+                                      <Alert severity="warning">Sorry. Only those who have passed 10th standard before the current year are allowed.</Alert>
+                                    )}
+                                    </div>
+                                    <div style={{"margin-top":"10px"}}>
+                                    {compAlert && (
+                                      <Alert severity="warning">Please enter correct graduating year</Alert>
+                                    )}
                                     </div>
                                   </div>
 
@@ -750,7 +793,7 @@ export default function EducationalDetails(props) {
                                           "year_of_passing_12th"
                                         )
                                       }
-                                      pattern="[1-9]{1}[0-9]{3}"
+                                      pattern="[2-9]{1}[0-9]{3}"
                                       title="4 Digit Year (Example: 2020)"
                                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     />
