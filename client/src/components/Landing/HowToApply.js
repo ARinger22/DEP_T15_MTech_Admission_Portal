@@ -219,13 +219,13 @@ function HowToApply() {
               <br />
               1. Go to{" "}
               <a
-                href="https://www.onlinesbi.com/"
+                href="https://www.onlinesbi.sbi/"
                 className="font-bold"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 {" "}
-                https://www.onlinesbi.com/
+                https://www.onlinesbi.sbi/
               </a>
               .
               <br />

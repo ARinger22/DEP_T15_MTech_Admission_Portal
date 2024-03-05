@@ -237,24 +237,18 @@ export default function EditOfferingModal(props) {
                         type="text"
                         {...register("seats")}
                         id="seats"
+                        pattern="[1-9][0-9]*$"
+                        title="Enter a valid non negative number of seats"
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         required
                       />
-                      <div style={{ "margin-top": "10px" }}>
-                        {marAlert && (
-                          <Alert severity="warning">
-                            Please set a deadline after today.
-                          </Alert>
-                        )}
-                      </div>
-                    </div>
-
+                    </div>                  
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="deadline"
                         className="text-sm font-medium text-gray-900 block mb-2"
                       >
-                        Deadline Date
+                        Deadline
                       </label>
                       <input
                         type="date"
@@ -263,6 +257,13 @@ export default function EditOfferingModal(props) {
                         {...register("deadline")}
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                       />
+                      <div style={{ "margin-top": "10px" }}>
+                        {marAlert && (
+                          <Alert severity="warning">
+                            Please set a deadline after today.
+                          </Alert>
+                        )}
+                      </div>
                     </div>
                     <div className="col-span-full">
                       <label

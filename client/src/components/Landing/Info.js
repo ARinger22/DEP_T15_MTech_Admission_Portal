@@ -97,8 +97,16 @@ function Info() {
               </div>
             </div>
             <div className="inline-flex items-center mt-12 text-indigo-600">
-              <p className="text-lg font-medium">Open Brochure</p>
-              <svg
+              <p className="text-lg font-medium">
+                <a
+                  href="https://www.iitrpr.ac.in/sites/default/files/Final1-M.Tech-2023-GATE-cutt-2023-for-WEB-SITE-23.AUG_.2023.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open Score List
+                </a>
+              </p>
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-6 h-6 ml-3 transition-transform transform group-hover:translate-x-3"
                 fill="none"
@@ -111,7 +119,7 @@ function Info() {
                   strokeWidth={2}
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
-              </svg>
+              </svg> */}
             </div>
           </a>
           <a
@@ -132,7 +140,16 @@ function Info() {
               </div>
             </div>
             <div className="inline-flex items-center mt-12 text-indigo-600">
-              <p className="text-lg font-medium">Open Score List</p>
+              <p className="text-lg font-medium">
+                <a
+                  href="https://www.iitrpr.ac.in/mtech-admissions-2022-23"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open Brochure
+                </a>
+              </p>
+              {/* <p className="text-lg font-medium">Open Score List</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-6 h-6 ml-3 transition-transform transform group-hover:translate-x-3"
@@ -146,7 +163,7 @@ function Info() {
                   strokeWidth={2}
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
-              </svg>
+              </svg> */}
             </div>
           </a>
         </div>

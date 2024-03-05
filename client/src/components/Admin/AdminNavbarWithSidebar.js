@@ -62,9 +62,9 @@ export default function AdminNavbarWithSidebar() {
                   exact="true"
                   className={
                     !location.startsWith("/admin/admission-cycles") &&
-                    !location.startsWith("/admin/offerings") &&
-                    !location.startsWith("/admin/applications") &&
-                    !location.startsWith("/admin/view")
+                      !location.startsWith("/admin/offerings") &&
+                      !location.startsWith("/admin/applications") &&
+                      !location.startsWith("/admin/view")
                       ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
                       : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
                   }

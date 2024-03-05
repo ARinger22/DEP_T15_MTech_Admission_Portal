@@ -47,13 +47,13 @@ export default function AddAdminModal() {
     { value: "Biomedical Engineering", label: "Biomedical Engineering" },
     { value: "Chemical Engineering", label: "Chemical Engineering" },
     { value: "Civil Engineering", label: "Civil Engineering" },
-    {value: "Computer Science and Engineering",label: "Computer Science and Engineering",},
+    { value: "Computer Science and Engineering", label: "Computer Science and Engineering", },
     { value: "Electrical Engineering", label: "Electrical Engineering" },
     { value: "Mechanical Engineering", label: "Mechanical Engineering" },
     { value: "Chemisty", label: "Chemistry" },
     { value: "Humanities and Social Sciences", label: "Humanities and Social Sciences" },
     { value: "Metallurgical and Material Engineering", label: "Metallurgical and Material Engineering" },
-    {value : "Physics" , label : "Physics"},
+    { value: "Physics", label: "Physics" },
   ];
 
   const [open, setOpen] = React.useState(false);
@@ -78,8 +78,8 @@ export default function AddAdminModal() {
     const formData = new FormData();
     let filteredOptions = [];
     if (adminType === 0) {
-        filteredOptions.push(data.department);
-     
+      filteredOptions.push(data.department);
+
     } else {
       for (let i = 0; i < selectedOptions.length; i++) {
         filteredOptions.push(selectedOptions[i].value);
@@ -91,7 +91,7 @@ export default function AddAdminModal() {
     formData.append("password", data.password);
     formData.append("admin_type", adminType);
     formData.append("department", JSON.stringify(filteredOptions));
-   
+
 
     Axios.post("/add-admin", formData, {
       headers: {

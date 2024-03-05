@@ -207,9 +207,11 @@ function ContactUs() {
                   <div className="flex flex-col content-center">
                     <h2 className="text-3xl font-medium">Mail Us</h2>
                     <p className="text-gray-400 text-xl">
-                      coapcell@iitrpr.ac.in
+                      <a href="mailto:coapcell@iitrpr.ac.in">coapcell@iitrpr.ac.in</a>
                     </p>
-                    <p className="text-gray-400 text-xl">info@iitrpr.ac.in</p>
+                    <p className="text-gray-400 text-xl">
+                      <a href="mailto:info@iitrpr.ac.in">info@iitrpr.ac.in</a>
+                    </p>
                   </div>
                 </i>
               </div>

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import spinner from "../../images/SpinnerWhite.gif";
 import { getAdminType } from "./AdminTypes";
+import Alert from "@mui/material/Alert";
 
 const style = {
   position: "absolute",
@@ -51,9 +52,18 @@ export default function AddOfferingModal(props) {
     setDraftChecked(false);
   };
 
-  const onSubmit = (data) => {
-    setIsLoading(true);
+  const [marAlert, setmarAlert] = useState(false);
+  const onSubmit = (data, event) => {
+    event.preventDefault();
     const formData = new FormData();
+    let date = new Date(data.deadline);
+    const currentDate = new Date();
+    if (date < currentDate) {
+      setmarAlert(true);
+      return;
+    }
+    setmarAlert(false);
+    setIsLoading(true);
 
     formData.append("department", data.department);
     formData.append("specialization", data.specialization);
@@ -206,11 +216,12 @@ export default function AddOfferingModal(props) {
                         type="text"
                         {...register("seats")}
                         id="seats"
+                        pattern="[1-9][0-9]*$"
+                        title="Enter a valid non negative number of seats"
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         required
                       />
                     </div>
-
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="deadline"
@@ -225,6 +236,13 @@ export default function AddOfferingModal(props) {
                         {...register("deadline")}
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                       />
+                      <div style={{ "margin-top": "10px" }}>
+                        {marAlert && (
+                          <Alert severity="warning">
+                            Please set a deadline after today.
+                          </Alert>
+                        )}
+                      </div>
                     </div>
                     <div className="col-span-full">
                       <label

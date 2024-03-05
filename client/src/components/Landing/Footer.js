@@ -20,7 +20,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://www.tbifiitrpr.org/"
+                href="https://www.iitrpr.ac.in/tbif/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -68,6 +68,15 @@ function Footer() {
           <div>
             <p className="mb-4">
               <a
+                href="https://cse.iitrpr.ac.in/ai-de"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Artificial Intelligence and Data Engineering
+              </a>
+            </p>
+            <p className="mb-4">
+              <a
                 href="https://www.iitrpr.ac.in/cbme/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -77,7 +86,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://iitrpr.ac.in/chemical"
+                href="https://www.iitrpr.ac.in/chemical/Index/index.php"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -95,7 +104,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://iitrpr.ac.in/civil/"
+                href="https://www.iitrpr.ac.in/department-civil-engineering"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -113,11 +122,11 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://www.iitrpr.ac.in/ee/"
+                href="https://www.iitrpr.ac.in/datascience/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Electrical Engineering
+                Data Science
               </a>
             </p>
           </div>
@@ -125,7 +134,16 @@ function Footer() {
           <div>
             <p className="mb-4">
               <a
-                href="https://iitrpr.ac.in/humanities"
+                href="https://www.iitrpr.ac.in/ee/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Electrical Engineering
+              </a>
+            </p>
+            <p className="mb-4">
+              <a
+                href="https://www.iitrpr.ac.in/hss/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -134,7 +152,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://iitrpr.ac.in/mathematics"
+                href="https://www.iitrpr.ac.in/math/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -161,7 +179,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://iitrpr.ac.in/mme"
+                href="https://mme.iitrpr.ac.in/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -170,7 +188,7 @@ function Footer() {
             </p>
             <p className="mb-4">
               <a
-                href="https://iitrpr.ac.in/physics/"
+                href="https://www.iitrpr.ac.in/physics/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -218,7 +236,7 @@ function Footer() {
                   d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"
                 ></path>
               </svg>
-              coapcell@iitrpr.ac.in
+              <a href="mailto:coapcell@iitrpr.ac.in">coapcell@iitrpr.ac.in</a>
             </p>
             <p className="flex items-center justify-center md:justify-start mb-4">
               <svg
@@ -310,7 +328,7 @@ function Footer() {
             </svg>
           </a>
           <a
-            href="https://instagram.com/iitrpr?utm_medium=copy_link"
+            href="https://www.instagram.com/iitrpr_iitrpr/"
             target="_blank"
             rel="noopener noreferrer"
             className="mr-6 "

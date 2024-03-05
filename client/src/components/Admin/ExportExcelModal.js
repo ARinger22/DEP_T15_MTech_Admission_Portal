@@ -173,8 +173,8 @@ export default function ExportExcelModal(props) {
                               {item.email_id === "default@template"
                                 ? "DEFAULT"
                                 : item.email_id === "global@template"
-                                ? "GLOBAL"
-                                : "PERSONAL"}
+                                  ? "GLOBAL"
+                                  : "PERSONAL"}
                             </option>
                           );
                         })}

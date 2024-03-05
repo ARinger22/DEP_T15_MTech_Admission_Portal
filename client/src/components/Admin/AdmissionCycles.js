@@ -79,50 +79,49 @@ function AdmissionCycles() {
   const [showAlert, setShowAlert] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
-    
     const formData = new FormData();
-    const name= String(cycleInfo["name"]);
-    const start= String(cycleInfo["duration_start"]);
-    const end= String(cycleInfo["duration_end"]);
+    const name = String(cycleInfo["name"]);
+    const start = String(cycleInfo["duration_start"]);
+    const end = String(cycleInfo["duration_end"]);
     console.log(name);
     const myArray = start.split(" ");
     let stmonth = myArray[0];
-    
-    let a=0;
-    for(let i=0; i<12; i++){
-      if(months[i]==stmonth){
-        a=i;
+
+    let a = 0;
+    for (let i = 0; i < 12; i++) {
+      if (months[i] == stmonth) {
+        a = i;
         break;
       }
     }
     // alert(a);
     const myArray2 = end.split(" ");
     let endmonth = myArray2[0];
-    let b=0;
-    for(let i=0; i<12; i++){
-      if(months[i]==endmonth){
-        b=i;
+    let b = 0;
+    for (let i = 0; i < 12; i++) {
+      if (months[i] == endmonth) {
+        b = i;
         break;
       }
     }
-    
+
     console.log(start);
-    const ay= myArray[1];
-    const by= myArray2[1];
+    const ay = myArray[1];
+    const by = myArray2[1];
     console.log(end);
-    if(ay>by){
+    if (ay > by) {
       setShowAlert(true);
       setTimeout(() => {
         setShowAlert(false); // Hide the alert after 3000 milliseconds (3 seconds)
       }, 3000);
     }
-    else if(ay==by && a>b){
+    else if (ay == by && a > b) {
       setShowAlert(true);
       setTimeout(() => {
         setShowAlert(false); // Hide the alert after 3000 milliseconds (3 seconds)
       }, 3000);
     }
-    else{
+    else {
       setIsLoading(true);
       formData.append("name", String(cycleInfo["name"]));
       formData.append("start", String(cycleInfo["duration_start"]));
@@ -147,7 +146,6 @@ function AdmissionCycles() {
         })
         .catch((err) => console.log(err));
     }
-    
   };
 
   function handleChange(event, key) {
@@ -324,10 +322,10 @@ function AdmissionCycles() {
                                 className="w-full p-4 ml-2 text-sm border-gray-200 rounded-lg shadow-sm-2"
                               />
                             </div>
-                            <div style={{"margin-top":"10px"}}>
-                            {showAlert && (
-                                      <Alert severity="warning">End time should be after start time</Alert>
-                                    )}
+                            <div style={{ "margin-top": "10px" }}>
+                              {showAlert && (
+                                <Alert severity="warning">End time should be after start time</Alert>
+                              )}
                             </div>
                           </div>
                           <div>
