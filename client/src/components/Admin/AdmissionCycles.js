@@ -79,7 +79,6 @@ function AdmissionCycles() {
   const [showAlert, setShowAlert] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const formData = new FormData();
     const name = String(cycleInfo["name"]);
     const start = String(cycleInfo["duration_start"]);
@@ -147,7 +146,6 @@ function AdmissionCycles() {
         })
         .catch((err) => console.log(err));
     }
-
   };
 
   function handleChange(event, key) {
