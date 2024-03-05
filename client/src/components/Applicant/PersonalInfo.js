@@ -44,10 +44,10 @@ export default function PersonalInfo(props) {
     const dob = new Date(props.localProfileInfo.date_of_birth);
 
 
-    const nameRegex = /^[a-zA-Z\s]+$/;
-    const uppercaseRegex = /^[A-Z\s]+$/;
-    const lowercaseRegex = /^[a-z\s]+$/;
-
+    const nameRegex = /^[a-zA-Z\s][a-zA-Z\s][a-zA-Z\s]+$/;
+    const uppercaseRegex = /^[A-Z\s][A-Z\s][A-Z\s]+$/;
+    const lowercaseRegex = /^[a-z\s][a-z\s][a-z\s]+$/;
+    if (!nameRegex.test(props.localProfileInfo.full_name)) { setnameAlert(true); }
     if (!nameRegex.test(props.localProfileInfo.full_name) && !uppercaseRegex.test(props.localProfileInfo.full_name) && !lowercaseRegex.test(props.localProfileInfo.full_name)) {
       setnameAlert(true);
       // alert("Invalid name");
@@ -245,7 +245,7 @@ export default function PersonalInfo(props) {
                                 />
                                 <div style={{ "margin-top": "10px" }}>
                                   {nameAlert && (
-                                    <Alert severity="warning">Please use capital and small English letters (i.e. a-z, A-Z)</Alert>
+                                    <Alert severity="warning">Please use capital and small English letters (i.e. a-z, A-Z) in full name with min 3 letters length</Alert>
                                   )}
                                 </div>
                               </div>
