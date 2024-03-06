@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 var XLSX = require("xlsx");
 const excel = require("excel4node");
+const nodemailer = require("nodemailer");
 
 dotenv.config();
 
@@ -101,8 +102,10 @@ const upload_results = async (req, res) => {
     defval: "",
   });
 
+  console.log(xlData);
+
   /** Delete the last line */
-  xlData.pop();
+  // xlData.pop();
 
   /** Check if first line empty */
   if (xlData.length === 0) {
@@ -137,6 +140,8 @@ const upload_results = async (req, res) => {
    */
 
   var invalid_emails = []; /** Calculate while processing data */
+  var selected_emails = [];
+  var not_selected_emails = [];
   var count_selected = 0,
     count_under_review = 0,
     count_not_selected = 0; /** Calculate after updating data */
@@ -171,6 +176,10 @@ const upload_results = async (req, res) => {
       } else {
         wrong_status.push(email);
       }
+
+      if (status.toLowerCase() === "not selected") {
+        not_selected_emails.push(email);
+      }
     } else {
       var db_status =
         status.toLowerCase() === "selected"
@@ -188,8 +197,94 @@ const upload_results = async (req, res) => {
       if (result.rows.length === 0) {
         invalid_emails.push(email);
       }
+
+      if (db_status === 2) {
+        selected_emails.push(email);
+      } 
     }
   }
+
+  console.log("Selected Emails: ", selected_emails);
+  console.log("Not Selected Emails: ", not_selected_emails);
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    secureConnection: true,
+    port: 465,
+    pool: true,
+    maxConnections: 20,
+    tls: {
+      ciphers: "SSLv3",
+      rejectUnauthorized: true,
+    },
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.APP_PASSWORD,
+    },
+  });
+
+  // send email to selected candidates
+  const selected_candidates = await pool.query(
+    "SELECT email_id, full_name from applications_" +
+      cycle_id +
+      " WHERE offering_id = $1 AND status = 2;",
+    [offering_id]
+  );
+
+  selected_candidates.rows.forEach((element) => {
+    var mailOptions = {
+      from: process.env.EMAIL,
+      to: element["email_id"],
+      subject: "Congratulations! You have been selected",
+      text:
+        "Dear " +
+        element["full_name"] +
+        ",\n\n" +
+        "Congratulations! You have been selected for the mtech program at IIT Ropar. We will be in touch with you soon.\n" +
+        "Offering ID: " + offering_id + "\n\n" +
+        "Regards,\n" +
+        "Team Placement",
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+  });
+
+  // send email to not selected candidates
+  const not_selected_candidates = await pool.query(
+    "SELECT email_id, full_name from applications_" +
+      cycle_id +
+      " WHERE offering_id = $1 AND status = 0;",
+    [offering_id]
+  );
+
+  not_selected_candidates.rows.forEach((element) => {
+    var mailOptions = {
+      from: process.env.EMAIL,
+      to: element["email_id"],
+      subject: "We regret to inform you",
+      text:
+        "Dear " +
+        element["full_name"] +
+        ",\n\n" +
+        "We regret to inform you that you have not been selected for the position. We appreciate your interest and wish you the best in your future endeavours.\n\n" +
+        "Regards,\n" +
+        "Team Placement",
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+  });
 
   /** Calculate under review list */
   const under_review_query = await pool.query(
