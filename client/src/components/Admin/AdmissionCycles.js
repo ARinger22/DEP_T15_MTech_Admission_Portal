@@ -475,7 +475,7 @@ function AdmissionCycles() {
                           ) : (
                             <button
                               type="button"
-                              disbaled
+                              disabled
                               className="block w-full focus:outline-none px-5 py-3 text-sm font-medium text-white bg-indigo-600 rounded-lg"
                             >
                               <img
