@@ -77,6 +77,7 @@ export default function Profile() {
     )
   );
   const [profileInfo, setProfileInfo] = useState(0);
+  const [BtechInfo, setBtechInfo] = useState(0);
   const [localProfileInfo, setLocalProfileInfo] = useState(0);
   const [degrees, setDegrees] = useState(initDegrees());
   const [localDegrees, setLocalDegrees] = useState(initDegrees());
@@ -673,37 +674,44 @@ export default function Profile() {
             </dl>
           </div>
           <div className="border-t border-gray-300">
-            {[...Array(degreeSize)].map((_, i) => (
-              <dl className="py-3 border-t border-gray-200" key={degrees[i].id}>
-                <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-                  <dt className="text-sm font-medium text-gray-500">Degree</dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {degrees[i]["1"]}, {degrees[i]["0"]}
-                  </dd>
+            <dl className="py-3 border-t border-gray-200">
+              <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">Degree</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                {degrees[0]["1"] && degrees[0]["0"]
+                  ? `${degrees[0]["1"]}, ${degrees[0]["0"]}`
+                  : "Your B.Tech Degree"}
+                </dd>
 
-                  <dt className="text-sm font-medium text-gray-500">
-                    Board/University
-                  </dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {degrees[i]["2"]}
-                  </dd>
-                </div>
-                <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-                  <dt className="text-sm font-medium text-gray-500">
-                    Percentage/CGPA
-                  </dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {degrees[i]["5"]}
-                  </dd>
+                <dt className="text-sm font-medium text-gray-500">
+                  University/Institute
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {degrees[0]["2"]
+                    ? degrees[0]["2"]
+                    : "Your Branch"}
+                </dd>
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  Percentage/CGPA
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {degrees[0]["5"]
+                    ? degrees[0]["5"]
+                    : "Your Percentage/CGPA in B.Tech"}
+                </dd>
 
-                  <dt className="text-sm font-medium text-gray-500">
-                    Year of Passing
-                  </dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {degrees[i]["3"]}
-                  </dd>
-                </div>
-                <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  Year of Passing
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {degrees[0]["3"]
+                    ? degrees[0]["3"]
+                    : "Your Year of Completing B.Tech"}
+                </dd>
+              </div>
+              <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500">
                     Attachments
                   </dt>
@@ -720,7 +728,7 @@ export default function Profile() {
                       </div>
                       <div className="ml-4 flex-shrink-0">
                         <a
-                          href={degrees[i]["8"] ? degrees[i]["8"] : "#"}
+                          href={degrees[0]["8"] ? degrees[0]["8"] : "#"}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -741,7 +749,89 @@ export default function Profile() {
                       </div>
                       <div className="ml-4 flex-shrink-0">
                         <a
-                          href={degrees[i]["9"] ? degrees[i]["9"] : "#"}
+                          href={degrees[0]["9"] ? degrees[0]["9"] : "#"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                        >
+                          View
+                        </a>
+                      </div>
+                    </div>
+                  </dd>
+                </div>
+            </dl>
+          </div>
+          {degreeSize-1 > 0 && <div className="border-t border-gray-300">
+            {[...Array(degreeSize-1)].map((_, i) => (
+              <dl className="py-3 border-t border-gray-200" key={degrees[i].id}>
+                <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">Degree</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {degrees[i+1]["1"]}, {degrees[i+1]["0"]}
+                  </dd>
+
+                  <dt className="text-sm font-medium text-gray-500">
+                    University/Institute
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {degrees[i+1]["2"]}
+                  </dd>
+                </div>
+                <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Percentage/CGPA
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {degrees[i+1]["5"]}
+                  </dd>
+
+                  <dt className="text-sm font-medium text-gray-500">
+                    Year of Passing
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {degrees[i+1]["3"]}
+                  </dd>
+                </div>
+                <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Attachments
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <div className="pr-4 flex items-center justify-between text-sm">
+                      <div className="w-0 flex-1 flex items-center">
+                        <PaperClipIcon
+                          className="flex-shrink-0 h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
+                        <span className="ml-2 flex-1 w-0 truncate">
+                          Gradesheet
+                        </span>
+                      </div>
+                      <div className="ml-4 flex-shrink-0">
+                        <a
+                          href={degrees[i+1]["8"] ? degrees[i+1]["8"] : "#"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                        >
+                          View
+                        </a>
+                      </div>
+                    </div>
+                  </dd>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <div className="pr-4 flex items-center justify-between text-sm">
+                      <div className="w-0 flex-1 flex items-center">
+                        <PaperClipIcon
+                          className="flex-shrink-0 h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
+                        <span className="ml-2 flex-1 w-0 truncate">Degree</span>
+                      </div>
+                      <div className="ml-4 flex-shrink-0">
+                        <a
+                          href={degrees[i+1]["9"] ? degrees[i+1]["9"] : "#"}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -754,7 +844,7 @@ export default function Profile() {
                 </div>
               </dl>
             ))}
-          </div>
+          </div>}
         </div>
       </div>
     </>
