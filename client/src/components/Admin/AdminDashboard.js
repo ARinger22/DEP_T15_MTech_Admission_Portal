@@ -206,8 +206,8 @@ export default function AdminDashboard() {
           <div className="px-10 mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
 
           <div className="px-3 md:px-8 mt-12">
-            <div className="flex gap-4">
-              <div className="container mx-auto w-1/2">
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="container mx-auto md:w-1/2 mb-4 md:mb-0">
                 <ChartBarCategory
                   currentCycleName={currentCycleName}
                   offerings={offerings}
@@ -218,7 +218,7 @@ export default function AdminDashboard() {
                   onChange={onChange}
                 />
               </div>
-              <div className="container mx-auto w-1/2">
+              <div className="container mx-auto md:w-1/2">
                 <ChartBarGender
                   currentCycleName={currentCycleName}
                   offerings={offerings}
