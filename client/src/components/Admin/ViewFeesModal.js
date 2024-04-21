@@ -8,7 +8,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "30%",
+  width: "60%",
   bgcolor: "background.paper",
   boxShadow: 24,
   borderRadius: 5,
@@ -59,9 +59,9 @@ export default function ViewFeesModal(props) {
         <Box sx={style}>
           <div
             id="modal-modal-description"
-            className="relative w-full max-w-2xl h-full md:h-auto"
+            className="relative w-full h-full md:h-auto"
           >
-            <div className="bg-white rounded-lg shadow relative">
+            <div className="bg-white rounded-lg relative">
               <div className="flex items-start justify-between p-5 border-b rounded-t">
                 <h3 className="text-xl font-semibold">Category-Wise Fees</h3>
                 <button
@@ -83,7 +83,7 @@ export default function ViewFeesModal(props) {
                   </svg>
                 </button>
               </div>
-              <div className="px-6 py-6 space-y-6">
+              <div className="px-6 space-y-6">
                 <div className="flex justify-center">
                   <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
                     <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">

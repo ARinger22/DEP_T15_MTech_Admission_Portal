@@ -108,11 +108,11 @@ export default function ManageAdmin() {
         <></>
       )}
       <div className="bg-white shadow-xl rounded-lg p-4 sm:p-6 xl:p-8 min-h-screen">
-        <div className="flex justify-between">
+        <div className="flex flex-col sm:flex-row justify-between items-center">
           <h3 className="text-xl leading-none font-bold text-gray-900 mb-10">
             List of Admins
           </h3>
-          <AddAdminModal />
+          <AddAdminModal style={{ width: "150px" }} />
         </div>
         <div className="block w-full overflow-x-auto">
           <table className="items-center w-full bg-transparent border-collapse">

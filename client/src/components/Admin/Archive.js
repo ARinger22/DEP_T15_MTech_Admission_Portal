@@ -30,7 +30,7 @@ export default function Archive() {
   }, [navigate]);
 
   return (
-    <div className="bg-gray-100 p-10">
+    <div className="bg-gray-100 p-4">
       <div className="shadow-xl bg-white min-h-screen rounded-lg p-4 sm:p-6 xl:p-8">
         <div className="flex justify-between">
           <h3 className="text-xl leading-none font-bold text-gray-900 mb-10">

@@ -15,7 +15,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "30%",
+  width: "60%",
   bgcolor: "background.paper",
   boxShadow: 24,
   borderRadius: 5,
@@ -145,7 +145,7 @@ export default function AddAdminModal() {
         <Box sx={style}>
           <div
             id="modal-modal-description"
-            className="relative w-full max-w-2xl h-full md:h-auto"
+            className="relative w-full h-full md:h-auto"
           >
             <div className="bg-white rounded-lg shadow relative">
               <div className="flex items-start justify-between p-5 border-b rounded-t">

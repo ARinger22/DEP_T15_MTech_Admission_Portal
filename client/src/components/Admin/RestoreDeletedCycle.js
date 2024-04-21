@@ -16,10 +16,10 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "35%",
+  width: "60%",
   bgcolor: "background.paper",
   boxShadow: 24,
-  p: 4,
+  p: 3,
   borderRadius: 5,
 };
 
@@ -98,12 +98,12 @@ export default function RestoreDeletedCycle(props) {
             <p className="mt-2 text-sm text-gray-500">
               {/* The results of all the offerings will be shown to the corresponding applicants. */}
             </p>
-            <div className="flex items-center justify-end mt-8 text-xs">
+            <div className="flex flex-col md:flex-row items-center md:items-end justify-end md:space-x-2 mt-8 text-xs">
               {!isLoading ? (
                 <button
                   type="button"
                   onClick={restoreCycle}
-                  className="hover:shadow-lg transition duration-200 border border-emerald-400 hover:bg-emerald-600 hover:text-white focus:outline-none w-28 px-4 py-2 font-medium text-emerald-600 rounded bg-emerald-50"
+                  className="hover:shadow-lg transition duration-200 border border-emerald-400 hover:bg-emerald-600 hover:text-white focus:outline-none w-full md:w-auto px-4 py-2 font-medium text-emerald-600 rounded bg-emerald-50"
                 >
                   Yes, I'm sure
                 </button>
@@ -111,7 +111,7 @@ export default function RestoreDeletedCycle(props) {
                 <button
                   type="button"
                   disabled
-                  className="focus:outline-none w-28 px-4 py-2 font-medium text-white rounded bg-emerald-600"
+                  className="focus:outline-none w-full md:w-auto px-4 py-2 font-medium text-white rounded bg-emerald-600"
                 >
                   <img
                     src={spinner}
@@ -123,7 +123,7 @@ export default function RestoreDeletedCycle(props) {
               <button
                 type="button"
                 onClick={handleClose}
-                className="border border-gray-400 transition duration-200 hover:bg-gray-600 hover:text-gray-50 focus-outline-none px-4 py-2 ml-2 font-medium text-gray-600 rounded bg-gray-50"
+                className="border border-gray-400 transition duration-200 hover:bg-gray-600 hover:text-gray-50 focus-outline-none w-full md:w-auto px-4 py-2 mt-2 md:mt-0 font-medium text-gray-600 rounded bg-gray-50"
               >
                 No, go back
               </button>

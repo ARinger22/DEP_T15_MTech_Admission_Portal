@@ -14,7 +14,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "35%",
+  width: "80%",
   bgcolor: "background.paper",
   boxShadow: 24,
   borderRadius: 5,
@@ -95,7 +95,7 @@ export default function UploadResultModal(props) {
         <Box sx={style}>
           <div
             id="modal-modal-description"
-            className="relative w-full max-w-2xl h-full md:h-auto"
+            className="relative w-full h-full md:h-auto"
           >
             <div className="bg-white rounded-lg shadow relative">
               <div className="flex items-start justify-between p-5 border-b rounded-t">
@@ -118,7 +118,7 @@ export default function UploadResultModal(props) {
                   </svg>
                 </button>
               </div>
-              <div className="px-6 pt-6 pb-2 space-y-6">
+              <div className="px-3 pt-3 pb-4 space-y-6">
                 <form onSubmit={onSubmit}>
                   <div className="grid grid-cols-12 gap-6">
                     <div className="col-span-full mx-3">

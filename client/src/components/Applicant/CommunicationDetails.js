@@ -126,330 +126,329 @@ export default function CommunicationDetails(props) {
             </div>
 
             <div className="overflow-y-auto overflow-x-hidden overscroll-none h-5/6">
-              <div className="px-6 py-6 mx-10 bg-[#f3f4f6]">
-                <div className="mt-10 sm:mt-0">
-                  <div className="md:grid md:grid-cols-3 md:gap-6">
-                    <div className="md:col-span-1">
-                      <div className="px-4 sm:px-0">
-                        <h3 className="ml-5 mb-2 text-left text-2xl font-medium leading-6 text-gray-900">
-                          Communication Details
-                        </h3>
-                        <p className="ml-5 text-left mt-1 text-gray-600 text-base">
-                          Please share your communication details.
-                        </p>
-                      </div>
+              <div className="px-4 py-4 md:px-10 md:py-10 mx-auto my-10 md:my-20 bg-[#f3f4f6] rounded-2xl ">                <div className="mt-10 sm:mt-0">
+                <div className="md:grid md:grid-cols-3 md:gap-6">
+                  <div className="md:col-span-1">
+                    <div className="text-left">
+                      <h3 className="ml-5 mb-2 text-2xl font-medium leading-6 text-gray-900">
+                        Communication Details
+                      </h3>
+                      <p className="ml-5 text-left mt-1 text-gray-600 text-base">
+                        Please share your communication details.
+                      </p>
                     </div>
-                    <div className="mt-5 md:mt-0 md:col-span-2">
-                      <form onSubmit={onSubmit}>
-                        <div className="shadow overflow-hidden sm:rounded-md">
-                          <div className="px-4 py-5 bg-white sm:p-6">
-                            <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
-                              <div className="col-span-full sm:col-span-full">
-                                <label
-                                  htmlFor="communication_address"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Address for Communication
-                                  <span style={{ color: "#ff0000" }}> *</span>
-                                </label>
-                                <div className="mt-1">
-                                  <textarea
-                                    id="communication_address"
-                                    name="communication_address"
-                                    value={
-                                      props.localProfileInfo
-                                        .communication_address
-                                    }
-                                    onChange={(event) =>
-                                      props.onChange(
-                                        event,
-                                        "communication_address"
-                                      )
-                                    }
-                                    rows={4}
-                                    className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                    required
-                                  />
-                                </div>
-                                <p className="mt-2 text-sm text-gray-500">
-                                  (with city, state and Pincode)
-                                </p>
-                              </div>
-
-                              <div className="col-span-4 sm:col-span-2">
-                                <label
-                                  htmlFor="communication_city"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  City
-                                  <span style={{ color: "#ff0000" }}> *</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  id="communication_city"
-                                  value={
-                                    props.localProfileInfo.communication_city
-                                  }
-                                  name="communication_city"
-                                  onChange={(event) =>
-                                    props.onChange(event, "communication_city")
-                                  }
-                                  required
-                                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                />
-                              </div>
-
-                              <div className="col-span-4 sm:col-span-2">
-                                <label
-                                  htmlFor="communication_state"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  State
-                                  <span style={{ color: "#ff0000" }}> *</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  value={
-                                    props.localProfileInfo.communication_state
-                                  }
-                                  name="communication_state"
-                                  onChange={(event) =>
-                                    props.onChange(event, "communication_state")
-                                  }
-                                  id="communication_state"
-                                  required
-                                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                />
-                              </div>
-
-                              <div className="col-span-4 sm:col-span-2">
-                                <label
-                                  htmlFor="communication_pincode"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  PIN Code (6 digit)
-                                  <span style={{ color: "#ff0000" }}> *</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  id="communication_pincode"
-                                  pattern="[0-9]{6}"
-                                  value={
-                                    props.localProfileInfo.communication_pincode
-                                  }
-                                  name="communication_pincode"
-                                  onChange={(event) =>
-                                    props.onChange(
-                                      event,
-                                      "communication_pincode"
-                                    )
-                                  }
-                                  required
-                                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="mt-8 outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
-                              <div className="col-span-full sm:col-span-full">
-                                <label
-                                  htmlFor="permanent_address"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Permanent Address
-                                  <span style={{ color: "#ff0000" }}> *</span>
-                                </label>
-                                <div className="mt-1">
-                                  <textarea
-                                    id="permanent_address"
-                                    rows={4}
-                                    required
-                                    value={
-                                      props.localProfileInfo.permanent_address
-                                    }
-                                    onChange={(event) =>
-                                      props.onChange(event, "permanent_address")
-                                    }
-                                    name="permanent_address"
-                                    className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <p className="mt-2 text-sm text-gray-500">
-                                  (with city, state and Pincode)
-                                </p>
-                              </div>
-
-                              <div className="col-span-4 sm:col-span-2">
-                                <label
-                                  htmlFor="permanent_city"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Permanent Address City
-                                  <span style={{ color: "#ff0000" }}> *</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  value={props.localProfileInfo.permanent_city}
-                                  onChange={(event) =>
-                                    props.onChange(event, "permanent_city")
-                                  }
-                                  name="permanent_city"
-                                  id="permanent_city"
-                                  required
-                                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                />
-                              </div>
-
-                              <div className="col-span-4 sm:col-span-2">
-                                <label
-                                  htmlFor="permanent_state"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Permanent Address State
-                                  <span style={{ color: "#ff0000" }}> *</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  id="permanent_state"
-                                  value={props.localProfileInfo.permanent_state}
-                                  onChange={(event) =>
-                                    props.onChange(event, "permanent_state")
-                                  }
-                                  name="permanent_state"
-                                  required
-                                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                />
-                              </div>
-
-                              <div className="col-span-4 sm:col-span-2">
-                                <label
-                                  htmlFor="permanent_pincode"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Permanent Address PIN Code
-                                  <span style={{ color: "#ff0000" }}> *</span>
-                                </label>
-                                <input
-                                  type="text" id="permanent_pincode"
-                                  required
-                                  value={
-                                    props.localProfileInfo.permanent_pincode
-                                  }
-                                  pattern="[0-9]{6}"
-                                  onChange={(event) =>
-                                    props.onChange(event, "permanent_pincode")
-                                  }
-                                  name="permanent_pincode"
-                                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="mt-8 outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
-                              <div className="col-span-6 sm:col-span-3">
-                                <label
-                                  htmlFor="email"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Email
-                                  <span style={{ color: "#ff0000" }}> *</span>
-                                  <p className="block text-sm font-medium text-gray-700">All the notifications will be sent on this email</p>
-                                </label>
-                                <input
-                                  type="text"
-                                  required
-                                  value={props.localProfileInfo.email_id}
-                                  name="email"
-                                  id="email"
-                                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                />
-                              </div>
-                              <div className="col-span-6 sm:col-span-3">
-                                <label
-                                  htmlFor="mobile_number"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Mobile Number (10 digits)
-                                  <span style={{ color: "#ff0000" }}> *</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  required
-                                  value={props.localProfileInfo.mobile_number}
-                                  pattern="[0-9]{10}"
-                                  onChange={(event) =>
-                                    props.onChange(event, "mobile_number")
-                                  }
-                                  name="mobile_number"
-                                  id="mobile_number"
-                                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                />
-                              </div>
-
-                              <div className="col-span-6 sm:col-span-3">
-                                <label
-                                  htmlFor="alternate_mobile_number"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Alternate Mobile Number
-                                </label>
-                                <input
-                                  type="text"
+                  </div>
+                  <div className="mt-5 md:mt-0 md:col-span-2">
+                    <form onSubmit={onSubmit}>
+                      <div className="shadow overflow-hidden sm:rounded-md">
+                        <div className="px-4 py-5 bg-white sm:p-6">
+                          <div className="grid grid-cols-6 gap-6">
+                            <div className="col-span-full sm:col-span-full">
+                              <label
+                                htmlFor="communication_address"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                Address for Communication
+                                <span style={{ color: "#ff0000" }}> *</span>
+                              </label>
+                              <div className="mt-1">
+                                <textarea
+                                  id="communication_address"
+                                  name="communication_address"
                                   value={
                                     props.localProfileInfo
-                                      .alternate_mobile_number
+                                      .communication_address
                                   }
                                   onChange={(event) =>
                                     props.onChange(
                                       event,
-                                      "alternate_mobile_number"
+                                      "communication_address"
                                     )
                                   }
-                                  name="alternate_mobile_number"
-                                  id="alternate_mobile_number"
-                                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                  rows={4}
+                                  className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                                  required
                                 />
                               </div>
+                              <p className="mt-2 text-sm text-gray-500">
+                                (with city, state and Pincode)
+                              </p>
+                            </div>
+
+                            <div className="col-span-4 sm:col-span-2">
+                              <label
+                                htmlFor="communication_city"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                City
+                                <span style={{ color: "#ff0000" }}> *</span>
+                              </label>
+                              <input
+                                type="text"
+                                id="communication_city"
+                                value={
+                                  props.localProfileInfo.communication_city
+                                }
+                                name="communication_city"
+                                onChange={(event) =>
+                                  props.onChange(event, "communication_city")
+                                }
+                                required
+                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                              />
+                            </div>
+
+                            <div className="col-span-4 sm:col-span-2">
+                              <label
+                                htmlFor="communication_state"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                State
+                                <span style={{ color: "#ff0000" }}> *</span>
+                              </label>
+                              <input
+                                type="text"
+                                value={
+                                  props.localProfileInfo.communication_state
+                                }
+                                name="communication_state"
+                                onChange={(event) =>
+                                  props.onChange(event, "communication_state")
+                                }
+                                id="communication_state"
+                                required
+                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                              />
+                            </div>
+
+                            <div className="col-span-4 sm:col-span-2">
+                              <label
+                                htmlFor="communication_pincode"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                PIN Code (6 digit)
+                                <span style={{ color: "#ff0000" }}> *</span>
+                              </label>
+                              <input
+                                type="text"
+                                id="communication_pincode"
+                                pattern="[0-9]{6}"
+                                value={
+                                  props.localProfileInfo.communication_pincode
+                                }
+                                name="communication_pincode"
+                                onChange={(event) =>
+                                  props.onChange(
+                                    event,
+                                    "communication_pincode"
+                                  )
+                                }
+                                required
+                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-6 gap-6">
+                            <div className="col-span-full sm:col-span-full">
+                              <label
+                                htmlFor="permanent_address"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                Permanent Address
+                                <span style={{ color: "#ff0000" }}> *</span>
+                              </label>
+                              <div className="mt-1">
+                                <textarea
+                                  id="permanent_address"
+                                  rows={4}
+                                  required
+                                  value={
+                                    props.localProfileInfo.permanent_address
+                                  }
+                                  onChange={(event) =>
+                                    props.onChange(event, "permanent_address")
+                                  }
+                                  name="permanent_address"
+                                  className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                                />
+                              </div>
+                              <p className="mt-2 text-sm text-gray-500">
+                                (with city, state and Pincode)
+                              </p>
+                            </div>
+
+                            <div className="col-span-4 sm:col-span-2">
+                              <label
+                                htmlFor="permanent_city"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                Permanent Address City
+                                <span style={{ color: "#ff0000" }}> *</span>
+                              </label>
+                              <input
+                                type="text"
+                                value={props.localProfileInfo.permanent_city}
+                                onChange={(event) =>
+                                  props.onChange(event, "permanent_city")
+                                }
+                                name="permanent_city"
+                                id="permanent_city"
+                                required
+                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                              />
+                            </div>
+
+                            <div className="col-span-4 sm:col-span-2">
+                              <label
+                                htmlFor="permanent_state"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                Permanent Address State
+                                <span style={{ color: "#ff0000" }}> *</span>
+                              </label>
+                              <input
+                                type="text"
+                                id="permanent_state"
+                                value={props.localProfileInfo.permanent_state}
+                                onChange={(event) =>
+                                  props.onChange(event, "permanent_state")
+                                }
+                                name="permanent_state"
+                                required
+                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                              />
+                            </div>
+
+                            <div className="col-span-4 sm:col-span-2">
+                              <label
+                                htmlFor="permanent_pincode"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                Permanent Address PIN Code
+                                <span style={{ color: "#ff0000" }}> *</span>
+                              </label>
+                              <input
+                                type="text" id="permanent_pincode"
+                                required
+                                value={
+                                  props.localProfileInfo.permanent_pincode
+                                }
+                                pattern="[0-9]{6}"
+                                onChange={(event) =>
+                                  props.onChange(event, "permanent_pincode")
+                                }
+                                name="permanent_pincode"
+                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-6 gap-6">
+                            <div className="col-span-6 sm:col-span-3">
+                              <label
+                                htmlFor="email"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                Email
+                                <span style={{ color: "#ff0000" }}> *</span>
+                                <p className="block text-sm font-medium text-gray-700">All the notifications will be sent on this email</p>
+                              </label>
+                              <input
+                                type="text"
+                                required
+                                value={props.localProfileInfo.email_id}
+                                name="email"
+                                id="email"
+                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                              />
+                            </div>
+                            <div className="col-span-6 sm:col-span-3">
+                              <label
+                                htmlFor="mobile_number"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                Mobile Number (10 digits)
+                                <span style={{ color: "#ff0000" }}> *</span>
+                              </label>
+                              <input
+                                type="text"
+                                required
+                                value={props.localProfileInfo.mobile_number}
+                                pattern="[0-9]{10}"
+                                onChange={(event) =>
+                                  props.onChange(event, "mobile_number")
+                                }
+                                name="mobile_number"
+                                id="mobile_number"
+                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                              />
+                            </div>
+
+                            <div className="col-span-6 sm:col-span-3">
+                              <label
+                                htmlFor="alternate_mobile_number"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                Alternate Mobile Number
+                              </label>
+                              <input
+                                type="text"
+                                value={
+                                  props.localProfileInfo
+                                    .alternate_mobile_number
+                                }
+                                onChange={(event) =>
+                                  props.onChange(
+                                    event,
+                                    "alternate_mobile_number"
+                                  )
+                                }
+                                name="alternate_mobile_number"
+                                id="alternate_mobile_number"
+                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                              />
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
-                          {!isLoading ? (
-                            <button
-                              type="submit"
-                              className="text-white focus:outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            >
-                              Save
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              disabled
-                              className="text-white focus:outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            >
-                              <img
-                                src={spinner}
-                                className="mx-auto h-5 w-5"
-                                alt="Spinner"
-                              />
-                            </button>
-                          )}
-
+                      </div>
+                      <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
+                        {!isLoading ? (
                           <button
-                            onClick={() => {
-                              props.syncLocalGlobalData();
-                              handleClose();
-                            }}
-                            type="button"
-                            className="text-gray-500 focus:outline-none bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
+                            type="submit"
+                            className="text-white focus:outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                           >
-                            Cancel
+                            Save
                           </button>
-                        </div>
-                      </form>
-                    </div>
+                        ) : (
+                          <button
+                            type="button"
+                            disabled
+                            className="text-white focus:outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          >
+                            <img
+                              src={spinner}
+                              className="mx-auto h-5 w-5"
+                              alt="Spinner"
+                            />
+                          </button>
+                        )}
+
+                        <button
+                          onClick={() => {
+                            props.syncLocalGlobalData();
+                            handleClose();
+                          }}
+                          type="button"
+                          className="text-gray-500 focus:outline-none bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           </div>

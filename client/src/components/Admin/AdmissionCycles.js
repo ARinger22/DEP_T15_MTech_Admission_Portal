@@ -328,14 +328,14 @@ function AdmissionCycles() {
                               )}
                             </div>
                           </div>
-                          <div>
+                          <div className="mb-3 flex flex-col">
                             <label
                               htmlFor="fees-GEN"
                               className="flex text-sm font-medium"
                             >
                               Category-wise Application Fees <span className="flex flex-col text-red-600 mx-0.5">*</span>
                             </label>
-                            <div className="relative gap-3 flex mt-1">
+                            <div className="relative gap-3 flex-wrap mt-1">
                               <div>
                                 <div className="flex">
                                   <label
