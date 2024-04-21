@@ -4,7 +4,7 @@ import crossPic from "../../images/red_cross.svg";
 function CollegeDegreeSection(props) {
   return (
     <div className="col-span-full sm:col-span-full">
-      <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
+      <div className="grid grid-cols-6 gap-6">
         <div className="col-span-full sm:col-span-full">
           {props.id === 0 ? (
             <>
@@ -122,7 +122,7 @@ function CollegeDegreeSection(props) {
             htmlFor="percentage-cgpa-format"
             className="block text-sm font-medium text-gray-700"
           >
-            Percentage/CGPA
+            Percentage/CG
             <span style={{ color: "#ff0000" }}> *</span>
           </label>
           <select
@@ -147,7 +147,7 @@ function CollegeDegreeSection(props) {
             htmlFor="percentage-cgpa-value"
             className="block text-sm font-medium text-gray-700"
           >
-            Percentage/CGPA
+            Percentage/CG
             <span style={{ color: "#ff0000" }}> *</span>
           </label>
           <input

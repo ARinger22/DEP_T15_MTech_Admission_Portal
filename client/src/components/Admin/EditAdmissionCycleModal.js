@@ -18,11 +18,11 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "40%",
+  width: "60%",
   height: "80%",
   bgcolor: "background.paper",
   boxShadow: 24,
-  p: 4,
+  p: 2,
   borderRadius: 5,
 };
 
@@ -120,7 +120,7 @@ export default function EditAdmissionCycleModal(props) {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       {admin_type === "0" ? (
         <Tooltip title="Edit">
           <button
@@ -223,11 +223,11 @@ export default function EditAdmissionCycleModal(props) {
                   />
                 </div>
               </div>
-              <div>
+              <div flex flex-col>
                 <label htmlFor="fees-GEN" className="flex text-sm font-medium">
                   Category-wise Application Fees <span className="flex flex-col text-red-600 mx-0.5">*</span>
                 </label>
-                <div className="relative gap-3 flex mt-1">
+                <div className="relative gap-3-wrap flex mt-1">
                   <div>
                     <div className="flex">
                       <label
@@ -285,8 +285,6 @@ export default function EditAdmissionCycleModal(props) {
                       />
                     </div>
                   </div>
-                </div>
-                <div className="relative gap-3 flex mt-3">
                   <div>
                     <div className="flex">
                       <label

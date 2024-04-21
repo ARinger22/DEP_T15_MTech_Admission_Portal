@@ -741,28 +741,24 @@ export default function Review(props) {
         </div>
 
         <form onSubmit={props.handleSubmit(props.onSubmit)}>
-          <div className="mt-1 mb-4 grid grid-cols-6 gap-6">
-            <button
-              type="button"
-              onClick={() => props.decreasePageNumber()}
-              className="ml-5 col-start-1 col-end-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Back
-            </button>
+          <div className="mt-1 mb-4 flex flex-wrap justify-between items-center">            <button
+            type="button"
+            onClick={() => props.decreasePageNumber()}
+            lassName="ml-5 mb-2 sm:mb-0 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"          >
+            Back
+          </button>
 
             {!props.isLoading ? (
               <button
                 type="submit"
-                className="mr-5 col-start-6 col-end-7 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
+                className="mr-5 mb-2 sm:mb-0 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"              >
                 Submit
               </button>
             ) : (
               <button
                 type="submit"
                 disabled
-                className="mr-5 col-start-6 col-end-7 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
+                className="mr-5 mb-2 sm:mb-0 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"              >
                 <img src={spinner} className="h-5 w-5 mx-auto" alt="Spinner" />
               </button>
             )}

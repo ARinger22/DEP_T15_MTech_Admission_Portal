@@ -5,7 +5,7 @@ function SponsorshipDetails(props) {
 
     return (
         <div>
-            <div className="px-6 py-6 mx-20 my-20 bg-[#f3f4f6] rounded-2xl">
+            <div className="px-8 py-8 md:px-20 md:py-20 mx-auto my-10 md:my-20 bg-[#f3f4f6] rounded-2xl">
                 <div className="mt-10 sm:mt-0">
                     <div className="md:grid md:grid-cols-3 md:gap-6">
                         <div className="md:col-span-1">
@@ -74,12 +74,12 @@ function SponsorshipDetails(props) {
                                             <>
                                             </>
                                         )}
-                                        
-                                            
-                                            <div className="col-span-6 sm:col-span-3">
-                                                <label className="block text-ml mt-5 font-bold pb-4 text-gray-700">
-                                                    Details of Employment (non-mandatory for IIT graduate):
-                                                    <span style={{ color: "#ff0000" }}> *</span>
+
+
+                                        <div className="col-span-6 sm:col-span-3">
+                                            <label className="block text-ml mt-5 font-bold pb-4 text-gray-700">
+                                                Details of Employment (non-mandatory for IIT graduate):
+                                                <span style={{ color: "#ff0000" }}> *</span>
                                             </label>
                                             <div className="grid grid-cols-6 gap-6">
                                                 <div className="col-span-6 sm:col-span-3">
@@ -98,8 +98,8 @@ function SponsorshipDetails(props) {
                                                         }
                                                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                                     />
-                                            </div>
-                                            
+                                                </div>
+
                                                 <div className="col-span-6 sm:col-span-3">
                                                     <label
                                                         className="block text-sm font-medium text-gray-700"
@@ -199,19 +199,19 @@ function SponsorshipDetails(props) {
                                                     />
                                                 </div>
                                             </div>
-                                            </div>
-                                        <div className="my-4 grid grid-cols-6 gap-6">
-                                            <button
-                                                type="button"
-                                                onClick={() => props.decreasePageNumber()}
-                                                className="col-start-1 col-end-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                            >
-                                                Back
-                                            </button>
+                                        </div>
+                                        <div className="my-4 flex flex-wrap justify-between items-center">                    <button
+                                            type="button"
+                                            onClick={() => props.decreasePageNumber()}
+                                            className="border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 mb-2 sm:mb-0 sm:mr-4 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                            style={{ width: "120px", height: "40px" }}                  >
+                                            Back
+                                        </button>
+
                                             <button
                                                 type="submit"
-                                                className="col-start-6 col-end-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                            >
+                                                className="border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                style={{ width: "120px", height: "40px" }}                    >
                                                 Next
                                             </button>
                                         </div>

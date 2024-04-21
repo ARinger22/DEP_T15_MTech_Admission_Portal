@@ -8,7 +8,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "30%",
+  width: "60%",
   bgcolor: "background.paper",
   boxShadow: 24,
   borderRadius: 5,
@@ -59,7 +59,7 @@ export default function ViewTemplateModal(props) {
         <Box sx={style}>
           <div
             id="modal-modal-description"
-            className="relative w-full max-w-2xl h-full md:h-auto"
+            className="relative w-full h-full md:h-auto"
           >
             <div className="bg-white rounded-lg shadow relative">
               <div className="flex items-start justify-between p-5 border-b rounded-t">
@@ -85,7 +85,7 @@ export default function ViewTemplateModal(props) {
               </div>
               <div className="px-6 py-6 space-y-6">
                 <div className="flex justify-center">
-                  <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900 h-[250px] overflow-y-auto">
+                  <ul className="bg-white rounded-lg border border-gray-200 w-full text-gray-900 h-[250px] overflow-y-auto">
                     {props.template.column_list_compact.map((column, idx) => (
                       <li
                         key={idx}

@@ -12,7 +12,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "35%",
+  width: "60%",
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -69,23 +69,24 @@ export default function ReApplyModal(props) {
             className="pl-5 bg-white rounded-lg"
             id="modal-modal-description"
           >
-            <h2 className="text-xl font-bold">
-              Are you sure you want to Edit for{" "}
-              <span className="italic font-semibold">
-                {props.application.specialization}
-              </span>
-              ?
-            </h2>
-            <p className="mt-2 text-sm text-gray-500">
-              The existing application will be replaced on successful
-              re-submission.
-            </p>
-            <div className="flex items-center justify-end mt-8 text-xs">
+            <div className="flex flex-col items-start mt-4">
+              <h2 className="text-xl font-bold mb-4">
+                Are you sure you want to Edit for{" "}
+                <span className="italic font-semibold">
+                  {props.application.specialization}
+                </span>
+                ?
+              </h2>
+              <p className="text-sm text-gray-500">
+                The existing application will be replaced on successful
+                re-submission.
+              </p>
+            </div>
+            <div className="flex flex-col md:flex-row items-center justify-end mt-8 text-xs">
               <Link to={"/re-apply/" + props.application.offering_id}>
                 <button
                   type="button"
-                  className="hover:shadow-lg transition duration-200 border border-red-400 hover:bg-red-600 hover:text-white focus:outline-none w-28 px-4 py-2 font-medium text-red-600 rounded bg-red-50"
-                >
+                  className="hover:shadow-lg transition duration-200 border border-red-400 hover:bg-red-600 hover:text-white focus:outline-none w-28 px-4 py-2 font-medium text-red-600 rounded bg-red-50 mb-2 md:mb-0 md:mr-2"                >
                   Yes, I'm sure
                 </button>
               </Link>
@@ -93,8 +94,7 @@ export default function ReApplyModal(props) {
               <button
                 type="button"
                 onClick={handleClose}
-                className="border border-gray-400 transition duration-200 hover:bg-gray-600 hover:text-gray-50 focus-outline-none px-4 py-2 ml-2 font-medium text-gray-600 rounded bg-gray-50"
-              >
+                className="border border-gray-400 transition duration-200 hover:bg-gray-600 hover:text-gray-50 focus-outline-none px-4 py-2 font-medium text-gray-600 rounded bg-gray-50"              >
                 No, go back
               </button>
             </div>

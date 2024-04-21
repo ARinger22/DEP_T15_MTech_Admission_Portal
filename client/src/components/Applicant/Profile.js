@@ -237,7 +237,7 @@ export default function Profile() {
   return (
     <>
       <DashboardNavBar currentFlag={2} />
-      <div className="flex">
+      <div className="flex justify-center">
         <div className="flex-2 my-20 mx-20 block">
           <img
             className="ring-2 h-40 w-40 ring-gray-700 rounded-full border border-black"
@@ -249,30 +249,31 @@ export default function Profile() {
             alt="Profile"
           />
         </div>
+      </div>
 
-        <div className="mr-20 mt-4 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
-          <div className="flex space-x-3 px-4 py-5 sm:px-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">
-              Personal Details
-            </h3>
+      <div className="flex my-10 mx-20 md:px-20 mx-auto ">
+        <div className="my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">          <div className="flex space-x-3 px-4 py-5 sm:px-6">
+          <h3 className="text-lg leading-6 font-medium text-gray-900">
+            Personal Details
+          </h3>
 
-            <PersonalInfo
-              onChangeNationality={onChangeNationality}
-              localProfileInfo={localProfileInfo}
-              onChange={handleLocalChange}
-              emptyFile={emptyFile}
-              syncLocalGlobalData={syncLocalGlobalData}
-            />
+          <PersonalInfo
+            onChangeNationality={onChangeNationality}
+            localProfileInfo={localProfileInfo}
+            onChange={handleLocalChange}
+            emptyFile={emptyFile}
+            syncLocalGlobalData={syncLocalGlobalData}
+          />
 
-            <div
-              id="tooltip-animation"
-              role="tooltip"
-              className="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700"
-            >
-              Edit Details
-              <div className="tooltip-arrow" data-popper-arrow></div>
-            </div>
+          <div
+            id="tooltip-animation"
+            role="tooltip"
+            className="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700"
+          >
+            Edit Details
+            <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
+        </div>
           <div className="border-t border-gray-300">
             <dl>
               <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
@@ -393,7 +394,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="flex my-10 mx-20">
+      <div className="flex my-10 mx-20 md:px-20 mx-auto">
         <div className="my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
           <div className="flex space-x-3 px-4 py-5 sm:px-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900">
@@ -507,7 +508,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="flex mx-20 mt-2 mb-10">
+      <div className="flex mx-20 mt-2 mb-10 md:px-20 mx-auto">
         <div className="my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
           <div className="flex space-x-3 px-4 py-5 sm:px-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900">
