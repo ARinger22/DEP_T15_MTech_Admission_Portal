@@ -197,6 +197,94 @@ const save_education_details = async (req, res, next) => {
   Promise.allSettled(promises).then(res.status(200).send("Ok"));
 };
 
+const save_experience_details = async (req, res, next) => {
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 2) {
+    return res.send("1");
+  }
+
+  /** Get email */
+  var email = jwt.decode(authToken).userEmail;
+
+  var info = req.body;
+
+  degrees2 = JSON.parse(info.degrees2);
+
+  await pool.query(
+    "UPDATE applicants SET degrees2 = $1, other_remarks2 = $2, is_last_job_completed = $3 WHERE email_id = $4;",
+    [
+      degrees2,
+      info.other_remarks2,
+      info.is_last_job_completed,
+      email,
+    ]
+  );
+
+  let promises = [];
+  let vals = Object.values(req.files);
+  const uploadDir = path.join(__dirname, 'public', 'MtechAdmissions', 'EXPERIENCE_Details');
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+  }
+
+
+  for (let f of vals) {
+    const filename = Date.now() + "_" + f[0].originalname;
+    const filepath = path.join(uploadDir, filename);
+
+    promises.push(
+      new Promise((resolve, reject) => {
+        fs.writeFile(filepath, f[0].buffer, async (err) => {
+          if (err) {
+            f[0].localStorageError = err;
+            next(err);
+            console.log(err);
+            reject(err);
+            return;
+          }
+          url = format(
+            `${process.env.STORAGE_BASE_URL}/MtechAdmissions/EXPERIENCE_Details/${filename}`
+          );
+
+          str = f[0].fieldname;
+          first = str.substring(0, str.length - 1);
+          lastChar = str.substr(str.length - 1);
+
+          x = parseInt(lastChar) + 1;
+          y = first === "upload_certificate" ? 9 : 10;
+
+          await pool.query(
+            "UPDATE applicants SET degrees2[$1][$2] = $3 WHERE email_id = $4;",
+            [x, y, url, email]
+          );
+          resolve();
+
+        });
+      })
+    );
+  }
+  Promise.allSettled(promises).then(res.status(200).send("Ok"));
+};
+
 /**
  * Update/save applicant personal info
  */
@@ -345,7 +433,7 @@ const get_profile_info = async (req, res) => {
                               communication_state, communication_pincode, permanent_address, permanent_city, permanent_state, \
                               permanent_pincode, mobile_number, alternate_mobile_number, email_id, degree_10th, board_10th, percentage_cgpa_format_10th,percentage_cgpa_value_10th, \
                               year_of_passing_10th, remarks_10th, marksheet_10th_url, degree_12th, board_12th, percentage_cgpa_format_12th, percentage_cgpa_value_12th, \
-                              year_of_passing_12th, remarks_12th, marksheet_12th_url, degrees, other_remarks, is_last_degree_completed from applicants \
+                              year_of_passing_12th, remarks_12th, marksheet_12th_url, degrees, degrees2, other_remarks, other_remarks2, is_last_degree_completed, is_last_job_completed from applicants \
                               WHERE email_id = $1;",
     [email]
   );
@@ -1241,6 +1329,7 @@ module.exports = {
   save_personal_info,
   save_communication_details,
   save_education_details,
+  save_experience_details,
   get_profile_info,
   check_applicant_info,
   save_application_info,

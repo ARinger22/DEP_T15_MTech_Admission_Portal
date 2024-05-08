@@ -68,9 +68,11 @@ CREATE TABLE applicants (
     marksheet_12th_url TEXT,
 
     degrees TEXT[][],
-
+    degrees2 TEXT[][],
     other_remarks TEXT,
+    other_remarks2 TEXT,
     is_last_degree_completed TEXT
+    is_last_job_completed TEXT
 );
 
 CREATE TABLE admins(

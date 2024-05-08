@@ -80,6 +80,18 @@ app.post(
   applicantdB.save_education_details
 );
 
+app.post(
+  "/save-experience-details",
+  upload.fields([
+    { name: "upload_certificate0", maxCount: 1 },
+    { name: "upload_certificate1", maxCount: 1 },
+    { name: "upload_certificate2", maxCount: 1 },
+    { name: "upload_certificate3", maxCount: 1 },
+    { name: "upload_certificate4", maxCount: 1 },
+  ]),
+  applicantdB.save_experience_details
+);
+
 app.get("/get-profile-info", applicantdB.get_profile_info);
 
 app.get("/check-applicant-info", applicantdB.check_applicant_info);
