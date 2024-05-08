@@ -308,7 +308,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="flex my-10 mx-20 md:px-20 mx-auto ">
+      <div className="flex my-10 mx-20 md:px-20  ">
         <div className="my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">          <div className="flex space-x-3 px-4 py-5 sm:px-6">
           <h3 className="text-lg leading-6 font-medium text-gray-900">
             Personal Details
@@ -451,7 +451,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="flex my-10 mx-20 md:px-20 mx-auto">
+      <div className="flex my-10 mx-20 md:px-20 ">
         <div className="my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
           <div className="flex space-x-3 px-4 py-5 sm:px-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900">
@@ -565,7 +565,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="flex mx-20 mt-2 mb-10 md:px-20 mx-auto">
+      <div className="flex mx-20 mt-2 mb-10 md:px-20 ">
         <div className="my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
           <div className="flex space-x-3 px-4 py-5 sm:px-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900">

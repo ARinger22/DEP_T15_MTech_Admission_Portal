@@ -73,13 +73,13 @@ export default function CollageExperienceDetails(props) {
             htmlFor="year-of-completion"
             className="block text-sm font-medium text-gray-700"
           >
-            Month & Year of Passing (MM/YYYY)
+            Month & Year of Passing (MM/YYYY - MM/YYYY)
             <span style={{ color: "#ff0000" }}> *</span>
           </label>
           <input
             type="text"
             name="year-of-completion"
-            pattern="(0[1-9]|1[0-2])\/[1-9]{1}[0-9]{3}"
+            pattern="((0[1-9]|1[0-2])\/[1-9]{1}[0-9]{3})\s-\s((0[1-9]|1[0-2])\/[1-9]{1}[0-9]{3})"
             title="4 Digit Year (Example: 2020)"
             id="year-of-completion"
             value={props.localDegrees[props.id]["2"]}
