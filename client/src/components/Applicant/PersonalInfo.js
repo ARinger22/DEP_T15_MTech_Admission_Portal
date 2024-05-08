@@ -75,6 +75,7 @@ export default function PersonalInfo(props) {
     formData.append("guardian", props.localProfileInfo.guardian);
     formData.append("fathers_name", props.localProfileInfo.fathers_name);
     formData.append("date_of_birth", props.localProfileInfo.date_of_birth);
+    formData.append("status", props.localProfileInfo.status);
     formData.append(
       "aadhar_card_number",
       props.localProfileInfo.aadhar_card_number
@@ -791,6 +792,28 @@ export default function PersonalInfo(props) {
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                                 <option value="Female">Transgender</option>
+                              </select>
+                            </div>
+                            <div className="col-span-6 sm:col-span-3">
+                              <label
+                                htmlFor="status"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                Status
+                                <span style={{ color: "#ff0000" }}> *</span>
+                              </label>
+                              <select
+                                required
+                                value={props.localProfileInfo.status}
+                                onChange={(event) =>
+                                  props.onChange(event, "status")
+                                }
+                                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                              >
+                                <option value="">-- Select --</option>
+                                <option value="regular">Regular</option>
+                                <option value="sponsored">Sponsored</option>
+                                <option value="iit_student">IIT Student</option>
                               </select>
                             </div>
                           </div>

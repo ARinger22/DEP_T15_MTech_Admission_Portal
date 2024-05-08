@@ -6,8 +6,6 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import spinner from "../../images/SpinnerWhite.gif";
-import crossPic from "../../images/red_cross.svg";
-import CollegeDegreeSection from "./CollegeDegreeSection.js";
 import CollageExperienceDetails from "./CollageExperienceSection.js";
 import { PencilIcon } from "@heroicons/react/outline";
 import Alert from "@mui/material/Alert";

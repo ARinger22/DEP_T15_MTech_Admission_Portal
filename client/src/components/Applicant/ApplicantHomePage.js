@@ -39,8 +39,6 @@ export default function ApplicantHomePage() {
       .catch((err) => console.log(err));
   }, []);
 
-
-
   useEffect(() => {
     axios
       .get("/get-applications", {
@@ -58,8 +56,6 @@ export default function ApplicantHomePage() {
       })
       .catch((err) => console.log(err));
   }, [navigate]);
-
-
 
   useEffect(() => {
     axios
@@ -85,8 +81,6 @@ export default function ApplicantHomePage() {
       })
       .catch((err) => console.log(err));
   }, []);
-
-
 
   return (
     <>
@@ -224,21 +218,24 @@ export default function ApplicantHomePage() {
                               )}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-            {isProfileComplete !== 3 ||
-            application.is_accepting_applications === false ||
-          Apps.some((app) => app.offering_id === application.offering_id)  ? (
-              <button className="text-gray-300" disabled>
-                Applied
-              </button>
-            ) : (
-              <Link
-                to={"/apply/" + application.offering_id}
-                className="text-indigo-600 hover:text-indigo-900"
-              >
-                Apply
-              </Link>
-            )}
-          </td>
+                              {isProfileComplete !== 3 ||
+                              application.is_accepting_applications === false ||
+                              Apps.some(
+                                (app) =>
+                                  app.offering_id === application.offering_id
+                              ) ? (
+                                <button className="text-gray-300" disabled>
+                                  Applied
+                                </button>
+                              ) : (
+                                <Link
+                                  to={"/apply/" + application.offering_id}
+                                  className="text-indigo-600 hover:text-indigo-900"
+                                >
+                                  Apply
+                                </Link>
+                              )}
+                            </td>
                           </tr>
                         ))}
                       </tbody>

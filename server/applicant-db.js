@@ -321,7 +321,7 @@ const save_personal_info = async (req, res, next) => {
   await pool.query(
     "UPDATE applicants SET full_name = $1,guardian = $2, fathers_name = $3, \
                   date_of_birth = $4, aadhar_card_number = $5, category = $6, is_pwd = $7,pwd_type=$8, marital_status = $9, \
-                  nationality = $10, gender = $11 WHERE email_id = $12;",
+                  nationality = $10, gender = $11, status_student = $12 WHERE email_id = $13;",
     [
       info.full_name,
       info.guardian,
@@ -334,6 +334,7 @@ const save_personal_info = async (req, res, next) => {
       info.marital_status,
       info.nationality,
       info.gender,
+      info.status,
       email,
     ]
   );
@@ -433,7 +434,7 @@ const get_profile_info = async (req, res) => {
                               communication_state, communication_pincode, permanent_address, permanent_city, permanent_state, \
                               permanent_pincode, mobile_number, alternate_mobile_number, email_id, degree_10th, board_10th, percentage_cgpa_format_10th,percentage_cgpa_value_10th, \
                               year_of_passing_10th, remarks_10th, marksheet_10th_url, degree_12th, board_12th, percentage_cgpa_format_12th, percentage_cgpa_value_12th, \
-                              year_of_passing_12th, remarks_12th, marksheet_12th_url, degrees, degrees2, other_remarks, other_remarks2, is_last_degree_completed, is_last_job_completed from applicants \
+                              year_of_passing_12th, remarks_12th, marksheet_12th_url, degrees, degrees2, other_remarks, other_remarks2, is_last_degree_completed, is_last_job_completed, status_student from applicants \
                               WHERE email_id = $1;",
     [email]
   );

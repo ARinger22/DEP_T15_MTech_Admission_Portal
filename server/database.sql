@@ -35,6 +35,7 @@ CREATE TABLE applicants (
     marital_status TEXT,
     nationality TEXT,
     gender TEXT,
+    status_student TEXT,
 
     -- Communication Details
     communication_address TEXT,

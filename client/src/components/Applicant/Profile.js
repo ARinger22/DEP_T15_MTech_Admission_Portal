@@ -200,7 +200,7 @@ export default function Profile() {
           navigate("/logout");
         } else {
           let copy = { ...response.data };
-
+          console.log(copy);
           for (const key in copy) {
             if (copy[key] === null || copy[key] === "null") {
               copy[key] = "";
@@ -407,6 +407,12 @@ export default function Profile() {
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                   {profileInfo.is_pwd ? profileInfo.is_pwd : "Your PWD Status"}
+                </dd>
+                <dt className="text-sm font-medium text-gray-500">
+                  Student_Status
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {profileInfo.status_student ? profileInfo.status_student : "Your Student Status"}
                 </dd>
               </div>
 
