@@ -606,6 +606,8 @@ const save_application_info = async (req, res, next) => {
   app_details = JSON.parse(info.applicant_details);
   page = JSON.parse(info.page)
   stat = JSON.parse(info.stat)
+  let status_application = 0;
+  if(page === 5) status_application = 1;
   let app_save_result;
   if(page === 1 && !stat){
     app_save_result = await pool.query(
@@ -615,7 +617,7 @@ const save_application_info = async (req, res, next) => {
                       branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
                       remarks, date_of_declaration, place_of_declaration, offering_id, status, status_remark,is_sponsored_applicant, name_of_sponsoring_org, name_of_working_org , address_of_org,\
                       designation, post_type, duration_post_start, duration_post_end, years_of_service) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
-                      $13, $14, $15, $16, $17, 1, '',$18,$19,$20,$21,$22,$23,$24,$25,$26) RETURNING application_id;",
+                      $13, $14, $15, $16, $17, 0, '',$18,$19,$20,$21,$22,$23,$24,$25,$26) RETURNING application_id;",
       [
         email,
         app_details[1],
@@ -653,7 +655,7 @@ const save_application_info = async (req, res, next) => {
       " SET email_id = $1, amount = $2, transaction_id = $3, bank = $4, date_of_transaction = $5, qualifying_examination = $6, \
       branch_code = $7, year = $8, gate_enrollment_number = $9, coap_registeration_number = $10, all_india_rank = $11, gate_score = $12, valid_upto = $13, \
       remarks = $14, date_of_declaration = $15, place_of_declaration = $16, offering_id = $17, is_sponsored_applicant = $18, name_of_sponsoring_org = $19, name_of_working_org = $20, address_of_org = $21, \
-      designation = $22, post_type = $23, duration_post_start = $24, duration_post_end = $25, years_of_service = $26 WHERE applications_" +
+      designation = $22, post_type = $23, duration_post_start = $24, duration_post_end = $25, years_of_service = $26, status=$27 WHERE applications_" +
       cycle_id +
       ".email_id = $1 AND applications_" +
       cycle_id +
@@ -685,6 +687,7 @@ const save_application_info = async (req, res, next) => {
         app_details[27],
         app_details[28],
         app_details[29],
+        status_application
       ]
     );
   }
