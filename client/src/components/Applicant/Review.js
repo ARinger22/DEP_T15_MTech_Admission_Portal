@@ -11,6 +11,7 @@ export default function Review(props) {
 
   const [profileInfo, setProfileInfo] = useState(0);
   const [degrees, setDegrees] = useState([]);
+  const [degrees2, setDegrees2] = useState([]);
 
   function convert2dArrayToJsonObjectArray(degrees) {
     if (degrees === null) return [];
@@ -40,7 +41,9 @@ export default function Review(props) {
           navigate("/logout");
         } else {
           setProfileInfo(response.data);
+          console.log(response.data);
           setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees));
+          setDegrees2(convert2dArrayToJsonObjectArray(response.data.degrees2));
         }
       })
       .catch((err) => console.log(err));
@@ -244,17 +247,13 @@ export default function Review(props) {
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">
-                From
-              </dt>
+              <dt className="text-sm font-medium text-gray-500">From</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 {props.details[27]}
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">
-                To
-              </dt>
+              <dt className="text-sm font-medium text-gray-500">To</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 {props.details[28]}
               </dd>
@@ -361,6 +360,15 @@ export default function Review(props) {
               <dt className="text-sm font-medium text-gray-500">Gender</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 {profileInfo.gender}
+              </dd>
+            </div>
+
+            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="text-sm font-medium text-gray-500">
+                Student_status
+              </dt>
+              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                {profileInfo.status_student}
               </dd>
             </div>
 
@@ -740,25 +748,96 @@ export default function Review(props) {
           ))}
         </div>
 
-        <form onSubmit={props.handleSubmit(props.onSubmit)}>
-          <div className="mt-1 mb-4 flex flex-wrap justify-between items-center">            <button
-            type="button"
-            onClick={() => props.decreasePageNumber()}
-            lassName="ml-5 mb-2 sm:mb-0 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"          >
-            Back
-          </button>
+      </div>
+      <div className="bg-white shadow-lg overflow-hidden sm:rounded-lg w-3/4 mx-12 mt-8 mb-8">
+        <div className="px-4 py-5 sm:px-6">
+          <h3 className="text-lg leading-6 font-medium text-gray-900">
+            Experience Details
+          </h3>
+          <p className="mt-1 max-w-2xl text-sm text-gray-500">
+            Please review your experience details.
+          </p>
+        </div>
+        <div className="border-t border-gray-300">
+          {degrees2.map((Degree) => (
+            <dl className="py-3 border-t border-gray-200" key={Degree.id}>
+              <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  Company/Organization
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {Degree["0"]}
+                </dd>
 
+                <dt className="text-sm font-medium text-gray-500">
+                  Title/Position
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {Degree["1"]}
+                </dd>
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  Year of Completion
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {Degree["2"]}
+                </dd>
+              </div>
+              <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  Attachments
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <div className="pr-4 flex items-center justify-between text-sm">
+                    <div className="w-0 flex-1 flex items-center">
+                      <PaperClipIcon
+                        className="flex-shrink-0 h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-2 flex-1 w-0 truncate">
+                        Certificate
+                      </span>
+                    </div>
+                    <div className="ml-4 flex-shrink-0">
+                      <a
+                        href={degrees["8"]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                      >
+                        View
+                      </a>
+                    </div>
+                  </div>
+                </dd>
+              </div>
+            </dl>
+          ))}
+        </div>
+        <form onSubmit={props.handleSubmit(props.onSubmit)}>
+          <div className="mt-1 mb-4 flex flex-wrap justify-between items-center">
+            {" "}
+            <button
+              type="button"
+              onClick={() => props.decreasePageNumber()}
+              lassName="ml-5 mb-2 sm:mb-0 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Back
+            </button>
             {!props.isLoading ? (
               <button
                 type="submit"
-                className="mr-5 mb-2 sm:mb-0 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"              >
+                className="mr-5 mb-2 sm:mb-0 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
                 Submit
               </button>
             ) : (
               <button
                 type="submit"
                 disabled
-                className="mr-5 mb-2 sm:mb-0 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"              >
+                className="mr-5 mb-2 sm:mb-0 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
                 <img src={spinner} className="h-5 w-5 mx-auto" alt="Spinner" />
               </button>
             )}

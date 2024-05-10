@@ -83,7 +83,9 @@ export default function ReApplyModal(props) {
               </p>
             </div>
             <div className="flex flex-col md:flex-row items-center justify-end mt-8 text-xs">
-              <Link to={"/re-apply/" + props.application.offering_id}>
+              <Link to={{pathname : "/re-apply/" + props.application.offering_id,
+                search: `?data=${encodeURIComponent(JSON.stringify(props.application))}`
+              }}>
                 <button
                   type="button"
                   className="hover:shadow-lg transition duration-200 border border-red-400 hover:bg-red-600 hover:text-white focus:outline-none w-28 px-4 py-2 font-medium text-red-600 rounded bg-red-50 mb-2 md:mb-0 md:mr-2"                >

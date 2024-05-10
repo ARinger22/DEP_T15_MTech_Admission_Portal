@@ -72,7 +72,7 @@ CREATE TABLE applicants (
     degrees2 TEXT[][],
     other_remarks TEXT,
     other_remarks2 TEXT,
-    is_last_degree_completed TEXT
+    is_last_degree_completed TEXT,
     is_last_job_completed TEXT
 );
 
@@ -171,14 +171,14 @@ CREATE TABLE templates (
 
 -- PERMANENT INSERT
 INSERT INTO TEMPLATES(email_id,name,type,column_list,column_list_compact) VALUES('default@template', 'Default Applicant List', 'APPLICANT LIST', ARRAY['application_id', 'full_name','guardian', 'fathers_name', 'profile_image_url', 'date_of_birth', 'aadhar_card_number',
-'category', 'is_pwd','pwd_type', 'marital_status', 'nationality', 'category_certificate_url','pwd_url','gender', 'communication_address', 'communication_city',
+'category', 'is_pwd','pwd_type', 'marital_status', 'nationality', 'category_certificate_url','pwd_url','gender','status_student', 'communication_address', 'communication_city',
 'communication_state', 'communication_pincode', 'permanent_address', 'permanent_city', 'permanent_state',
 'permanent_pincode', 'mobile_number', 'alternate_mobile_number', 'email_id', 'degree_10th', 'board_10th', 'percentage_cgpa_format_10th','percentage_cgpa_value_10th',
 'year_of_passing_10th', 'remarks_10th', 'marksheet_10th_url', 'degree_12th', 'board_12th', 'percentage_cgpa_format_12th', 'percentage_cgpa_value_12th',
-'year_of_passing_12th', 'remarks_12th', 'marksheet_12th_url', 'degrees', 'other_remarks', 'is_last_degree_completed', 'amount', 'transaction_id', 'bank', 
+'year_of_passing_12th', 'remarks_12th', 'marksheet_12th_url', 'degrees', 'degrees2', 'other_remarks', 'other_remarks2', 'is_last_degree_completed', 'is_last_job_completed', 'amount', 'transaction_id', 'bank', 
 'date_of_transaction', 'qualifying_examination', 'branch_code', 'year', 'gate_enrollment_number', 'coap_registeration_number', 'all_india_rank', 'gate_score', 'valid_upto','self_attested_copies_url', 'remarks','signature_url',
 'date_of_declaration', 'place_of_declaration','is_sponsored_applicant','name_of_sponsoring_org','name_of_working_org','address_of_org','designation','post_type','duration_post_start','duration_post_end','years_of_service'], 
-ARRAY['Application ID','Full Name','Father''s Name','Email Address','Profile Image','Date of Birth','Aadhar Card Number','Category','Category Certificate','Belongs to PWD','Marital Status','Nationality','Gender','Communication Address','Permanent Address','Mobile Number','Alternate Mobile Number','Educational Details: 10th',
+ARRAY['Application ID','Full Name','Father''s Name','Email Address','Profile Image','Date of Birth','Aadhar Card Number','Category','Category Certificate','Belongs to PWD','Marital Status','Nationality','Gender','status_student', 'Communication Address','Permanent Address','Mobile Number','Alternate Mobile Number','Educational Details: 10th',
 'Educational Details: 12th','Educational Details: College','Educational Remarks','Last Degree Completion Status','Qualifying Exmaination','Branch Code','GATE Examination Year','GATE Enrollment Number',
 'COAP Registration Number','All India Rank','GATE Score','Valid Upto','Self Attested Copies of GATE','Qualifying Exam Remarks','Amount','Transaction ID','Bank','Transaction Slip','Date of Transaction','Signature','Date of Declaration','Place of Declaration','Status','Status Remarks','is_sponsored_applicant','name_of_sponsoring_org','name_of_working_org','address_of_org','designation','post_type','duration_post_start','duration_post_end','years_of_service']);
 

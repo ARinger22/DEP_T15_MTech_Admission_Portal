@@ -162,7 +162,8 @@ function ApplicantionDetails(props) {
     formData.append("transaction_slip", applicant_details[4]);
     formData.append("self_attested_copies", applicant_details[14]);
     formData.append("signature", applicant_details[17]);
-
+    formData.append("page",page)
+    formData.append("stat", 0);
     Axios.post("/save-application-info", formData, {
       headers: {
         Authorization: getToken(),
@@ -172,7 +173,8 @@ function ApplicantionDetails(props) {
         if (response.data === 1) {
           navigate("/logout");
         } else {
-          navigate("/success");
+          if(page === 5) navigate("/success");
+          else setIsLoading(false);
         }
       })
       .catch((err) => console.log(err));
@@ -244,6 +246,7 @@ function ApplicantionDetails(props) {
                   increasePageNumber={increasePageNumber}
                   details={applicant_details}
                   onChange={handleApplicantDetailsChange}
+                  onSubmit={handleApplicationSubmit}
                   handleFileSubmit={handleFileSubmit}
                   emptyFileIndex={emptyFileIndex}
                 />
@@ -255,6 +258,7 @@ function ApplicantionDetails(props) {
                   decreasePageNumber={decreasePageNumber}
                   details={applicant_details}
                   onChange={handleApplicantDetailsChange}
+                  onSubmit={handleApplicationSubmit}
                   handleFileSubmit={handleFileSubmit}
                   emptyFileIndex={emptyFileIndex}
                 />
@@ -266,6 +270,7 @@ function ApplicantionDetails(props) {
                   decreasePageNumber={decreasePageNumber}
                   details={applicant_details}
                   onChange={handleApplicantDetailsChange}
+                  onSubmit={handleApplicationSubmit}
                   handleFileSubmit={handleFileSubmit}
                   emptyFileIndex={emptyFileIndex}
                   categoryFees={categoryFees}
@@ -280,6 +285,7 @@ function ApplicantionDetails(props) {
                   onChange={handleApplicantDetailsChange}
                   handleFileSubmit={handleFileSubmit}
                   emptyFileIndex={emptyFileIndex}
+                  onSubmit={handleApplicationSubmit}
                 />
               ),
               5: (

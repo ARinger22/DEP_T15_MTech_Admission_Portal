@@ -288,7 +288,7 @@ function QualifyingExamDetails(props) {
                           <span style={{ color: "#ff0000" }}> *</span>
                         </label>
 
-                        {!props.details[14].name && (
+                        {!props.details[14] && (
                           <>
                             <input
                               className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -340,7 +340,7 @@ function QualifyingExamDetails(props) {
                           </>
                         )}
 
-                        {props.details[14].name && (
+                        {props.details[14] && (
                           <>
                             <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                               <input
@@ -348,7 +348,7 @@ function QualifyingExamDetails(props) {
                                 id="gate_result"
                                 name="gate_result"
                                 type="text"
-                                value={props.details[14].name}
+                                value={props.details[14]}
                                 {...(data.status_student === "regular" ? { required: true } : {})}
                                 readOnly
                               />
@@ -468,6 +468,7 @@ function QualifyingExamDetails(props) {
                     <div className="my-4 grid grid-cols-6 gap-6">
                       <button
                         type="submit"
+                        onClick={() => props.onSubmit()}
                         className="border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         style={{ width: "120px", height: "40px" }}                      >
                         Next

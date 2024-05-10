@@ -232,6 +232,7 @@ function ApplicationFeeDetails(props) {
                     </button>
                     <button
                       type="submit"
+                      onClick={() => props.onSubmit()}
                       className="border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                       style={{ width: "120px", height: "40px" }}
                       >

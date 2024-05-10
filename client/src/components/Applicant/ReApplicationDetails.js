@@ -11,7 +11,14 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
 import SponsorshipDetails from "./SponsorshipDetails.js";
+import { useLocation } from "react-router-dom";
+
 function ReApplicantionDetails() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const data = searchParams.get("data");
+  const decodedData = JSON.parse(data);
+
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const { handleSubmit } = useForm();
@@ -38,15 +45,7 @@ function ReApplicantionDetails() {
     return date;
   }
 
-  const init_application_details = () => {
-    const array = Array.from({ length: 30 }, () => "");
-
-    array[6] = "GATE";
-    array[5] = changeDateFormat();
-    array[19] = changeDateFormat();
-    array[20] = params.offering_id;
-    return array;
-  };
+  const [previous_info, setPreviousInfo] = useState();
 
   useEffect(() => {
     Axios.get("/reapply-check-applicant-info", {
@@ -63,6 +62,8 @@ function ReApplicantionDetails() {
         } else if (response.data === 3) {
           navigate("/home");
         } else {
+          const names = response.data.previous_info.rows[0];
+          setPreviousInfo(names);
           setFullName(response.data.full_name);
           setCategory(response.data.category);
           setCategoryFees(response.data.category_fees);
@@ -87,9 +88,49 @@ function ReApplicantionDetails() {
       .catch((err) => console.log(err));
   }, [navigate]);
 
+  const init_application_details = () => {
+    const array = Array.from({ length: 30 }, () => "");
+
+    array[6] = "GATE";
+
+    // array[21] = previous_info.sponsored; array[22] = previous_info.sponsored_by; array[23] = previous_info.sponsored_organization; array[24] = previous_info.sponsored_designation; array[25] = previous_info.sponsored_experience;
+    array[5] = changeDateFormat();
+    array[19] = changeDateFormat();
+    array[20] = params.offering_id;
+    return array;
+  };
   const [applicant_details, setApplicantDetails] = useState(
     init_application_details()
   );
+  
+  useEffect(() => {
+    if (previous_info) {
+      if(previous_info.branch_code) applicant_details[7] = previous_info.branch_code;
+      if(previous_info.year) applicant_details[8] = previous_info.year;
+      if(previous_info.gate_enrollment_number) applicant_details[9] = previous_info.gate_enrollment_number;
+      if(previous_info.coap_registeration_number) applicant_details[10] = previous_info.coap_registeration_number;
+      if(previous_info.all_india_rank) applicant_details[11] = previous_info.all_india_rank;
+      if(previous_info.gate_score) applicant_details[12] = previous_info.gate_score;
+      if(previous_info.valid_upto[13])applicant_details[13] = previous_info.valid_upto;
+      if(previous_info.remarks) applicant_details[15] = previous_info.remarks;
+      if(previous_info.is_sponsored_applicant) applicant_details[21] = previous_info.is_sponsored_applicant;
+      if(previous_info.name_of_sponsoring_org) applicant_details[22] = previous_info.name_of_sponsoring_org;
+      if(previous_info.name_of_working_org) applicant_details[23] = previous_info.name_of_working_org;
+      if(previous_info.address_of_org) applicant_details[24] = previous_info.address_of_org;
+      if(previous_info.designation) applicant_details[25] = previous_info.designation;
+      if(previous_info.post_type) applicant_details[26] = previous_info.post_type;
+      if(previous_info.duration_post_start) applicant_details[27] = previous_info.duration_post_start;
+      if(previous_info.duration_post_end) applicant_details[28] = previous_info.duration_post_end;
+      if(previous_info.years_of_service) applicant_details[29] = previous_info.years_of_service;
+      if(previous_info.amount) applicant_details[1] = previous_info.amount
+      if(previous_info.transaction_id) applicant_details[2] = previous_info.transaction_id
+      if(previous_info.bank) applicant_details[3] = previous_info.bank
+      if(previous_info.date_of_transaction) applicant_details[5] = previous_info.date_of_transaction
+      if(previous_info.full_name) applicant_details[16] = previous_info.full_name
+      if(previous_info.place_of_declaration) applicant_details[18] = previous_info.place_of_declaration
+      if(previous_info.date_of_declaration) applicant_details[19] = previous_info.date_of_declaration
+    }
+  });
 
   function handleApplicantDetailsChange(e, index) {
     let copy = [...applicant_details];
@@ -159,7 +200,8 @@ function ReApplicantionDetails() {
     formData.append("transaction_slip", applicant_details[4]);
     formData.append("self_attested_copies", applicant_details[14]);
     formData.append("signature", applicant_details[17]);
-
+    formData.append("page", page);
+    formData.append("stat", 1);
     Axios.post("/reapply-save-application-info", formData, {
       headers: {
         Authorization: getToken(),
@@ -169,7 +211,8 @@ function ReApplicantionDetails() {
         if (response.data === 1) {
           navigate("/logout");
         } else {
-          navigate("/success");
+          if (page === 5) navigate("/success");
+          else setIsLoading(false);
         }
       })
       .catch((err) => console.log(err));
@@ -232,6 +275,7 @@ function ReApplicantionDetails() {
             {
               1: (
                 <QualifyingExamDetails
+                  decodedData={decodedData}
                   hasFilledHighestGate={hasFilledHighestGate}
                   setHasFilledHighestGate={setHasFilledHighestGate}
                   hasGivenMultipleGates={hasGivenMultipleGates}
@@ -240,16 +284,19 @@ function ReApplicantionDetails() {
                   increasePageNumber={increasePageNumber}
                   details={applicant_details}
                   onChange={handleApplicantDetailsChange}
+                  onSubmit={handleApplicationSubmit}
                   handleFileSubmit={handleFileSubmit}
                   emptyFileIndex={emptyFileIndex}
                 />
               ),
               2: (
                 <SponsorshipDetails
+                  decodedData={decodedData}
                   increasePageNumber={increasePageNumber}
                   decreasePageNumber={decreasePageNumber}
                   details={applicant_details}
                   onChange={handleApplicantDetailsChange}
+                  onSubmit={handleApplicationSubmit}
                   handleFileSubmit={handleFileSubmit}
                   emptyFileIndex={emptyFileIndex}
                 />
@@ -261,6 +308,7 @@ function ReApplicantionDetails() {
                   decreasePageNumber={decreasePageNumber}
                   details={applicant_details}
                   onChange={handleApplicantDetailsChange}
+                  onSubmit={handleApplicationSubmit}
                   handleFileSubmit={handleFileSubmit}
                   emptyFileIndex={emptyFileIndex}
                   categoryFees={categoryFees}
@@ -273,6 +321,7 @@ function ReApplicantionDetails() {
                   details={applicant_details}
                   decreasePageNumber={decreasePageNumber}
                   onChange={handleApplicantDetailsChange}
+                  onSubmit={handleApplicationSubmit}
                   handleFileSubmit={handleFileSubmit}
                   emptyFileIndex={emptyFileIndex}
                 />

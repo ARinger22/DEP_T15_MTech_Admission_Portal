@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import crossPic from "../../images/red_cross.svg";
 
 function SponsorshipDetails(props) {
@@ -24,26 +24,7 @@ function SponsorshipDetails(props) {
                             <form method="POST" onSubmit={() => props.increasePageNumber()}>
                                 <div className="shadow overflow-hidden sm:rounded-md">
                                     <div className="px-4 py-5 bg-white sm:p-6">
-                                        {/* <div className="col-span-6 sm:col-span-3">
-                                            <label className="block text-ml font-bold text-gray-700">
-                                                Whether belongs to any sponsered program or not ?
-                                                <span style={{ color: "#ff0000" }}> *</span>
-                                            </label>
-                                            <select
-                                                id="sponsored_or_not"
-                                                required
-                                                name="sponsored_or_not"
-                                                value={props.details[21]}
-                                                onChange={(event) => props.onChange(event, 21)}
-                                                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-
-                                            >
-                                                <option value="">Select</option>
-                                                <option value="YES">YES</option>
-                                                <option value="NO">NO</option>
-                                            </select>
-                                        </div> */}
-                                        {props.details[21] == 'YES' ? (
+                                        {props.details[21] === 'YES' ? (
                                             <>
                                                 <div className="col-span-3 sm:col-span-3">
                                                     <label
@@ -214,6 +195,7 @@ function SponsorshipDetails(props) {
 
                                             <button
                                                 type="submit"
+                                                onClick={() => props.onSubmit()}
                                                 className="border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                                 style={{ width: "120px", height: "40px" }}                    >
                                                 Next

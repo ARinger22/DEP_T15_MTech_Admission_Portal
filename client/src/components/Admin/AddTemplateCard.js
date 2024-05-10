@@ -48,6 +48,7 @@ export default function AddTemplateCard(props) {
     { value: "marital_status", label: "Marital Status" },
     { value: "nationality", label: "Nationality" },
     { value: "gender", label: "Gender" },
+    { value: "status_student", label: "status_student" },
 
     {
       value:

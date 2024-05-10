@@ -430,7 +430,7 @@ const get_profile_info = async (req, res) => {
 
   const results = await pool.query(
     "SELECT full_name,guardian, fathers_name, profile_image_url, date_of_birth, aadhar_card_number, \
-                              category, is_pwd,pwd_type ,marital_status, category_certificate_url,pwd_url, nationality, gender, communication_address, communication_city, \
+                              category, is_pwd,pwd_type ,marital_status, category_certificate_url,pwd_url, nationality, gender, status_student, communication_address, communication_city, \
                               communication_state, communication_pincode, permanent_address, permanent_city, permanent_state, \
                               permanent_pincode, mobile_number, alternate_mobile_number, email_id, degree_10th, board_10th, percentage_cgpa_format_10th,percentage_cgpa_value_10th, \
                               year_of_passing_10th, remarks_10th, marksheet_10th_url, degree_12th, board_12th, percentage_cgpa_format_12th, percentage_cgpa_value_12th, \
@@ -604,44 +604,90 @@ const save_application_info = async (req, res, next) => {
   var info = req.body;
 
   app_details = JSON.parse(info.applicant_details);
-
-  const app_save_result = await pool.query(
-    "INSERT INTO applications_" +
-    cycle_id +
-    "(email_id, amount, transaction_id, bank, date_of_transaction, qualifying_examination, \
-                    branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
-                    remarks, date_of_declaration, place_of_declaration, offering_id, status, status_remark,is_sponsored_applicant, name_of_sponsoring_org, name_of_working_org , address_of_org,\
-                    designation, post_type, duration_post_start, duration_post_end, years_of_service) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
-                    $13, $14, $15, $16, $17, 1, '',$18,$19,$20,$21,$22,$23,$24,$25,$26) RETURNING application_id;",
-    [
-      email,
-      app_details[1],
-      app_details[2],
-      app_details[3],
-      app_details[5],
-      app_details[6],
-      app_details[7],
-      app_details[8],
-      app_details[9],
-      app_details[10],
-      app_details[11],
-      app_details[12],
-      app_details[13],
-      app_details[15],
-      app_details[19],
-      app_details[18],
-      app_details[20],
-      app_details[21],
-      app_details[22],
-      app_details[23],
-      app_details[24],
-      app_details[25],
-      app_details[26],
-      app_details[27],
-      app_details[28],
-      app_details[29],
-    ]
-  );
+  page = JSON.parse(info.page)
+  stat = JSON.parse(info.stat)
+  let app_save_result;
+  if(page === 1 && !stat){
+    app_save_result = await pool.query(
+      "INSERT INTO applications_" +
+      cycle_id +
+      "(email_id, amount, transaction_id, bank, date_of_transaction, qualifying_examination, \
+                      branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
+                      remarks, date_of_declaration, place_of_declaration, offering_id, status, status_remark,is_sponsored_applicant, name_of_sponsoring_org, name_of_working_org , address_of_org,\
+                      designation, post_type, duration_post_start, duration_post_end, years_of_service) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
+                      $13, $14, $15, $16, $17, 1, '',$18,$19,$20,$21,$22,$23,$24,$25,$26) RETURNING application_id;",
+      [
+        email,
+        app_details[1],
+        app_details[2],
+        app_details[3],
+        app_details[5],
+        app_details[6],
+        app_details[7],
+        app_details[8],
+        app_details[9],
+        app_details[10],
+        app_details[11],
+        app_details[12],
+        app_details[13],
+        app_details[15],
+        app_details[19],
+        app_details[18],
+        app_details[20],
+        app_details[21],
+        app_details[22],
+        app_details[23],
+        app_details[24],
+        app_details[25],
+        app_details[26],
+        app_details[27],
+        app_details[28],
+        app_details[29],
+      ]
+    );
+  }
+  else{
+    app_save_result = await pool.query(
+      "UPDATE applications_" +
+      cycle_id +
+      " SET email_id = $1, amount = $2, transaction_id = $3, bank = $4, date_of_transaction = $5, qualifying_examination = $6, \
+      branch_code = $7, year = $8, gate_enrollment_number = $9, coap_registeration_number = $10, all_india_rank = $11, gate_score = $12, valid_upto = $13, \
+      remarks = $14, date_of_declaration = $15, place_of_declaration = $16, offering_id = $17, is_sponsored_applicant = $18, name_of_sponsoring_org = $19, name_of_working_org = $20, address_of_org = $21, \
+      designation = $22, post_type = $23, duration_post_start = $24, duration_post_end = $25, years_of_service = $26 WHERE applications_" +
+      cycle_id +
+      ".email_id = $1 AND applications_" +
+      cycle_id +
+      ".offering_id = $17;",
+      [
+        email,
+        app_details[1],
+        app_details[2],
+        app_details[3],
+        app_details[5],
+        app_details[6],
+        app_details[7],
+        app_details[8],
+        app_details[9],
+        app_details[10],
+        app_details[11],
+        app_details[12],
+        app_details[13],
+        app_details[15],
+        app_details[19],
+        app_details[18],
+        app_details[20],
+        app_details[21],
+        app_details[22],
+        app_details[23],
+        app_details[24],
+        app_details[25],
+        app_details[26],
+        app_details[27],
+        app_details[28],
+        app_details[29],
+      ]
+    );
+  }
 
   await pool.query(
     "UPDATE applications_" +
@@ -650,7 +696,7 @@ const save_application_info = async (req, res, next) => {
     full_name = a.full_name,guardian=a.guardian, fathers_name = a.fathers_name, profile_image_url = a.profile_image_url, \
     date_of_birth = a.date_of_birth, aadhar_card_number = a.aadhar_card_number, category = a.category, \
     category_certificate_url = a.category_certificate_url, is_pwd = a.is_pwd,pwd_type=a.pwd_type,pwd_url=a.pwd_url, marital_status = a.marital_status, \
-    nationality = a.nationality, gender = a.gender, \
+    nationality = a.nationality, gender = a.gender, status_student = a.status_student, \
     communication_address = a.communication_address, communication_city = a.communication_city, \
     communication_state = a.communication_state, communication_pincode = a.communication_pincode, \
     permanent_address = a.permanent_address, permanent_city = a.permanent_state, \
@@ -661,8 +707,8 @@ const save_application_info = async (req, res, next) => {
     remarks_10th = a.remarks_10th, marksheet_10th_url = a.marksheet_10th_url, \
     degree_12th = a.degree_12th, board_12th = a.board_12th, percentage_cgpa_format_12th = a.percentage_cgpa_format_12th, \
     percentage_cgpa_value_12th = a.percentage_cgpa_value_12th, year_of_passing_12th = a.year_of_passing_12th, \
-    remarks_12th = a.remarks_12th, marksheet_12th_url = a.marksheet_12th_url,  degrees = a.degrees, \
-    other_remarks = a.other_remarks, is_last_degree_completed = a.is_last_degree_completed \
+    remarks_12th = a.remarks_12th, marksheet_12th_url = a.marksheet_12th_url,  degrees = a.degrees, degrees2 = a.degrees2, \
+    other_remarks = a.other_remarks, other_remarks2 = a.other_remarks2, is_last_degree_completed = a.is_last_degree_completed, is_last_job_completed = a.is_last_job_completed \
     FROM applicants as a WHERE a.email_id = $1 AND applications_" +
     cycle_id +
     ".email_id = a.email_id AND applications_" +
@@ -670,7 +716,6 @@ const save_application_info = async (req, res, next) => {
     ".offering_id = $2;",
     [email, app_details[20]]
   );
-
   let promises = [];
   let vals = Object.values(req.files);
 
@@ -739,10 +784,12 @@ const save_application_info = async (req, res, next) => {
   let spec = offering_details.rows[0].specialization;
 
   /** Get application ID */
-  let app_id = app_save_result.rows[0].application_id;
-
+  let app_id = await pool.query(
+    `SELECT application_id FROM applications_${cycle_id} WHERE email_id = $1 LIMIT 1`,
+    [email]
+  );
   /** Email application submission */
-  auth.application_submission(email, app_id, dep, spec);
+  if(page === 5) auth.application_submission(email, app_id, dep, spec);
 
   Promise.allSettled(promises).then(res.status(200).send("Ok"));
 };
@@ -929,7 +976,7 @@ const get_applications = async (req, res) => {
     "SELECT application_id, " +
     "mtech_offerings_" +
     cycle_id +
-    ".offering_id, deadline,  department, specialization, status, status_remark, is_result_published, is_accepting_applications FROM applications_" +
+    ".offering_id, deadline,  department, specialization, status, status_remark, is_result_published, is_accepting_applications, status_student FROM applications_" +
     cycle_id +
     ", mtech_offerings_" +
     cycle_id +
@@ -1106,7 +1153,7 @@ const reapply_save_application_info = async (req, res, next) => {
   full_name = a.full_name,guardian=a.guardian, fathers_name = a.fathers_name, profile_image_url = a.profile_image_url, \
   date_of_birth = a.date_of_birth, aadhar_card_number = a.aadhar_card_number, category = a.category, \
   category_certificate_url = a.category_certificate_url, is_pwd = a.is_pwd,pwd_type=a.pwd_type,pwd_url=a.pwd_url, marital_status = a.marital_status, \
-  nationality = a.nationality, gender = a.gender, \
+  nationality = a.nationality, gender = a.gender, status_student = a.status_student, \
   communication_address = a.communication_address, communication_city = a.communication_city, \
   communication_state = a.communication_state, communication_pincode = a.communication_pincode, \
   permanent_address = a.permanent_address, permanent_city = a.permanent_state, \
@@ -1290,6 +1337,14 @@ const reapply_check_applicant_info = async (req, res) => {
     " WHERE offering_id = $1 AND email_id = $2;",
     [offering_id, email]
   );
+
+  const previous_info = await pool.query(
+    "SELECT * from applications_" +
+    cycle_id +
+    " WHERE offering_id = $1 AND email_id = $2;",
+    [offering_id, email]
+  );
+
   let application_filled_check_data = application_filled_check.rows;
 
   if (application_filled_check_data.length === 0) {
@@ -1320,6 +1375,7 @@ const reapply_check_applicant_info = async (req, res) => {
   }
 
   return res.send({
+    previous_info : previous_info,
     full_name: results.rows[0].full_name,
     category: results.rows[0].category,
     category_fees: category_fees,
