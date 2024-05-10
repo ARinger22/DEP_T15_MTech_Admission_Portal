@@ -200,7 +200,7 @@ export default function Profile() {
           navigate("/logout");
         } else {
           let copy = { ...response.data };
-          console.log(copy);
+
           for (const key in copy) {
             if (copy[key] === null || copy[key] === "null") {
               copy[key] = "";

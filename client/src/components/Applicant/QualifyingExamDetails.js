@@ -30,6 +30,7 @@ function QualifyingExamDetails(props) {
   const date = new Date();
   const max_year = date.getFullYear();
   const min_year = max_year - 2;
+  const data = props.decodedData
 
   return (
     <div>
@@ -86,7 +87,7 @@ function QualifyingExamDetails(props) {
                         <input
                           id="program_name"
                           name="program_name"
-                          required
+                          {...(data.status_student === "regular" ? { required: true } : {})}
                           defaultValue={props.offering.specialization}
                           readOnly
                           className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -123,7 +124,7 @@ function QualifyingExamDetails(props) {
                         <select
                           id="branch_code"
                           name="branch_code"
-                          required
+                          {...(data.status_student === "regular" ? { required: true } : {})}
                           value={props.details[7]}
                           onChange={(e) => props.onChange(e, 7)}
                           className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -172,7 +173,7 @@ function QualifyingExamDetails(props) {
                           id="gate_enrollment_number"
                           // pattern="[A-Z]{2}[0-9]{10}"
                           pattern={props.details[7] + "[0-9]{11}"}
-                          required
+                          {...(data.status_student === "regular" ? { required: true } : {})}
                           title="Correct Format : GATE paper code followed by 11 digits"
                           value={props.details[9]}
                           onChange={(event) => props.onChange(event, 9)}
@@ -193,7 +194,7 @@ function QualifyingExamDetails(props) {
                           type="text"
                           name="coap_registration_number"
                           id="coap_registration_number"
-                          required
+                          {...(data.status_student === "regular" ? { required: true } : {})}
                           pattern="K23[0-9]{5}"
                           title="Correct Format : K23 followed by 5 digits"
                           autoComplete="amount"
@@ -215,7 +216,7 @@ function QualifyingExamDetails(props) {
                           type="number"
                           name="all_india_rank"
                           id="all_india_rank"
-                          required
+                          {...(data.status_student === "regular" ? { required: true } : {})}
                           min={1}
                           value={props.details[11]}
                           onChange={(event) => props.onChange(event, 11)}
@@ -248,7 +249,7 @@ function QualifyingExamDetails(props) {
                           type="number"
                           name="gate_score"
                           id="gate_score"
-                          required
+                          {...(data.status_student === "regular" ? { required: true } : {})}
                           min={0}
                           max={1000}
                           value={props.details[12]}
@@ -271,7 +272,7 @@ function QualifyingExamDetails(props) {
                           id="valid_upto"
                           min={min_year + 2}
                           max={max_year + 2}
-                          required
+                          {...(data.status_student === "regular" ? { required: true } : {})}
                           value={props.details[13]}
                           onChange={(event) => props.onChange(event, 13)}
                           className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -295,7 +296,7 @@ function QualifyingExamDetails(props) {
                               id="gate_result"
                               name="gate_result"
                               type="file"
-                              required
+                              {...(data.status_student === "regular" ? { required: true } : {})}
                               accept=".pdf"
                               onChange={(e) =>
                                 props.handleFileSubmit(e, 5, 14, 1)
@@ -348,7 +349,7 @@ function QualifyingExamDetails(props) {
                                 name="gate_result"
                                 type="text"
                                 value={props.details[14].name}
-                                required
+                                {...(data.status_student === "regular" ? { required: true } : {})}
                                 readOnly
                               />
 
@@ -406,7 +407,7 @@ function QualifyingExamDetails(props) {
                           onChange={(event) =>
                             props.setHasGivenMultipleGates(event.target.value)
                           }
-                          required
+                          {...(data.status_student === "regular" ? { required: true } : {})}
                           className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         >
                           <option value="">-- Select --</option>
@@ -451,7 +452,7 @@ function QualifyingExamDetails(props) {
                         <select
                           id="has_filled_highest_gate"
                           name="has_filled_highest_gate"
-                          required
+                          {...(data.status_student === "regular" ? { required: true } : {})}
                           value={props.hasFilledHighestGate}
                           onChange={(event) =>
                             props.setHasFilledHighestGate(event.target.value)

@@ -11,8 +11,13 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
 import SponsorshipDetails from "./SponsorshipDetails.js";
+import { useLocation } from 'react-router-dom';
 
-function ApplicantionDetails() {
+function ApplicantionDetails(props) {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const data = searchParams.get("data");
+  const decodedData = data ? JSON.parse(decodeURIComponent(data)) : null;
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const { handleSubmit } = useForm();
@@ -230,6 +235,7 @@ function ApplicantionDetails() {
             {
               1: (
                 <QualifyingExamDetails
+                  decodedData = {decodedData}
                   hasFilledHighestGate={hasFilledHighestGate}
                   setHasFilledHighestGate={setHasFilledHighestGate}
                   hasGivenMultipleGates={hasGivenMultipleGates}
@@ -244,6 +250,7 @@ function ApplicantionDetails() {
               ),
               2: (
                 <SponsorshipDetails
+                  decodedData = {decodedData}
                   increasePageNumber={increasePageNumber}
                   decreasePageNumber={decreasePageNumber}
                   details={applicant_details}

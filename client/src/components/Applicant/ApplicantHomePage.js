@@ -13,6 +13,7 @@ export default function ApplicantHomePage() {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
   const [Apps, setApps] = useState([]);
+  const [data, setData] = useState(0);
 
   const [isFetching, setIsFetching] = useState(true);
 
@@ -74,6 +75,7 @@ export default function ApplicantHomePage() {
             response.data.board_10th
           ) {
             setProfileComplete(3);
+            setData(response.data);
           } else {
             setProfileComplete(1);
           }
@@ -229,7 +231,9 @@ export default function ApplicantHomePage() {
                                 </button>
                               ) : (
                                 <Link
-                                  to={"/apply/" + application.offering_id}
+                                  to={{pathname : "/apply/" + application.offering_id,
+                                    search: `?data=${encodeURIComponent(JSON.stringify(data))}`
+                                  }}
                                   className="text-indigo-600 hover:text-indigo-900"
                                 >
                                   Apply

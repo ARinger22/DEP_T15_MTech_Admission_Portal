@@ -2,6 +2,10 @@ import React from "react";
 import crossPic from "../../images/red_cross.svg";
 
 function SponsorshipDetails(props) {
+    if (props.decodedData.status_student === "sponsored") {
+        props.details[21] = "YES";
+    }
+    else { props.details[21] = "NO"; }
 
     return (
         <div>
@@ -20,7 +24,7 @@ function SponsorshipDetails(props) {
                             <form method="POST" onSubmit={() => props.increasePageNumber()}>
                                 <div className="shadow overflow-hidden sm:rounded-md">
                                     <div className="px-4 py-5 bg-white sm:p-6">
-                                        <div className="col-span-6 sm:col-span-3">
+                                        {/* <div className="col-span-6 sm:col-span-3">
                                             <label className="block text-ml font-bold text-gray-700">
                                                 Whether belongs to any sponsered program or not ?
                                                 <span style={{ color: "#ff0000" }}> *</span>
@@ -38,7 +42,7 @@ function SponsorshipDetails(props) {
                                                 <option value="YES">YES</option>
                                                 <option value="NO">NO</option>
                                             </select>
-                                        </div>
+                                        </div> */}
                                         {props.details[21] == 'YES' ? (
                                             <>
                                                 <div className="col-span-3 sm:col-span-3">
