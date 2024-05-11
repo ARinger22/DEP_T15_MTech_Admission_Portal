@@ -63,6 +63,7 @@ function ReApplicantionDetails() {
           navigate("/home");
         } else {
           const names = response.data.previous_info.rows[0];
+          console.log(names);
           setPreviousInfo(names);
           setFullName(response.data.full_name);
           setCategory(response.data.category);
@@ -105,30 +106,36 @@ function ReApplicantionDetails() {
   
   useEffect(() => {
     if (previous_info) {
-      if(previous_info.branch_code) applicant_details[7] = previous_info.branch_code;
-      if(previous_info.year) applicant_details[8] = previous_info.year;
-      if(previous_info.gate_enrollment_number) applicant_details[9] = previous_info.gate_enrollment_number;
-      if(previous_info.coap_registeration_number) applicant_details[10] = previous_info.coap_registeration_number;
-      if(previous_info.all_india_rank) applicant_details[11] = previous_info.all_india_rank;
-      if(previous_info.gate_score) applicant_details[12] = previous_info.gate_score;
-      if(previous_info.valid_upto[13])applicant_details[13] = previous_info.valid_upto;
-      if(previous_info.remarks) applicant_details[15] = previous_info.remarks;
-      if(previous_info.is_sponsored_applicant) applicant_details[21] = previous_info.is_sponsored_applicant;
-      if(previous_info.name_of_sponsoring_org) applicant_details[22] = previous_info.name_of_sponsoring_org;
-      if(previous_info.name_of_working_org) applicant_details[23] = previous_info.name_of_working_org;
-      if(previous_info.address_of_org) applicant_details[24] = previous_info.address_of_org;
-      if(previous_info.designation) applicant_details[25] = previous_info.designation;
-      if(previous_info.post_type) applicant_details[26] = previous_info.post_type;
-      if(previous_info.duration_post_start) applicant_details[27] = previous_info.duration_post_start;
-      if(previous_info.duration_post_end) applicant_details[28] = previous_info.duration_post_end;
-      if(previous_info.years_of_service) applicant_details[29] = previous_info.years_of_service;
-      if(previous_info.amount) applicant_details[1] = previous_info.amount
-      if(previous_info.transaction_id) applicant_details[2] = previous_info.transaction_id
-      if(previous_info.bank) applicant_details[3] = previous_info.bank
-      if(previous_info.date_of_transaction) applicant_details[5] = previous_info.date_of_transaction
-      if(previous_info.full_name) applicant_details[16] = previous_info.full_name
-      if(previous_info.place_of_declaration) applicant_details[18] = previous_info.place_of_declaration
-      if(previous_info.date_of_declaration) applicant_details[19] = previous_info.date_of_declaration
+      if(previous_info.branch_code && !applicant_details[7]) applicant_details[7] = previous_info.branch_code;
+      if(previous_info.year && !applicant_details[8]) applicant_details[8] = previous_info.year;
+      if(previous_info.gate_enrollment_number && !applicant_details[9]) applicant_details[9] = previous_info.gate_enrollment_number;
+      if(previous_info.coap_registeration_number && !applicant_details[10]) applicant_details[10] = previous_info.coap_registeration_number;
+      if(previous_info.all_india_rank && !applicant_details[11]) applicant_details[11] = previous_info.all_india_rank;
+      if(previous_info.gate_score && !applicant_details[12]) applicant_details[12] = previous_info.gate_score;
+      if(previous_info.valid_upto  && !applicant_details[13])applicant_details[13] = previous_info.valid_upto;
+      if(previous_info.self_attested_copies_url  && !applicant_details[14])applicant_details[14] = previous_info.self_attested_copies_url;
+      if(previous_info.remarks && !applicant_details[15]) applicant_details[15] = previous_info.remarks;
+
+      if(previous_info.is_sponsored_applicant && !applicant_details[21]) applicant_details[21] = previous_info.is_sponsored_applicant;
+      if(previous_info.name_of_sponsoring_org && !applicant_details[22]) applicant_details[22] = previous_info.name_of_sponsoring_org;
+      if(previous_info.name_of_working_org && !applicant_details[23]) applicant_details[23] = previous_info.name_of_working_org;
+      if(previous_info.address_of_org && !applicant_details[24]) applicant_details[24] = previous_info.address_of_org;
+      if(previous_info.designation && !applicant_details[25]) applicant_details[25] = previous_info.designation;
+      if(previous_info.post_type && !applicant_details[26]) applicant_details[26] = previous_info.post_type;
+      if(previous_info.duration_post_start && !applicant_details[27]) applicant_details[27] = previous_info.duration_post_start;
+      if(previous_info.duration_post_end && !applicant_details[28]) applicant_details[28] = previous_info.duration_post_end;
+      if(previous_info.years_of_service && !applicant_details[29]) applicant_details[29] = previous_info.years_of_service;
+
+      if(previous_info.amount && !applicant_details[1]) applicant_details[1] = previous_info.amount
+      if(previous_info.transaction_id && !applicant_details[2]) applicant_details[2] = previous_info.transaction_id
+      if(previous_info.bank && !applicant_details[3]) applicant_details[3] = previous_info.bank
+      if(previous_info.transaction_slip_url && !applicant_details[4]) applicant_details[4] = previous_info.transaction_slip_url
+      if(previous_info.date_of_transaction && !applicant_details[5]) applicant_details[5] = previous_info.date_of_transaction
+
+      if(previous_info.full_name && !applicant_details[16]) applicant_details[16] = previous_info.full_name
+      if(previous_info.signature_url && !applicant_details[17]) applicant_details[17] = previous_info.signature_url
+      if(previous_info.place_of_declaration && !applicant_details[18]) applicant_details[18] = previous_info.place_of_declaration
+      if(previous_info.date_of_declaration && !applicant_details[19]) applicant_details[19] = previous_info.date_of_declaration
     }
   });
 

@@ -124,7 +124,7 @@ function ApplicationFeeDetails(props) {
                         <span style={{ color: "#ff0000" }}> *</span>
                       </label>
 
-                      {!props.details[4].name && (
+                      {!props.details[4] && (
                         <>
                           <input
                             className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -173,7 +173,7 @@ function ApplicationFeeDetails(props) {
                         </>
                       )}
 
-                      {props.details[4].name && (
+                      {props.details[4] && (
                         <>
                           <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             <input
@@ -181,7 +181,7 @@ function ApplicationFeeDetails(props) {
                               id="transaction_slip"
                               name="transaction_slip"
                               type="text"
-                              value={props.details[4].name}
+                              value={props.details[4]}
                               required
                               readOnly
                             />

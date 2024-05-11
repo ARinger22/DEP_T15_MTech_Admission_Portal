@@ -106,7 +106,7 @@ export default function Review(props) {
                 Transaction Slip{" "}
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {props.details[4].name}
+                {props.details[4]}
               </dd>
             </div>
 
@@ -188,7 +188,7 @@ export default function Review(props) {
                 Self Attested Copies Of GATE
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {props.details[14].name}
+                {props.details[14]}
               </dd>
             </div>
 
