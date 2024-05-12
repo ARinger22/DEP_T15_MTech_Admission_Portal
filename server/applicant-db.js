@@ -1102,12 +1102,12 @@ const reapply_save_application_info = async (req, res, next) => {
   var info = req.body;
 
   /*Delete application using Email ID and Offering ID*/
-  const results = await pool.query(
-    "DELETE from applications_" +
-    cycle_id +
-    " WHERE email_id = $1 AND offering_id = $2",
-    [email, info.offering_id]
-  );
+  // const results = await pool.query(
+  //   "DELETE from applications_" +
+  //   cycle_id +
+  //   " WHERE email_id = $1 AND offering_id = $2",
+  //   [email, info.offering_id]
+  // );
 
   app_details = JSON.parse(info.applicant_details);
   page = JSON.parse(info.page)
